@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+  AEOI SERVIDOR DE INFORMACIÓN PÚBLICA
+  raíz del documento: /public_html/solicitud.html
+  responsable: webmaster@aeoi-corp.org
+  rev 4.2 — 01/09/97
+
+  NOTA AL RESPONSABLE: el árbol /archive/ sigue siendo legible para todos.
+  Debía retirarse con la rev 3.9. Nadie lo ha retirado.
+  No lo retiren. — R.K.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AEOI — Solicitud Misión 7-B</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="glass"></div>
+
+<div id="doc">
+
+  <!-- ===================== CABECERA ===================== -->
+  <div id="masthead">
+    <div class="stars"></div>
+    <svg id="seal" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="none" stroke="#8f1410" stroke-width="3"/>
+      <circle cx="50" cy="50" r="38" fill="none" stroke="#6a6558" stroke-width="1"/>
+      <ellipse cx="50" cy="50" rx="44" ry="15" fill="none" stroke="#8f1410"
+               stroke-width="1.4" transform="rotate(-24 50 50)"/>
+      <circle cx="50" cy="50" r="11" fill="none" stroke="#c8c3b4" stroke-width="1.4"/>
+      <circle cx="86" cy="35" r="2.6" fill="#c8c3b4"/>
+      <path d="M50 12 L50 22 M50 78 L50 88 M12 50 L22 50 M78 50 L88 50"
+            stroke="#6a6558" stroke-width="1"/>
+    </svg>
+    <a id="lang" href="#" title="Versión en inglés"><b>EN</b>English</a>
+    <h1 id="wordmark"><a href="index.html">AEOI</a></h1>
+    <p id="expand">AEROESPACIAL E INSTRUMENTACIÓN EXTRA-ORBITAL</p>
+    <p id="sub">Dirección de Monitoreo Tripulado &nbsp;·&nbsp; Servidor de Información Pública</p>
+  </div>
+
+  <!-- ===================== NAV ===================== -->
+  <div id="nav">
+    [ <a href="index.html">Inicio</a> |
+      <a href="acerca.html">Acerca&nbsp;de</a> |
+      <a href="mision.html">Misión&nbsp;7-B</a> |
+      <a href="puestos.html">Puestos</a> |
+      <a href="documentos.html">Documentos</a> |
+      <a href="solicitud.html">Solicitud</a> |
+      <a href="archivo.html" class="seen">Archivo</a> ]
+  </div>
+
+  <!-- ===================== ANUNCIOS ===================== -->
+  <div id="announce"><span>
+    <span class="new">*** NUEVO ***</span>
+    &nbsp; CICLO DE RECLUTAMIENTO 04 ABIERTO — QUEDAN DOS (2) PLAZAS —
+    CIERRE DE SOLICITUDES PRÓXIMO — CONSULTE PUESTOS PARA MÁS DETALLES &nbsp;&nbsp; ///
+    &nbsp; AVISO DE PERSONAL: TODOS LOS PARTICIPANTES DEL CICLO 03 DEBEN PRESENTARSE A LA
+    EVALUACIÓN POSTERIOR A LA MISIÓN. LA ASISTENCIA NO ES OPCIONAL. &nbsp;&nbsp; ///
+    &nbsp; RESUMEN DE MISIÓN OMM-7B DISPONIBLE &nbsp;&nbsp; ///
+  </span></div>
+
+  <div class="pageid">AEOI Corporation · Formulario de solicitud · REF: FORM-7B-CIV-1997</div>
+
+  <div class="pad">
+
+  <h2>Solicitud Misión 7-B</h2>
+  <p>
+    Use este formulario para solicitar participación en la Misión 7-B, Ciclo de Reclutamiento
+    04. Complete todos los campos requeridos (*). Toda la información es confidencial y está
+    sujeta al Acuerdo de No Divulgación de AEOI.
+  </p>
+
+  <div class="box">
+    <h4>Instrucciones</h4>
+    <p><small>
+      Complete todos los campos requeridos. Al enviar este formulario, el solicitante consiente
+      ser considerado para participación y autoriza a AEOI Corporation a verificar la
+      información proporcionada.
+    </small></p>
+  </div>
+
+  <form id="solicitud" novalidate>
+    <fieldset>
+      <legend>[01] INFORMACIÓN PERSONAL</legend>
+      <div class="fgrid">
+        <div class="field">
+          <label class="lbl" for="nombre">Nombre completo *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="lbl" for="edad">Edad * (debe tener 18+)</label>
+          <input type="number" id="edad" name="edad" min="18" max="99" placeholder="AÑOS CUMPLIDOS">
+        </div>
+        <div class="field">
+          <label class="lbl" for="contacto">Correo o dirección de contacto *</label>
+          <input type="text" id="contacto" name="contacto" placeholder="dirección@ejemplo.com" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="lbl" for="telefono">Número de teléfono</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="+XX XXX XXX XXXX" autocomplete="off">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>[02] MODALIDAD DE PARTICIPACIÓN</legend>
+      <label class="lbl">Tipo de solicitud *</label>
+      <div class="choice">
+        <label><input type="radio" name="modalidad" value="individual"> Individual</label>
+        <label><input type="radio" name="modalidad" value="pareja"> Solicitud en pareja</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>[03] SELECCIÓN DE PUESTO</legend>
+      <label class="lbl">Puesto solicitado * (ver <a href="puestos.html">página de puestos</a> para descripciones completas)</label>
+      <div class="fgrid">
+        <label class="poscard">
+          <input type="radio" name="puesto" value="OB">
+          <b>Operador Orbital</b>
+          <small>En sitio / entorno orbital — OMM-7B / POS-OB</small>
+        </label>
+        <label class="poscard">
+          <input type="radio" name="puesto" value="CT">
+          <b>Operador de Control en Tierra</b>
+          <small>Estación terrestre / control de misión — OMM-7B / POS-CT</small>
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>[04] EXPERIENCIA Y MOTIVACIÓN</legend>
+      <div class="fgrid">
+        <div class="field full">
+          <label class="lbl" for="experiencia">Experiencia relevante (técnica, científica, militar u otra — no requerida)</label>
+          <textarea id="experiencia" name="experiencia"></textarea>
+        </div>
+        <div class="field full">
+          <label class="lbl" for="motivacion">Motivación para participar * (¿por qué desea unirse a la Misión 7-B?)</label>
+          <textarea id="motivacion" name="motivacion"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>[05] DECLARACIÓN Y ACUERDOS</legend>
+      <label class="agree">
+        <input type="checkbox" name="disp">
+        <span>Confirmo que estaré disponible durante todo el período de la misión y acepto que la
+        duración exacta puede modificarse sin previo aviso. <small>* Requerido para la solicitud.</small></span>
+      </label>
+      <label class="agree">
+        <input type="checkbox" name="nda">
+        <span>He leído y acepto los Términos de Participación y el Acuerdo de No Divulgación de
+        AEOI, incluidas todas las cláusulas marcadas como [Uso interno].
+        <small>* El NDA completo se proporcionará en la etapa de sesión informativa de misión.</small></span>
+      </label>
+    </fieldset>
+
+    <div class="ferr" role="alert"></div>
+
+    <p><small>
+      Al enviar, autoriza a AEOI Corporation a procesar sus datos personales. Recibirá una
+      respuesta en 5–10 días hábiles. <span class="rd" data-r="Recibirá una respuesta.">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
+    </small></p>
+    <p><button type="submit" class="btn primary">ENVIAR SOLICITUD</button></p>
+  </form>
+
+  </div><!-- /pad -->
+
+  <!-- ===================== PIE ===================== -->
+  <div id="foot">
+    <div class="fcols">
+      <div>
+        <p class="brand">AEOI Corporation</p>
+        <ul>
+          <li>Dirección de Monitoreo Tripulado</li>
+          <li>Fundada en 1981</li>
+          <li><a href="solicitud.html">contacto@aeoi-corp.org</a></li>
+        </ul>
+      </div>
+      <div class="fmap">
+        <h4>Mapa del sitio</h4>
+        <canvas id="eyes" aria-hidden="true"></canvas>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="mision.html">Misión 7-B</a></li>
+          <li><a href="puestos.html">Puestos</a></li>
+          <li><a href="documentos.html">Documentos</a></li>
+          <li><a href="solicitud.html">Solicitud</a></li>
+          <li><a href="archivo.html">Archivo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#" class="dead">Política de Privacidad</a></li>
+          <li><a href="#" class="dead">Términos de Participación</a></li>
+          <li><a href="#" class="dead">Acuerdo de No Divulgación</a></li>
+          <li><a href="#" class="dead">Cumplimiento Normativo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Estado de misión</h4>
+        <div class="statusbox">
+          OMM-7B / CICLO 04<br>
+          <span class="live">ACTIVO</span><br>
+          Centro de Control:<br>
+          <span class="cens" data-real="76°12'S 168°21'E">[COORDENADAS ELIMINADAS]</span><br>
+          Intentos de acceso registrados: <b data-attempts>000</b>
+        </div>
+      </div>
+    </div>
+    <p class="copy">Copyright &copy; 1997 AEOI Corporation. Todos los derechos reservados. — Servidor de Información Pública v2.1
+      &nbsp;<span class="construction">ALGUNAS SECCIONES EN CONSTRUCCIÓN</span></p>
+    <p class="ref"><span class="cens" data-real="REF: VELDT-PROTOCOL · SUBJECT-CONTAINMENT-BREACH">REF: VELDT-PROTOCOL · DS-07 · [RESTRINGIDO]</span></p>
+    <p class="vis">Usted es el visitante <span id="counter">00000000</span> de esta página desde junio de 1994.
+      &nbsp;·&nbsp; Optimizado para Netscape Navigator 3.0 a 800&times;600. Este servidor no admite marcos.</p>
+  </div>
+
+</div><!-- /doc -->
+
+<div id="toast" role="status"></div>
+
+<script src="js/site.js"></script>
+<script src="js/eggs.js"></script>
+</body>
+</html>
