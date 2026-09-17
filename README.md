@@ -1,3 +1,6 @@
+https://pascual890.github.io/PaginaTaller6/
+
+
 # AEOI — Servidor de Información Pública (prototipo Taller 6)
 
 Sitio estático: HTML + CSS + JS sin frameworks. Abre `index.html` con doble clic
