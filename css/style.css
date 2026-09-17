@@ -24,7 +24,7 @@ html{background:var(--void);scroll-behavior:smooth}
 body{
   margin:0;padding:0 0 40px;
   font-family:"Times New Roman",Times,serif;
-  font-size:16px;line-height:1.45;color:var(--ink);
+  font-size:17px;line-height:1.55;color:var(--ink);
   background-color:#05060a;
   background-image:
     radial-gradient(1px 1px at 17px 23px,#c9d4ff 40%,transparent 41%),
@@ -101,7 +101,7 @@ body{
   position:sticky;top:0;z-index:50;
   background:var(--paper-dark);border-bottom:1px solid var(--rule);
   padding:7px 22px;font-family:"Courier New",Courier,monospace;
-  font-size:13px;text-align:center;color:#5d5849;
+  font-size:14px;text-align:center;color:#463f33;
 }
 #nav a{margin:0 2px}
 #nav a.here{color:#000;font-weight:bold;background:none}
@@ -126,23 +126,23 @@ a.seen{color:var(--visited)}
 
 /* --- identificador de página ----------------------------- */
 .pageid{
-  font-family:"Courier New",monospace;font-size:11px;letter-spacing:.08em;
-  color:#5d5849;padding:10px 24px 0;text-transform:uppercase;
+  font-family:"Courier New",monospace;font-size:12px;letter-spacing:.08em;
+  color:#463f33;padding:10px 24px 0;text-transform:uppercase;
 }
 
 /* --- tipografía ------------------------------------------ */
-h2{font-size:26px;color:var(--red);margin:14px 0 6px;letter-spacing:.005em;font-weight:bold}
-h3{font-size:19px;margin:22px 0 4px;color:var(--red)}
+h2{font-size:28px;color:var(--red);margin:14px 0 6px;letter-spacing:.005em;font-weight:bold}
+h3{font-size:20px;margin:22px 0 4px;color:var(--red)}
 h4{
-  font-family:"Courier New",monospace;font-size:12px;letter-spacing:.12em;
-  margin:18px 0 6px;color:#2c2822;text-transform:uppercase;
+  font-family:"Courier New",monospace;font-size:13px;letter-spacing:.12em;
+  margin:18px 0 6px;color:#2c2822;text-transform:uppercase;font-weight:bold;
 }
 p{margin:.55em 0;max-width:70ch}
 hr{border:0;border-top:1px solid var(--rule);border-bottom:1px solid #e6e2d4;margin:16px 0}
-small{font-size:12px;color:#5d5849}
+small{font-size:13.5px;color:#463f33}
 .mono{font-family:"Courier New",Courier,monospace}
-.muted{color:#5d5849}
-em.note{color:#4c4840}
+.muted{color:#463f33}
+em.note{color:#3a352c}
 
 ul.dot{list-style:none;padding-left:4px;margin:.5em 0}
 ul.dot li{padding-left:18px;position:relative;margin:.22em 0;max-width:62ch}
@@ -160,7 +160,7 @@ ol.num li:before{
 /* --- figura ---------------------------------------------- */
 figure{margin:14px 0;text-align:center}
 figure .frame{display:inline-block;border:2px inset #8b8677;background:#000;padding:2px;max-width:100%}
-figcaption{font-size:11.5px;font-style:italic;color:#4c4840;margin-top:4px;max-width:56ch;margin-left:auto;margin-right:auto}
+figcaption{font-size:12.5px;font-style:italic;color:#3a352c;margin-top:4px;max-width:56ch;margin-left:auto;margin-right:auto}
 .dither{position:relative;display:block;line-height:0}
 .dither:after{
   content:"";position:absolute;inset:0;
@@ -169,7 +169,7 @@ figcaption{font-size:11.5px;font-style:italic;color:#4c4840;margin-top:4px;max-w
 .dither svg{max-width:100%;height:auto}
 .broken{
   display:inline-block;border:2px inset #8b8677;background:var(--paper-dark);
-  padding:10px 12px;font-family:Arial,sans-serif;font-size:11px;color:#4c4840;text-align:left;
+  padding:10px 12px;font-family:Arial,sans-serif;font-size:12px;color:#3a352c;text-align:left;
 }
 .broken b{display:block;font-size:13px;color:#6d3030;margin-bottom:3px}
 
@@ -178,15 +178,15 @@ figcaption{font-size:11.5px;font-style:italic;color:#4c4840;margin-top:4px;max-w
 .tscroll table.data{margin:0}
 table.data{
   border-collapse:collapse;width:100%;
-  font-family:"Courier New",Courier,monospace;font-size:12.5px;margin:10px 0;
+  font-family:"Courier New",Courier,monospace;font-size:13.5px;margin:10px 0;
 }
 table.data th{
   background:#b3ae9d;text-align:left;padding:4px 7px;
   border:1px solid var(--rule);font-weight:bold;color:#231f19;
 }
-table.data td{padding:4px 7px;border:1px solid #a8a292;vertical-align:top}
+table.data td{padding:5px 8px;border:1px solid #a8a292;vertical-align:top}
 table.data tr:nth-child(even) td{background:#cfcabb}
-td.k{width:38%;color:#4c4840}
+td.k{width:38%;color:#3a352c}
 .lock{color:#7a1a14;font-weight:bold}
 .open{color:var(--ok)}
 table.data tr[data-restricted] td:first-child{cursor:not-allowed}
@@ -196,17 +196,17 @@ table.data tr[data-restricted]:hover td{background:#c9c2ad}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
 .stats div{
   border:1px solid var(--rule);background:var(--paper-dark);padding:8px 10px;
-  font-family:"Courier New",monospace;font-size:12.5px;
+  font-family:"Courier New",monospace;font-size:13.5px;
 }
-.stats b{display:block;font-size:10px;letter-spacing:.12em;color:#5d5849;margin-bottom:3px}
+.stats b{display:block;font-size:11.5px;letter-spacing:.12em;color:#463f33;margin-bottom:3px}
 
 .ficha{
   border:1px solid var(--rule);background:var(--paper-dark);padding:10px 12px;
-  font-family:"Courier New",monospace;font-size:12px;
+  font-family:"Courier New",monospace;font-size:13px;
 }
 .ficha h4{margin:0 0 8px;color:var(--red)}
 .ficha dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
-.ficha dt{color:#5d5849}
+.ficha dt{color:#463f33}
 .ficha dd{margin:0;text-align:right}
 
 .cols{display:flex;gap:24px;flex-wrap:wrap}
@@ -226,9 +226,9 @@ table.vals td.t{font-weight:bold;width:24%}
 
 /* --- puestos --------------------------------------------- */
 .pos{border-top:1px solid var(--rule);padding-top:10px}
-.pos .code{font-family:"Courier New",monospace;font-size:11px;color:#5d5849;letter-spacing:.08em}
-.pos h3{margin:2px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#2c2822;letter-spacing:.02em}
-.pos .where{font-style:italic;color:#5d5849;margin:0 0 8px}
+.pos .code{font-family:"Courier New",monospace;font-size:12px;color:#463f33;letter-spacing:.08em}
+.pos h3{margin:2px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:17px;color:#2c2822;letter-spacing:.02em}
+.pos .where{font-style:italic;color:#463f33;margin:0 0 8px}
 
 /* --- cronología ------------------------------------------ */
 .tl{border-top:1px solid #a8a292}
@@ -240,7 +240,7 @@ details.tl summary{
 details.tl summary::-webkit-details-marker{display:none}
 details.tl summary:hover{background:#cfcabb}
 .tl .yr{font-family:"Courier New",monospace;font-weight:bold;color:var(--red)}
-.tl .tg{font-family:"Courier New",monospace;color:#5d5849;text-align:right}
+.tl .tg{font-family:"Courier New",monospace;color:#463f33;text-align:right}
 .tl .tg:before{content:"[+]"}
 details[open].tl .tg:before{content:"[-]"}
 details.tl .tx{padding:0 4px 12px 74px;max-width:66ch;color:#2c2822}
@@ -250,7 +250,7 @@ details.tl .tx{padding:0 4px 12px 74px;max-width:66ch;color:#2c2822}
 /* --- terminal -------------------------------------------- */
 .term{
   background:#020602;border:2px inset #4a4a42;padding:11px 13px;margin:14px 0;
-  font-family:"Courier New",Courier,monospace;font-size:12.5px;color:var(--phos);
+  font-family:"Courier New",Courier,monospace;font-size:13.5px;color:var(--phos);
   line-height:1.5;text-shadow:0 0 5px rgba(55,224,95,.55);position:relative;overflow:hidden;
 }
 .term:after{
@@ -273,7 +273,7 @@ details.tl .tx{padding:0 4px 12px 74px;max-width:66ch;color:#2c2822}
 
 /* --- botón 90s ------------------------------------------- */
 .btn{
-  display:inline-block;font-family:Arial,Helvetica,sans-serif;font-size:14px;
+  display:inline-block;font-family:Arial,Helvetica,sans-serif;font-size:15px;
   font-weight:bold;color:#161310;text-decoration:none;background:#bdb8a7;
   border-top:2px solid #efece1;border-left:2px solid #efece1;
   border-right:2px solid #6d6858;border-bottom:2px solid #6d6858;
@@ -290,21 +290,21 @@ details.tl .tx{padding:0 4px 12px 74px;max-width:66ch;color:#2c2822}
 /* --- formulario ------------------------------------------ */
 form fieldset{border:1px solid var(--rule);padding:10px 14px 14px;margin:14px 0}
 form legend{
-  font-family:"Courier New",monospace;font-size:11.5px;letter-spacing:.1em;
+  font-family:"Courier New",monospace;font-size:12.5px;letter-spacing:.1em;
   color:var(--red);font-weight:bold;padding:0 6px;
 }
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px 18px}
 .field{display:flex;flex-direction:column;gap:3px}
 .field.full{grid-column:1/-1}
-label.lbl{font-family:"Courier New",monospace;font-size:10.5px;letter-spacing:.08em;color:#5d5849;text-transform:uppercase}
+label.lbl{font-family:"Courier New",monospace;font-size:11.5px;letter-spacing:.08em;color:#463f33;font-weight:bold;text-transform:uppercase}
 input[type=text],input[type=email],input[type=number],input[type=tel],textarea,select{
-  font-family:"Courier New",monospace;font-size:13px;color:var(--ink);
-  background:#e6e2d4;border:2px inset #8b8677;padding:5px 7px;width:100%;
+  font-family:"Courier New",monospace;font-size:14px;color:var(--ink);
+  background:#ece8db;border:2px inset #8b8677;padding:5px 7px;width:100%;
 }
 textarea{min-height:90px;resize:vertical}
 input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 .choice{display:flex;gap:16px;flex-wrap:wrap}
-.choice label{display:flex;align-items:center;gap:6px;font-size:14px;cursor:pointer}
+.choice label{display:flex;align-items:center;gap:6px;font-size:15px;cursor:pointer}
 .poscard{
   display:block;border:1px solid var(--rule);background:var(--paper-dark);padding:8px 10px;cursor:pointer;
 }
@@ -312,25 +312,25 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 .poscard b{display:block}
 .poscard small{font-family:"Courier New",monospace}
 .poscard:has(input:checked){outline:2px solid var(--red)}
-.agree{display:flex;gap:8px;align-items:flex-start;margin:8px 0;font-size:14px;max-width:70ch}
+.agree{display:flex;gap:8px;align-items:flex-start;margin:8px 0;font-size:15px;max-width:70ch}
 .agree input{margin-top:4px}
-.ferr{color:var(--red-hot);font-family:"Courier New",monospace;font-size:12px;margin:8px 0;display:none}
+.ferr{color:var(--red-hot);font-family:"Courier New",monospace;font-size:13px;font-weight:bold;margin:8px 0;display:none}
 .ferr.show{display:block}
 
 /* --- pie ------------------------------------------------- */
 #foot{
-  background:#0b0b0f;color:#a9a597;border-top:5px solid var(--red);
-  margin-top:30px;padding:22px 24px 18px;font-size:12px;
+  background:#0b0b0f;color:#c4c0b1;border-top:5px solid var(--red);
+  margin-top:30px;padding:22px 24px 18px;font-size:13px;
 }
 .fcols{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.3fr;gap:20px}
 #foot h4{color:var(--red);margin:0 0 8px}
 #foot .brand{font-size:19px;font-weight:bold;color:var(--red);margin:0 0 6px}
 #foot a{color:#c9c4b4}
 #foot a:hover{background:#2a2a30;color:#fff}
-#foot ul{list-style:none;padding:0;margin:0;font-family:"Courier New",monospace;font-size:11.5px;line-height:2}
+#foot ul{list-style:none;padding:0;margin:0;font-family:"Courier New",monospace;font-size:12.5px;line-height:2}
 .fmap{position:relative;min-height:120px}
 .fmap ul{position:relative;z-index:1;padding:6px 8px}
-.fmap ul a{color:#8f8b7d}
+.fmap ul a{color:#b1ad9f}
 .fmap ul a:hover{background:none;color:#fff}
 #eyes{
   position:absolute;left:0;top:26px;width:100%;height:calc(100% - 26px);
@@ -338,7 +338,7 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 }
 .statusbox{
   background:#000;border:1px solid #2a2a30;padding:10px 12px;
-  font-family:"Courier New",monospace;font-size:11px;line-height:1.7;color:#b7b3a4;
+  font-family:"Courier New",monospace;font-size:12px;line-height:1.7;color:#cfcbbc;
 }
 .statusbox .live{color:var(--red-hot);font-weight:bold}
 .statusbox .live:before{
@@ -347,13 +347,13 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 }
 #foot .copy{
   margin:22px 0 4px;padding-top:12px;border-top:1px solid #23232a;
-  font-family:"Courier New",monospace;font-size:11px;color:#6f6c62;
+  font-family:"Courier New",monospace;font-size:12px;color:#9b978a;
 }
 #foot .ref{font-family:"Courier New",monospace;font-size:11px;color:#4a4840;margin:2px 0}
-#foot .vis{font-family:"Courier New",monospace;font-size:11px;color:#6f6c62;margin:8px 0 0}
+#foot .vis{font-family:"Courier New",monospace;font-size:12px;color:#9b978a;margin:8px 0 0}
 #counter{
   display:inline-block;background:#000;color:#e8e4d6;font-family:"Courier New",monospace;
-  font-size:12px;letter-spacing:.16em;padding:1px 6px;border:1px solid #3a3a42;
+  font-size:13px;letter-spacing:.16em;padding:1px 6px;border:1px solid #3a3a42;
 }
 .construction{
   display:inline-block;background:#e8c53a;color:#2a2410;font-family:Arial,sans-serif;
@@ -364,8 +364,8 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 #toast{
   position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:10000;
   background:#000;color:#ff5a4a;border:1px solid var(--red-hot);
-  font-family:"Courier New",monospace;font-size:12.5px;letter-spacing:.06em;
-  padding:9px 16px;box-shadow:0 0 18px rgba(200,30,30,.35);
+  font-family:"Courier New",monospace;font-size:13.5px;letter-spacing:.06em;
+  padding:10px 18px;box-shadow:0 0 18px rgba(200,30,30,.35);
   opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;max-width:92vw;
 }
 #toast.on{opacity:1}
@@ -385,7 +385,7 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 .tl.y97{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:9px 4px 12px;align-items:start}
 #egg-1997{
   position:relative;display:block;padding:8px 10px;
-  font-family:"Courier New",monospace;font-size:12.5px;line-height:1.6;
+  font-family:"Courier New",monospace;font-size:13.5px;line-height:1.6;
   cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none;
   border:1px solid #7a1a14;background:#cfcabb;color:#2c2822;max-width:66ch;
 }
@@ -434,7 +434,7 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 .redacted-cell::-moz-selection{color:#fff;background:#1a1a1a}
 .draghint{
   display:flex;align-items:center;gap:8px;margin:6px 0 2px;
-  font-family:"Courier New",monospace;font-size:11px;color:#5d5849;
+  font-family:"Courier New",monospace;font-size:12.5px;color:#463f33;
 }
 .draghint svg{flex:none}
 .egg2tip{
@@ -485,7 +485,7 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
   details.tl .tx{padding-left:4px}
   .tl.y97{grid-template-columns:52px 1fr}
   #foot{padding:18px 14px}
-  table.data{font-size:11.5px}
+  table.data{font-size:12.5px}
 }
 @media (max-width:460px){
   .fcols{grid-template-columns:1fr}
