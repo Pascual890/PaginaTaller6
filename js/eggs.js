@@ -110,23 +110,11 @@
 
   /* ==========================================================
      EGG 2 — celdas redactadas: ::selection hace el trabajo.
-     JS sólo para el tooltip de primera vez y el "hallazgo".
+     JS sólo para registrar el "hallazgo". Sin explicaciones en pantalla.
      ========================================================== */
   (function egg2() {
     var cells = document.querySelectorAll('.redacted-cell');
     if (!cells.length) return;
-
-    // tooltip una sola vez por sesión
-    if (!store.get('egg2tip', false)) {
-      var tip = document.createElement('div');
-      tip.className = 'egg2tip';
-      tip.textContent = ('ontouchstart' in window)
-        ? 'Mantén presionado y arrastra sobre el texto oculto de la tabla.'
-        : 'Arrastra el cursor sobre las celdas negras como si fueras a copiar texto.';
-      var host = document.querySelector('.draghint');
-      if (host) host.parentNode.insertBefore(tip, host);
-      store.set('egg2tip', true);
-    }
 
     var found = store.get('egg2found', []);
     function check() {

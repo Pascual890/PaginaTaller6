@@ -31,7 +31,8 @@ algo ahí, cámbialo en los 7 archivos.
    el link "[Ver documento filtrado →]" que abre el memorando.
 2. **Celdas redactadas** (`documentos.html`): las celdas negras son texto real.
    Selecciónalo arrastrando (en móvil: pulsación larga y arrastrar). Cada celda
-   nueva muestra "HALLAZGO REGISTRADO — n DE 10".
+   nueva muestra "HALLAZGO REGISTRADO — n DE 10". No hay ninguna explicación en
+   pantalla, a propósito: se descubre solo.
 3. **Acceso denegado** (`documentos.html`, `archivo.html`, tabla de Inicio): clic en
    cualquier archivo restringido → glitch + "ACCESO DENEGADO — INTENTO REGISTRADO".
    El contador vive en `sessionStorage` y se muestra en el pie de todas las páginas
@@ -57,5 +58,5 @@ Para forzar una variante sin tocar el sistema, añade a la URL:
 ## Estado compartido (sessionStorage)
 
 `aeoi_attempts` (intentos), `aeoi_egg2found` (celdas descubiertas),
-`aeoi_egg2tip` (tooltip mostrado), `aeoi_visits` (contador), `aeoi_applied`
+`aeoi_visits` (contador), `aeoi_applied`
 (referencia de solicitud). Se borra al cerrar la pestaña.
