@@ -25,6 +25,7 @@ o sírvelo con cualquier servidor local (p. ej. `python -m http.server 8477`).
 | `css/style.css` | Estilos, incluidos los de los eggs (sección al final) |
 | `js/site.js` | Interacciones normales: feed, contador, redacciones `.rd`, formulario, toast, modal |
 | `js/eggs.js` | Los cinco easter eggs |
+| `js/win.js` | Capa de ventanas estilo sistema 95: íconos pixelados, barras de título, barra de tareas con menú Inicio y avisos emergentes de postulación |
 
 La cabecera y el pie están repetidos en cada página (no hay includes): si cambias
 algo ahí, cámbialo en los 7 archivos.
@@ -63,8 +64,31 @@ parpadeos.
 Para forzar una variante sin tocar el sistema, añade a la URL:
 `?motion=full` (todo animado) o `?motion=reduce` (estático).
 
+## Avisos emergentes de postulación
+
+`js/win.js` abre ventanas de aviso que invitan a postularse: la primera a los 18 s
+y otra 45 s después de cerrar la anterior; cada vez llegan más ventanas apiladas
+(hasta 5). Sólo aparecen si el anuncio de postulación (`[data-postular-ad]`: el
+anuncio del Inicio y el recuadro final de Puestos) no está en pantalla, y se
+cierran solas si el usuario vuelve a él. No aparecen en `solicitud.html`, mientras
+se escribe en un campo, con la pestaña oculta ni después de enviar la postulación.
+Se cierran con ✕, con el botón secundario o con Escape, y se pueden arrastrar.
+
+Para probarlos sin esperar, añade `?avisos=rapido` a la URL (3 s / 8 s).
+
+## Después de postularse
+
+Al enviar el formulario aparece una carga de ~8 s (`CARGA_MS` en `js/site.js`) con
+pasos y un 99% que se atasca; luego el acuse de recibo y, encima, un popup de
+felicitación a propósito genérico y feo (franja que corre, arcoíris, flechas, sello)
+con el nombre y el puesto de cada postulante y el lugar al que deben ir. El lugar
+se cambia en `LUGAR`, `LUGAR_DET` y `ROL` (`js/site.js`, sección 6c).
+
+El anuncio del Inicio muestra las personas inscritas: crece una cada 45 s de tiempo
+real desde el 1/9/2026 y además sube en vivo; nunca retrocede (`atlas_inscritos`).
+
 ## Estado compartido (sessionStorage)
 
 `atlas_attempts` (intentos), `atlas_egg2found` (celdas descubiertas),
-`atlas_visits` (contador), `atlas_applied`
+`atlas_visits` (contador), `atlas_inscritos` (inscritos), `atlas_applied`
 (referencia de solicitud). Se borra al cerrar la pestaña.

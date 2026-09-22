@@ -82,40 +82,41 @@
   </div>
 
   <form id="solicitud" novalidate>
+    <!-- los números [0n] de cada sección los pone site.js según las secciones visibles -->
     <fieldset>
-      <legend>[01] INFORMACIÓN PERSONAL</legend>
+      <legend data-t="INFORMACIÓN PERSONAL" data-tp="INFORMACIÓN PERSONAL — POSTULANTE 1">[01] INFORMACIÓN PERSONAL</legend>
       <div class="fgrid">
         <div class="field">
           <label class="lbl" for="nombre">Nombre completo *</label>
           <input type="text" id="nombre" name="nombre" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off">
         </div>
         <div class="field">
-          <label class="lbl" for="edad">Edad * (debe tener 18+)</label>
-          <input type="number" id="edad" name="edad" min="18" max="99" placeholder="AÑOS CUMPLIDOS">
-        </div>
-        <div class="field">
           <label class="lbl" for="contacto">Dirección de contacto *</label>
           <input type="text" id="contacto" name="contacto" placeholder="DIRECCIÓN POSTAL O TERMINAL" autocomplete="off">
-        </div>
-        <div class="field">
-          <label class="lbl" for="telefono">Número de teléfono</label>
-          <input type="tel" id="telefono" name="telefono" placeholder="+XX XXX XXX XXXX" autocomplete="off">
         </div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>[02] MODALIDAD DE PARTICIPACIÓN</legend>
+      <legend data-t="MODALIDAD DE PARTICIPACIÓN">[02] MODALIDAD DE PARTICIPACIÓN</legend>
       <label class="lbl">Tipo de postulación *</label>
       <div class="choice">
         <label><input type="radio" name="modalidad" value="individual"> Individual</label>
         <label><input type="radio" name="modalidad" value="pareja"> Postulación en pareja</label>
       </div>
+      <div class="box" id="aviso-ind" hidden>
+        <h4>Aviso — asignación automática</h4>
+        <p><small>
+          Las postulaciones individuales se completan con un interno de Atlas Corporation, que será
+          asignado automáticamente al puesto restante. El interno asignado no puede elegirse ni
+          conocerse antes de la sesión informativa de misión.
+        </small></p>
+      </div>
     </fieldset>
 
     <fieldset>
-      <legend>[03] SELECCIÓN DE PUESTO</legend>
-      <label class="lbl">Puesto solicitado * (ver <a href="puestos.html">página de puestos</a> para descripciones completas)</label>
+      <legend data-t="SELECCIÓN DE PUESTO" data-tp="SELECCIÓN DE PUESTO — POSTULANTE 1">[03] SELECCIÓN DE PUESTO</legend>
+      <label class="lbl"><span data-pl="Puesto del postulante 1 *">Puesto solicitado *</span> (ver <a href="puestos.html">página de puestos</a> para descripciones completas)</label>
       <div class="fgrid">
         <label class="poscard">
           <input type="radio" name="puesto" value="AST">
@@ -130,56 +131,70 @@
       </div>
     </fieldset>
 
-    <fieldset>
-      <legend>[04] EXPERIENCIA Y MOTIVACIÓN</legend>
+    <fieldset id="p2" hidden>
+      <legend data-t="SEGUNDO POSTULANTE">[04] SEGUNDO POSTULANTE</legend>
       <div class="fgrid">
-        <div class="field full">
-          <label class="lbl" for="experiencia">Experiencia relevante (técnica, científica, militar u otra — no requerida)</label>
-          <textarea id="experiencia" name="experiencia"></textarea>
+        <div class="field">
+          <label class="lbl" for="nombre2">Nombre completo del segundo postulante *</label>
+          <input type="text" id="nombre2" name="nombre2" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off">
         </div>
-        <div class="field full">
-          <label class="lbl" for="motivacion">Motivación para participar * (¿por qué desea unirse a la Misión HELIOS-1?)</label>
-          <textarea id="motivacion" name="motivacion"></textarea>
+        <div class="field">
+          <label class="lbl" for="contacto2">Dirección de contacto del segundo postulante *</label>
+          <input type="text" id="contacto2" name="contacto2" placeholder="DIRECCIÓN POSTAL O TERMINAL" autocomplete="off">
         </div>
       </div>
+      <label class="lbl" style="display:block;margin-top:12px">Puesto del postulante 2 * (debe ser distinto al del postulante 1)</label>
+      <div class="fgrid">
+        <label class="poscard">
+          <input type="radio" name="puesto2" value="AST">
+          <b>Astronauta</b>
+          <small>A bordo de la sonda ATLAS-H / espacio — HELIOS-1 / POS-AST</small>
+        </label>
+        <label class="poscard">
+          <input type="radio" name="puesto2" value="OPT">
+          <b>Operador en Tierra</b>
+          <small>Central de Comando / Complejo Meridian — HELIOS-1 / POS-OPT</small>
+        </label>
+      </div>
+      <div class="ferr" id="err-rol" role="alert"></div>
     </fieldset>
 
     <fieldset>
-      <legend>[05] EVALUACIÓN PERCEPTIVA</legend>
-      <label class="lbl">¿Ha notado alteraciones del sueño o de la conducta desde el 17 de julio de 1982? *</label>
+      <legend data-t="EVALUACIÓN PERCEPTIVA" data-tp="EVALUACIÓN PERCEPTIVA — AMBOS POSTULANTES">[05] EVALUACIÓN PERCEPTIVA</legend>
+      <label class="lbl"><span data-pl="¿Han notado alteraciones del sueño o de la conducta desde el 17 de julio de 1982? *">¿Ha notado alteraciones del sueño o de la conducta desde el 17 de julio de 1982? *</span></label>
       <div class="choice">
         <label><input type="radio" name="sueno" value="no"> No</label>
         <label><input type="radio" name="sueno" value="si"> Sí</label>
       </div>
-      <label class="lbl" style="margin-top:10px">¿Escucha algún sonido en este momento? *</label>
+      <label class="lbl" style="margin-top:10px"><span data-pl="¿Escuchan algún sonido en este momento? *">¿Escucha algún sonido en este momento? *</span></label>
       <div class="choice">
         <label><input type="radio" name="sonido" value="no"> No</label>
         <label><input type="radio" name="sonido" value="si"> Sí</label>
         <label><input type="radio" name="sonido" value="cual"> ¿Qué sonido?</label>
       </div>
-      <p><small>Las respuestas de esta sección se cotejan con el Índice de Perturbación de su entrevista de evaluación. No hay respuestas correctas.</small></p>
+      <p><small><span data-pl="Las respuestas de esta sección se cotejan con el Índice de Perturbación de las entrevistas de evaluación de ambos postulantes. No hay respuestas correctas.">Las respuestas de esta sección se cotejan con el Índice de Perturbación de su entrevista de evaluación. No hay respuestas correctas.</span></small></p>
     </fieldset>
 
     <fieldset>
-      <legend>[06] DECLARACIÓN Y ACUERDOS</legend>
+      <legend data-t="DECLARACIÓN Y ACUERDOS" data-tp="DECLARACIÓN CONJUNTA Y ACUERDOS">[06] DECLARACIÓN Y ACUERDOS</legend>
       <label class="agree">
         <input type="checkbox" name="disp">
-        <span>Confirmo que estaré disponible durante todo el período de la misión y acepto que la
-        duración exacta puede modificarse sin previo aviso. <small>* Requerido para la postulación.</small></span>
+        <span><span data-pl="Confirmamos que estaremos disponibles durante todo el período de la misión y aceptamos que la duración exacta puede modificarse sin previo aviso.">Confirmo que estaré disponible durante todo el período de la misión y acepto que la
+        duración exacta puede modificarse sin previo aviso.</span> <small>* Requerido para la postulación.</small></span>
       </label>
       <label class="agree">
         <input type="checkbox" name="nda">
-        <span>He leído y acepto los Términos de Participación y el Acuerdo de No Divulgación de
-        Atlas Corporation, incluidas todas las cláusulas marcadas como [Uso interno].
+        <span><span data-pl="Hemos leído y aceptamos los Términos de Participación y el Acuerdo de No Divulgación de Atlas Corporation, incluidas todas las cláusulas marcadas como [Uso interno].">He leído y acepto los Términos de Participación y el Acuerdo de No Divulgación de
+        Atlas Corporation, incluidas todas las cláusulas marcadas como [Uso interno].</span>
         <small>* El NDA completo se proporcionará en la sesión informativa de misión.</small></span>
       </label>
     </fieldset>
 
     <div class="ferr" role="alert"></div>
 
-    <p><small>
+    <p><small><span data-pl="Al enviar, autorizan a Atlas Corporation a procesar sus datos personales. Recibirán una respuesta en 5–10 días hábiles.">
       Al enviar, autoriza a Atlas Corporation a procesar sus datos personales. Recibirá una
-      respuesta en 5–10 días hábiles.
+      respuesta en 5–10 días hábiles.</span>
     </small></p>
     <p><button type="submit" class="btn primary">ENVIAR POSTULACIÓN</button></p>
   </form>
@@ -242,6 +257,7 @@
 <div id="toast" role="status"></div>
 
 <script src="js/site.js"></script>
+<script src="js/win.js"></script>
 <script src="js/eggs.js"></script>
 </body>
 </html>
