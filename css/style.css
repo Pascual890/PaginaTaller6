@@ -112,6 +112,9 @@ body{
 a{color:var(--link);text-decoration:underline}
 a:visited{color:var(--visited)}
 a:hover{background:#fffbc8;color:#000}
+
+/* ninguna imagen puede desbordar su columna */
+img{max-width:100%;height:auto}
 a:focus-visible{outline:2px solid #000;outline-offset:1px}
 a.seen{color:var(--visited)}
 
