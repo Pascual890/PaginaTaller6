@@ -5,8 +5,9 @@
 (function () {
   'use strict';
 
-  // prefers-reduced-motion manda, salvo override de prueba: ?motion=full | ?motion=reduce
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // efectos siempre activos (se ignora prefers-reduced-motion del sistema);
+  // override de prueba: ?motion=reduce | ?motion=full
+  var reduce = false;
   var m = /[?&]motion=(full|reduce)/.exec(location.search);
   if (m) reduce = (m[1] === 'reduce');
   window.ATLAS = window.ATLAS || {};

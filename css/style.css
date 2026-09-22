@@ -492,8 +492,8 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
   .fcols{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr}
 }
-/* movimiento reducido: la clase la pone site.js según prefers-reduced-motion
-   (o el override ?motion=full|reduce para pruebas) */
+/* movimiento reducido: sólo con el override ?motion=reduce (site.js);
+   prefers-reduced-motion del sistema se ignora */
 html.motion-reduce #announce span{animation:none;padding-left:0}
 html.motion-reduce .new,html.motion-reduce .cur,html.motion-reduce .statusbox .live:before{animation:none}
 html.motion-reduce #egg-1982.pressing .bar82{animation:none}
