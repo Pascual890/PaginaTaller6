@@ -1,6 +1,6 @@
 /* ============================================================
-   AEOI — EASTER EGGS
-   Egg 1  bloque 1997 (long-press revela)          acerca.html
+   ATLAS — EASTER EGGS
+   Egg 1  bloque 1982 (long-press revela)          acerca.html
    Egg 2  celdas redactadas (selección revela)     documentos.html
    Egg 3  acceso denegado + contador de intentos   documentos / archivo / todas (contador)
    Egg 4  censura activa (flash grupal + long-press) footer + acerca + mision
@@ -10,18 +10,18 @@
 (function () {
   'use strict';
 
-  var A = window.AEOI = window.AEOI || {};
+  var A = window.ATLAS = window.ATLAS || {};
   var reduce = (typeof A.reduce === 'boolean') ? A.reduce : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var toast = A.toast || function (m) { console.log(m); };
 
   /* estado compartido ---------------------------------------- */
   var store = {
     get: function (k, d) {
-      try { var v = sessionStorage.getItem('aeoi_' + k); return v === null ? d : JSON.parse(v); }
+      try { var v = sessionStorage.getItem('atlas_' + k); return v === null ? d : JSON.parse(v); }
       catch (e) { return d; }
     },
     set: function (k, v) {
-      try { sessionStorage.setItem('aeoi_' + k, JSON.stringify(v)); } catch (e) {}
+      try { sessionStorage.setItem('atlas_' + k, JSON.stringify(v)); } catch (e) {}
     }
   };
 
@@ -64,11 +64,11 @@
   }
 
   /* ==========================================================
-     EGG 1 — bloque "1997"
+     EGG 1 — bloque "1982"
      IDLE → PRESSING → REVEALED ; RESET si suelta antes de 2000ms
      ========================================================== */
   (function egg1() {
-    var el = document.getElementById('egg-1997');
+    var el = document.getElementById('egg-1982');
     if (!el) return;
     var THRESH = 2000;
 
@@ -181,7 +181,7 @@
           store.set('attempts', attempts);
           paint();
           var msg = 'ACCESO DENEGADO — INTENTO REGISTRADO (' + String(attempts).padStart(3, '0') + ')';
-          if (attempts === 5) msg = 'ACCESO DENEGADO — SU DIRECCIÓN HA SIDO REENVIADA A LA DIRECCIÓN';
+          if (attempts === 5) msg = 'ACCESO DENEGADO — SU TERMINAL HA SIDO REENVIADO AL COMITÉ DE CONTINUIDAD';
           if (attempts >= 10 && attempts % 5 === 0) msg = 'ACCESO DENEGADO — DEJE DE INTENTARLO';
           toast(msg, { shake: true });
         }
