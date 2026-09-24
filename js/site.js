@@ -384,8 +384,8 @@
   }
 
   /* --------------------------------------------------------
-     6c. la felicitación: un popup genérico, feo y demasiado entusiasta.
-         no es el estilo de ATLAS-NET. no debería estar aquí.
+     6c. la notificación de selección: un memorando del Comité,
+         mecanografiado, con timbre. frío, formal, sin salida.
      -------------------------------------------------------- */
   var LUGAR = 'CENTRAL DE COMANDO';
   var LUGAR_DET = 'Complejo Meridian — Zona 7';
@@ -394,59 +394,65 @@
     OPT: { t: 'OPERADOR EN TIERRA', d: 'Consola principal de la Central de Comando' }
   };
 
-  function arrow(cls) {
-    return '<svg class="fz-arrow ' + cls + '" viewBox="0 0 60 60" aria-hidden="true">' +
-      '<path d="M4 20 L30 20 L30 6 L56 30 L30 54 L30 40 L4 40 Z" fill="#e01010" stroke="#3a0404" stroke-width="3" stroke-linejoin="round"/></svg>';
-  }
-
   function showSelected(d) {
     var e = function (t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
-    var cards = d.people.map(function (p, i) {
-      return '<div class="fz-card">' +
-        '<small>' + (d.pair ? 'POSTULANTE ' + (i + 1) : 'POSTULANTE') + '</small>' +
-        '<b>' + e(p.n) + '</b>' +
-        '<span class="fz-role">' + ROL[p.r].t + '</span>' +
-        '<em>Preséntese en: ' + ROL[p.r].d + '</em></div>';
+    var pl = function (s, p) { return d.pair ? p : s; };
+    var rows = d.people.map(function (p) {
+      return '<tr><td>' + e(p.n.toUpperCase()) + '</td><td>' + ROL[p.r].t + '</td><td>' + ROL[p.r].d + '</td></tr>';
     }).join('');
     if (!d.pair) {
-      cards += '<div class="fz-card fz-int"><small>PUESTO RESTANTE</small><b>INTERNO ATLAS</b>' +
-        '<span class="fz-role">' + ROL[d.people[0].r === 'AST' ? 'OPT' : 'AST'].t + '</span>' +
-        '<em>Asignado automáticamente. Lo conocerá allí.</em></div>';
+      var otro = d.people[0].r === 'AST' ? 'OPT' : 'AST';
+      rows += '<tr class="nt-int"><td>INTERNO ATLAS</td><td>' + ROL[otro].t + '</td><td>Asignado. Lo conocerá allí.</td></tr>';
     }
     var total = window.ATLAS.inscritos ? window.ATLAS.inscritos() : 40000;
     var fmt = total.toLocaleString('es');
-    var sel = d.pair ? 'USTEDES HAN SIDO SELECCIONADOS' : 'USTED HA SIDO SELECCIONADO';
-    var mq = ('★ ¡¡FELICIDADES!! ★ ' + sel + ' PARA LA MISIÓN HELIOS-1 ★ DIRÍJA' + (d.pair ? 'NSE' : 'SE') +
-      ' A LA ' + LUGAR + ' ★ WOOOOO ★ ').repeat(3);
+    var now = new Date();
+    var hora = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+    var para = d.people.map(function (p) { return e(p.n.toUpperCase()); }).join('<br>');
 
     var box = document.createElement('div');
     box.id = 'felicidades';
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-modal', 'true');
-    box.setAttribute('aria-labelledby', 'fz-t');
+    box.setAttribute('aria-labelledby', 'nt-t');
     box.innerHTML =
-      '<div class="fz-box">' +
-        '<button type="button" class="fz-x" aria-label="Cerrar">&times;</button>' +
-        '<div class="fz-mq" aria-hidden="true"><span>' + mq + '</span></div>' +
-        '<h2 id="fz-t" class="fz-big">¡¡¡FELICIDADES!!!</h2>' +
-        '<p class="fz-rainbow">' + sel.split(' ').map(function (w, j) {
-          return '<span class="w">' + w.split('').map(function (c, i) {
-            return '<span style="--k:' + (j * 9 + i) + '">' + c + '</span>';
-          }).join('') + '</span>';
-        }).join(' ') + '</p>' +
-        '<p class="fz-sub">Entre <b>' + fmt + '</b> postulantes, el Comité de Continuidad ' +
-          (d.pair ? 'los eligió a ustedes' : 'lo eligió a usted') + '.</p>' +
-        '<div class="fz-stage">' + arrow('a1') + arrow('a2') + arrow('a3') + arrow('a4') +
-          '<div class="fz-cards">' + cards + '</div></div>' +
-        '<div class="fz-go">¡¡DIRÍJA' + (d.pair ? 'NSE' : 'SE') + ' DE INMEDIATO A LA <u>' + LUGAR + '</u>!!' +
-          '<small>' + LUGAR_DET + '. Presente' + (d.pair ? 'n' : '') + ' esta pantalla y la referencia <b>' +
-          d.ref + '</b> al personal de Atlas.</small></div>' +
-        '<div class="fz-row">' +
-          '<div class="fz-bubble">CONFÍE EN NOSOTROS…<b>¡¡SOMOS ATLAS!!</b><span>la empresa espacial de confianza desde 1954</span></div>' +
-          '<div class="fz-seal" aria-hidden="true"><span class="fz-seal-c">★<br>ATLAS<br>★</span><span class="fz-seal-r">SELLO DE APROBACIÓN</span></div>' +
+      '<div class="win nt-win">' +
+        '<div class="win-title"><span class="ico">' + ico('doc', 16) + '</span>' +
+          '<span class="t">ATLAS-NET — Comunicado restringido</span>' +
+          '<span class="win-btns"><button type="button" data-b="x" class="nt-x" aria-label="Cerrar">' + ico('gx') + '</button></span></div>' +
+        '<div class="nt-paper">' +
+          '<div class="nt-head">' +
+            '<div><b>ATLAS CORPORATION</b><span>Comité de Continuidad · Oficina de Asignaciones</span></div>' +
+            '<div class="nt-cls">RESTRINGIDO<small>FORM. AC-114</small></div>' +
+          '</div>' +
+          '<table class="nt-memo">' +
+            '<tr><th>PARA:</th><td>' + para + '</td></tr>' +
+            '<tr><th>DE:</th><td>COMITÉ DE CONTINUIDAD</td></tr>' +
+            '<tr><th>FECHA:</th><td>1983 — ' + hora + ' H.</td></tr>' +
+            '<tr><th>REF.:</th><td>' + d.ref + '</td></tr>' +
+            '<tr><th>ASUNTO:</th><td id="nt-t">NOTIFICACIÓN DE SELECCIÓN — MISIÓN HELIOS-1</td></tr>' +
+          '</table>' +
+          '<p>Por medio de la presente se ' + pl('le', 'les') + ' comunica que, de entre ' + fmt +
+            ' postulantes, ' + pl('usted ha sido seleccionado', 'ustedes han sido seleccionados') +
+            ' para integrar la tripulación de la Misión HELIOS-1 en ' + pl('el puesto', 'los puestos') + ' que se indica' + pl('', 'n') + ':</p>' +
+          '<table class="nt-asig"><thead><tr><th>NOMBRE</th><th>PUESTO</th><th>PRESENTARSE EN</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody></table>' +
+          '<ol class="nt-ins">' +
+            '<li>Diríja' + pl('se', 'nse') + ' de inmediato a la <b>' + LUGAR + '</b>, ' + LUGAR_DET +
+              '. Presente' + pl('', 'n') + ' esta notificación y la referencia indicada.</li>' +
+            '<li>No se requieren efectos personales.</li>' +
+            '<li>No comente' + pl('', 'n') + ' esta notificación con terceros.</li>' +
+            '<li>La selección es definitiva y no admite renuncia.</li>' +
+            '<li><span class="nt-bar">████████ ███ ███████</span> <span class="nt-bar">██ ███████ ████</span>.</li>' +
+          '</ol>' +
+          '<div class="nt-sign">' +
+            '<svg viewBox="0 0 160 40" aria-hidden="true"><path d="M6 30 C18 6 26 34 36 20 S52 8 58 24 C62 34 70 10 82 18 C90 24 96 28 108 14 C114 8 120 30 132 22 L154 16" fill="none" stroke="#1f2a5c" stroke-width="1.6" stroke-linecap="round"/></svg>' +
+            '<span>Por orden del Comité de Continuidad</span>' +
+            '<div class="nt-stamp" aria-hidden="true">SELECCIONADO<small>COMITÉ DE CONTINUIDAD</small></div>' +
+          '</div>' +
+          '<p class="nt-foot">DOCUMENTO PROPIEDAD DE ATLAS CORPORATION — PROHIBIDA SU REPRODUCCIÓN</p>' +
+          '<div class="nt-btns"><button type="button" class="btn primary nt-ok">Acuso recibo</button></div>' +
         '</div>' +
-        '<button type="button" class="fz-btn">¡¡¡HAGA CLIC AQUÍ PARA CONFIRMAR!!!</button>' +
-        '<p class="fz-foot">SuperPopup Lite 2.0.3 — <a href="#" class="fz-pro">Actualice a PRO</a> para quitar este mensaje</p>' +
       '</div>';
     document.body.appendChild(box);
 
@@ -456,16 +462,12 @@
     }
     function onKey(ev) { if (ev.key === 'Escape') close(); }
     document.addEventListener('keydown', onKey);
-    box.querySelector('.fz-x').addEventListener('click', close);
-    box.querySelector('.fz-btn').addEventListener('click', function () {
+    box.querySelector('.nt-x').addEventListener('click', close);
+    box.querySelector('.nt-ok').addEventListener('click', function () {
       close();
-      window.ATLAS.toast('ASISTENCIA CONFIRMADA — LO' + (d.pair ? 'S' : '') + ' ESTAMOS ESPERANDO', { ok: true, ms: 4000 });
+      window.ATLAS.toast('RECEPCIÓN REGISTRADA — LO' + (d.pair ? 'S' : '') + ' ESTAMOS ESPERANDO', { ok: true, ms: 4000 });
     });
-    box.querySelector('.fz-pro').addEventListener('click', function (ev) {
-      ev.preventDefault();
-      window.ATLAS.toast('LICENCIA PRO NO DISPONIBLE EN ESTE TERMINAL');
-    });
-    box.querySelector('.fz-btn').focus({ preventScroll: true });
+    box.querySelector('.nt-ok').focus({ preventScroll: true });
   }
 
   /* --------------------------------------------------------

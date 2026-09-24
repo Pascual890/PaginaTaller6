@@ -433,7 +433,7 @@
   };
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('.win-btns [data-b]');
-    if (!btn || btn.closest('.nag')) return;
+    if (!btn || btn.closest('.nag, #felicidades')) return;
     var w = btn.closest('.win') || btn.closest('#doc');
     if (btn.closest('.ad') && btn.getAttribute('data-b') === 'x') {
       toast('ESTE ANUNCIO NO PUEDE CERRARSE. POSTÚLESE.');

@@ -80,8 +80,9 @@ Para probarlos sin esperar, añade `?avisos=rapido` a la URL (3 s / 8 s).
 
 Al enviar el formulario aparece una carga de ~8 s (`CARGA_MS` en `js/site.js`) con
 pasos y un 99% que se atasca; luego el acuse de recibo y, encima, un popup de
-felicitación a propósito genérico y feo (franja que corre, arcoíris, flechas, sello)
-con el nombre y el puesto de cada postulante y el lugar al que deben ir. El lugar
+notificación de selección del Comité de Continuidad (memorando mecanografiado con
+timbre rojo e instrucciones frías, una de ellas tachada) con el nombre y el puesto
+de cada postulante y el lugar al que deben ir. El lugar
 se cambia en `LUGAR`, `LUGAR_DET` y `ROL` (`js/site.js`, sección 6c).
 
 El anuncio del Inicio muestra las personas inscritas: crece una cada 45 s de tiempo
