@@ -451,7 +451,7 @@
             '<div class="nt-stamp" aria-hidden="true">SELECCIONADO<small>COMITÉ DE CONTINUIDAD</small></div>' +
           '</div>' +
           '<p class="nt-foot">DOCUMENTO PROPIEDAD DE ATLAS CORPORATION — PROHIBIDA SU REPRODUCCIÓN</p>' +
-          '<div class="nt-btns"><button type="button" class="btn primary nt-ok">Acuso recibo</button></div>' +
+          '<div class="nt-btns"><button type="button" class="btn primary nt-ok">Comunicado recibido</button></div>' +
         '</div>' +
       '</div>';
     document.body.appendChild(box);
