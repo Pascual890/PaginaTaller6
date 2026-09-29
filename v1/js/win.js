@@ -255,24 +255,6 @@
       '................',
       '................'
     ],
-    lock: [
-      '................',
-      '.....kkkkkk.....',
-      '....kddddddk....',
-      '...kdk....kdk...',
-      '...kdk....kdk...',
-      '...kdk....kdk...',
-      '..kkkkkkkkkkkk..',
-      '..kYYYYYYYYYYk..',
-      '..kyyyyyyyyyyk..',
-      '..kyyyykkyyyyk..',
-      '..kyyyykkyyyyk..',
-      '..kyyyyykyyyyk..',
-      '..kyyyyyyyyyyk..',
-      '..kddddddddddk..',
-      '..kkkkkkkkkkkk..',
-      '................'
-    ],
     /* glifos de la barra de título */
     gmin: ['........', '........', '........', '........', '........', '.kkkkkk.', '.kkkkkk.'],
     gmax: ['kkkkkkkkk', 'kkkkkkkkk', 'k.......k', 'k.......k', 'k.......k', 'k.......k', 'kkkkkkkkk'],
@@ -319,13 +301,11 @@
   /* --------------------------------------------------------
      1. barras de título y envoltorios de ventana
      -------------------------------------------------------- */
-  // sin botones de minimizar/maximizar/cerrar: en las ventanas incrustadas
-  // no funcionarían, y la gente los presiona. sólo los llevan los diálogos
-  // que sí se cierran (avisos, A.R., visor, memorando) y el anuncio del inicio.
   function titleBar(title, ico) {
     var bar = document.createElement('div');
     bar.className = 'win-title';
-    bar.innerHTML = '<span class="ico" data-ico="' + ico + '"></span><span class="t"></span>';
+    bar.innerHTML = '<span class="ico" data-ico="' + ico + '"></span><span class="t"></span>' +
+      '<span class="win-btns" aria-hidden="true"><span data-b="min"></span><span data-b="max"></span><span data-b="x"></span></span>';
     bar.querySelector('.t').textContent = title;
     return bar;
   }
@@ -357,14 +337,14 @@
   A.wrapWin = wrap;
 
   function clean(t) { return t.replace(/\s+/g, ' ').trim(); }
-  function skip(el) { return el.closest('.win, .ad, #modal, .nag, .ar, template'); }
-  A.fillIcons = function (root) { fillIcons(root); };
+  function skip(el) { return el.closest('.win, .ad, #modal, .nag'); }
 
   // página actual
   var NAV = [
     { href: 'index.html', label: 'Inicio', ico: 'computer' },
     { href: 'acerca.html', label: 'Acerca de', ico: 'folder' },
-    { href: 'mision.html', label: 'Misión y puestos', ico: 'sun' },
+    { href: 'mision.html', label: 'Misión HELIOS-1', ico: 'sun' },
+    { href: 'puestos.html', label: 'Puestos', ico: 'people' },
     { href: 'documentos.html', label: 'Documentos', ico: 'doc' },
     { href: 'solicitud.html', label: 'Postulación', ico: 'form' },
     { href: 'archivo.html', label: 'Archivo', ico: 'cabinet' }
@@ -387,11 +367,8 @@
     });
   });
 
-  // sólo son ventana los elementos marcados con data-win (programas o archivos
-  // abiertos dentro de la ficción); el resto conserva su diseño de página.
-
   // terminales: la cabecera verde pasa a la barra de título
-  document.querySelectorAll('.term[data-win]').forEach(function (t) {
+  document.querySelectorAll('.term').forEach(function (t) {
     if (skip(t)) return;
     var hdr = t.querySelector('.hdr');
     var title = hdr ? clean(hdr.textContent) : 'ATLAS-NET — Terminal';
@@ -400,13 +377,13 @@
   });
 
   // tablas de datos
-  document.querySelectorAll('.tscroll[data-win]').forEach(function (t) {
+  document.querySelectorAll('.tscroll').forEach(function (t) {
     if (skip(t)) return;
     wrap(t, t.getAttribute('data-win') || 'ATLAS-NET — Registro', t.getAttribute('data-win-ico') || 'table');
   });
 
   // recuadros y fichas: el h4 pasa a ser el título
-  document.querySelectorAll('.box[data-win], .ficha[data-win]').forEach(function (b) {
+  document.querySelectorAll('.box, .ficha').forEach(function (b) {
     if (skip(b)) return;
     var h = b.querySelector(':scope > h4');
     var title = b.getAttribute('data-win') || (h ? clean(h.textContent) : 'ATLAS-NET — Aviso');
@@ -426,12 +403,43 @@
     wrap(f, name + ' — Visor ATLAS', 'image', { cls: 'inline' });
   });
 
-  // la ✕ del anuncio del inicio: el único botón de ventana que no obedece, a propósito
+  // imagen rota: diálogo de error
+  document.querySelectorAll('.broken').forEach(function (b) {
+    if (skip(b)) return;
+    var m = /[\w-]+\.(gif|jpe?g|png)/i.exec(b.textContent);
+    var file = m ? m[0] : 'imagen';
+    var x = b.querySelector('b');
+    if (x && /\[x\]/i.test(x.textContent)) x.remove();
+    inPlace(b, file + ' — Error', 'error');
+    var body = b.querySelector('.win-body');
+    var txt = document.createElement('span');
+    while (body.firstChild) txt.appendChild(body.firstChild);
+    body.innerHTML = '<span class="ico" data-ico="error" data-size="32"></span>';
+    body.appendChild(txt);
+    var ok = document.createElement('span');
+    ok.className = 'btn';
+    ok.textContent = 'Aceptar';
+    ok.addEventListener('click', function () {
+      toast('404 — ' + file.toUpperCase() + ' NO SE ENCUENTRA EN ESTE TERMINAL');
+    });
+    body.appendChild(ok);
+  });
+
+  // botones de título de ventanas del sistema: no obedecen
+  var NOPE = {
+    min: 'NO SE PUEDE MINIMIZAR — VENTANA DEL SISTEMA ATLAS-NET',
+    max: 'ESTA VENTANA YA ESTÁ EN SU TAMAÑO AUTORIZADO',
+    x: 'ESTA VENTANA NO PUEDE CERRARSE DESDE ESTE TERMINAL'
+  };
   document.addEventListener('click', function (e) {
-    var btn = e.target.closest('.ad .win-btns [data-b]');
-    if (!btn) return;
-    toast('ESTE ANUNCIO NO PUEDE CERRARSE. POSTÚLESE.');
-    var w = btn.closest('.ad');
+    var btn = e.target.closest('.win-btns [data-b]');
+    if (!btn || btn.closest('.nag, #felicidades')) return;
+    var w = btn.closest('.win') || btn.closest('#doc');
+    if (btn.closest('.ad') && btn.getAttribute('data-b') === 'x') {
+      toast('ESTE ANUNCIO NO PUEDE CERRARSE. POSTÚLESE.');
+    } else {
+      toast(NOPE[btn.getAttribute('data-b')]);
+    }
     if (w && !reduce) {
       w.classList.remove('nope');
       void w.offsetWidth;
@@ -546,10 +554,9 @@
         override de prueba: ?avisos=rapido
      -------------------------------------------------------- */
   var fast = /[?&]avisos=rapido/.test(location.search);
-  var FIRST = fast ? 3000 : 25000;   // primer aviso (desde que se abre la página)
-  var EVERY = fast ? 8000 : 70000;   // pausa después de cerrar uno
+  var FIRST = fast ? 3000 : 18000;   // primer aviso
+  var EVERY = fast ? 8000 : 45000;   // pausa después de cerrar uno
   var RETRY = 4000;                  // si no es buen momento, reintentar
-  var MAX_NAGS = 1;                  // en toda la sesión: la voz de A.R. manda
 
   var NAGS = [
     { t: '¿TODAVÍA NO SE HA POSTULADO?', p: 'Quedan <b>dos plazas</b> en la Misión HELIOS-1. El Sol no va a esperar a que termine de leer.', no: 'Seguir leyendo' },
@@ -566,12 +573,13 @@
   var taskAlert = null;
 
   function nagOpen() { return open.length > 0; }
-  function applied() { return !!(A.store && A.store.get('applied', '')); }
-  function nagsShown() { return A.store ? A.store.get('nags', 0) : shownCount; }
+  function applied() {
+    try { return !!sessionStorage.getItem('atlas_applied'); } catch (e) { return false; }
+  }
   function badMoment() {
     var ae = document.activeElement;
     var modal = document.getElementById('modal');
-    return document.hidden || nagOpen() || adOnScreen() || (A.busy && A.busy()) ||
+    return document.hidden || nagOpen() || adOnScreen() ||
       (modal && modal.classList.contains('on')) || !menu.hidden ||
       (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName));
   }
@@ -580,9 +588,7 @@
     timer = setTimeout(tryShow, ms);
   }
   function tryShow() {
-    if (applied() || nagsShown() >= MAX_NAGS) return;
-    if (!(A.started && A.started())) return;      // se reprograma al acceder (atlas:start)
-    if (A.nagsOff && A.nagsOff()) return;          // A.R. ya tomó el canal de avisos
+    if (applied()) return;
     if (badMoment()) return schedule(RETRY);
     showNags();
   }
@@ -632,11 +638,9 @@
   }
 
   function showNags() {
-    shownCount = nagsShown();
     var msg = NAGS[shownCount % NAGS.length];
-    var count = Math.min(1 + shownCount * 2, 5);
+    var count = Math.min(1 + shownCount, 5);
     shownCount++;
-    if (A.store) A.store.set('nags', shownCount);
     var els = [];
     for (var i = 0; i < count; i++) els.push(nagEl(msg, i === count - 1));
     // se agregan todos invisibles para poder medir y ubicar
@@ -672,11 +676,8 @@
     if (taskAlert) { taskAlert.remove(); taskAlert = null; }
     schedule(EVERY);
   }
-  A.closeNags = function () { if (nagOpen()) closeNags(); };
-  A.nagOpen = nagOpen;
 
   // arrastrar la ventana por su barra de título
-  A.drag = function (w) { drag(w); };
   function drag(win) {
     var t = win.querySelector('.win-title');
     var sx, sy, ox, oy, on = false;
@@ -703,10 +704,7 @@
   });
 
   // no hay avisos en la página del formulario ni después de postularse
-  if (!document.getElementById('solicitud') && !applied()) {
-    schedule(FIRST);
-    document.addEventListener('atlas:start', function () { schedule(FIRST); });
-  }
+  if (!document.getElementById('solicitud') && !applied()) schedule(FIRST);
 
   fillIcons(document);
 })();

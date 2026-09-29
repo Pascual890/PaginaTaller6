@@ -4,7 +4,6 @@
    Egg 2  celdas redactadas (selección revela)     documentos.html
    Egg 3  acceso denegado + contador de intentos   documentos / archivo / todas (contador)
    Egg 4  censura activa (flash grupal + long-press) footer + acerca + mision
-   Egg 1 y Egg 2 suman hallazgos al expediente de A.R. (recorrido.js)
    Egg 5  ojos en el mapa del sitio (canvas)       footer
    Estado compartido entre páginas: sessionStorage (muere al cerrar la pestaña).
    ============================================================ */
@@ -15,9 +14,16 @@
   var reduce = (typeof A.reduce === 'boolean') ? A.reduce : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var toast = A.toast || function (m) { console.log(m); };
 
-  /* estado compartido (site.js) + hallazgos del expediente (recorrido.js) */
-  var store = A.store;
-  var hallazgo = A.hallazgo || function () {};
+  /* estado compartido ---------------------------------------- */
+  var store = {
+    get: function (k, d) {
+      try { var v = sessionStorage.getItem('atlas_' + k); return v === null ? d : JSON.parse(v); }
+      catch (e) { return d; }
+    },
+    set: function (k, v) {
+      try { sessionStorage.setItem('atlas_' + k, JSON.stringify(v)); } catch (e) {}
+    }
+  };
 
   /* long-press genérico con Pointer Events ---------------------
      opts: { ms, onStart, onCancel, onComplete, debounce }
@@ -71,7 +77,6 @@
       el.classList.add('revealed');
       el.setAttribute('aria-expanded', 'true');
       store.set('egg1', true);
-      hallazgo('h1982');
     }
 
     if (reduce) {
@@ -105,25 +110,33 @@
 
   /* ==========================================================
      EGG 2 — celdas redactadas: ::selection hace el trabajo.
-     JS sólo para registrar el hallazgo en el expediente. La pista
-     no está en la página: la da A.R. (recorrido.js).
+     JS sólo para registrar el "hallazgo". Sin explicaciones en pantalla.
      ========================================================== */
   (function egg2() {
     var cells = document.querySelectorAll('.redacted-cell');
     if (!cells.length) return;
 
+    var found = store.get('egg2found', []);
     function check() {
       var sel = window.getSelection();
       if (!sel || !sel.toString().trim()) return;
-      // cuenta toda celda que la selección toque, aunque el arrastre
-      // empiece un poco fuera de la barra negra
-      cells.forEach(function (cell) {
-        if (!sel.containsNode(cell, true)) return;
-        if (hallazgo(cell.getAttribute('data-id'))) cell.classList.add('found');
-      });
+      var node = sel.anchorNode;
+      if (!node) return;
+      var cell = (node.nodeType === 3 ? node.parentElement : node).closest('.redacted-cell');
+      if (!cell) return;
+      var id = cell.getAttribute('data-id') || cell.textContent;
+      if (found.indexOf(id) === -1) {
+        found.push(id);
+        store.set('egg2found', found);
+        toast('HALLAZGO REGISTRADO — ' + found.length + ' DE ' + cells.length, { ok: true });
+        if (found.length === cells.length) {
+          setTimeout(function () {
+            toast('ÍNDICE COMPLETO. EL CUSTODIO HA SIDO NOTIFICADO.', { shake: true, ms: 4000 });
+          }, 2800);
+        }
+      }
     }
-    // al soltar la selección ya está completa: se revisa en el acto (y otra vez por si acaso)
-    document.addEventListener('mouseup', function () { check(); setTimeout(check, 10); });
+    document.addEventListener('mouseup', function () { setTimeout(check, 10); });
     document.addEventListener('touchend', function () { setTimeout(check, 250); });
     document.addEventListener('selectionchange', function () {
       // en móvil la selección se ajusta con asas después del touchend
@@ -225,7 +238,7 @@
       schedule();
     }
     function schedule() {
-      setTimeout(flash, 25000 + Math.random() * 5000);   // cada 25–30 s
+      setTimeout(flash, 17000 + (Math.random() * 4000 - 2000));
     }
     schedule();
   })();

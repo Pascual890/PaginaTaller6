@@ -15,34 +15,6 @@
   document.documentElement.classList.add(reduce ? 'motion-reduce' : 'motion-full');
 
   /* --------------------------------------------------------
-     estado compartido entre páginas (sessionStorage, muere al cerrar
-     la pestaña). prefijo propio para no mezclarse con /v1/.
-     ?reset borra la sesión: sirve entre participantes.
-     -------------------------------------------------------- */
-  var PFX = 'atlas2_';
-  var store = window.ATLAS.store = {
-    get: function (k, d) {
-      try { var v = sessionStorage.getItem(PFX + k); return v === null ? d : JSON.parse(v); }
-      catch (e) { return d; }
-    },
-    set: function (k, v) {
-      try { sessionStorage.setItem(PFX + k, JSON.stringify(v)); } catch (e) {}
-    },
-    clear: function () {
-      try {
-        Object.keys(sessionStorage).forEach(function (k) {
-          if (k.indexOf(PFX) === 0) sessionStorage.removeItem(k);
-        });
-      } catch (e) {}
-    }
-  };
-  if (/[?&]reset\b/.test(location.search)) {
-    store.clear();
-    var q = location.search.replace(/([?&])reset\b[^&]*&?/, '$1').replace(/[?&]$/, '');
-    history.replaceState(null, '', location.pathname + q + location.hash);
-  }
-
-  /* --------------------------------------------------------
      0. utilidades compartidas: toast y modal
      -------------------------------------------------------- */
   var toastEl = document.getElementById('toast');
@@ -174,10 +146,14 @@
      -------------------------------------------------------- */
   var c = document.getElementById('counter');
   if (c) {
-    var n = store.get('visits', 4783);
+    var n = 4783;
+    try {
+      var saved = parseInt(sessionStorage.getItem('atlas_visits'), 10);
+      if (saved) n = saved;
+    } catch (e) {}
     function paintCounter() {
       c.textContent = ('00000000' + n).slice(-8);
-      store.set('visits', n);
+      try { sessionStorage.setItem('atlas_visits', n); } catch (e) {}
     }
     n += 1;
     paintCounter();
@@ -271,19 +247,23 @@
       var problems = [];
       var pair = isPair();
       var nombre = form.nombre.value.trim();
+      var contacto = form.contacto.value.trim();
       var nombre2 = form.nombre2.value.trim();
+      var contacto2 = form.contacto2.value.trim();
       var puesto = checked('puesto');
       var puesto2 = checked('puesto2');
       if (!nombre) problems.push(pair ? 'NOMBRE (POSTULANTE 1)' : 'NOMBRE COMPLETO');
+      if (!contacto) problems.push(pair ? 'DIRECCIÓN (POSTULANTE 1)' : 'DIRECCIÓN DE CONTACTO');
       if (!checked('modalidad')) problems.push('MODALIDAD');
       if (!puesto) problems.push(pair ? 'PUESTO (POSTULANTE 1)' : 'PUESTO');
       if (pair) {
         if (!nombre2) problems.push('NOMBRE (POSTULANTE 2)');
+        if (!contacto2) problems.push('DIRECCIÓN (POSTULANTE 2)');
         if (!puesto2) problems.push('PUESTO (POSTULANTE 2)');
         else if (puesto2 === puesto) problems.push('PUESTOS DUPLICADOS');
       }
       if (!checked('sueno') || !checked('sonido')) problems.push('EVALUACIÓN PERCEPTIVA');
-      if (!form.acuerdo.checked) problems.push('DECLARACIÓN');
+      if (!form.disp.checked || !form.nda.checked) problems.push('DECLARACIONES');
       checkRol();
       if (problems.length) {
         err.textContent = 'ERROR — CAMPOS INCOMPLETOS O INVÁLIDOS: ' + problems.join(' / ');
@@ -291,14 +271,6 @@
         err.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
         return;
       }
-      err.classList.remove('show');
-      // antes de enviar, A.R. interrumpe con el acta (recorrido.js); después se envía igual
-      var seguir = function () { enviar(pair, nombre, nombre2, puesto, puesto2); };
-      if (window.ATLAS.interrumpir) window.ATLAS.interrumpir(seguir);
-      else seguir();
-    });
-
-    function enviar(pair, nombre, nombre2, puesto, puesto2) {
       var ref = 'HELIOS-1/83-' + (pair ? 'PAR' : puesto) + '-' + String(Math.floor(1000 + Math.random() * 9000));
       var datos = pair
         ? "MODALIDAD ....................... EN PAREJA<br>" +
@@ -328,7 +300,7 @@
         "<span class='warn'>NOTA: el número de plazas restantes se ha actualizado.</span><br><br>" +
         "&gt; <a href='index.html'>volver al inicio</a> &nbsp;·&nbsp; <a href='mision.html'>leer el resumen de misión</a>" +
         "<br>&gt;&nbsp;<span class='cur'>&nbsp;</span>";
-      store.set('applied', ref);
+      try { sessionStorage.setItem('atlas_applied', ref); } catch (e) {}
 
       // primero la carga; al terminar, el acuse de recibo y la felicitación
       var load = loading(pair);
@@ -346,13 +318,13 @@
             : [{ n: nombre, r: puesto }]
         });
       });
-    }
+    });
   }
 
   /* --------------------------------------------------------
-     6b. carga de la postulación: ~3 s, con pasos y un 99% que se atasca
+     6b. carga de la postulación: ~8 s, con pasos y un 99% que se atasca
      -------------------------------------------------------- */
-  var CARGA_MS = 3000;
+  var CARGA_MS = 8000;
 
   function ico(name, size) {
     return window.ATLAS.icon ? window.ATLAS.icon(name, size) : '';
@@ -378,7 +350,7 @@
   function runLoading(el, pair, done) {
     var steps = [
       [0, 'Verificando datos personales…'],
-      [0.18, 'Calculando el Índice de Perturbación…'],
+      [0.18, 'Cotejando con el Índice de Perturbación de la entrevista…'],
       [0.38, pair ? 'Evaluando compatibilidad de la pareja…' : 'Buscando un interno disponible para el puesto restante…'],
       [0.58, 'Transmitiendo al Comité de Continuidad…'],
       [0.74, 'Esperando respuesta del Comité…'],
@@ -421,19 +393,6 @@
     AST: { t: 'ASTRONAUTA', d: 'Plataforma de embarque de la sonda ATLAS-H' },
     OPT: { t: 'OPERADOR EN TIERRA', d: 'Consola principal de la Central de Comando' }
   };
-
-  // el memorando sabe lo que el postulante leyó en este terminal
-  function registro(pair) {
-    var txt = '';
-    if (store.get('archivo', false)) {
-      txt = 'Consta en el registro de este terminal que ' + (pair ? 'accedieron' : 'accedió') +
-        ' a /archive/ con una credencial ajena. Esto no altera su selección.';
-    } else if (store.get('acta', false)) {
-      txt = 'Consta en el registro de este terminal la lectura de un documento reservado. ' +
-        'Esto no altera su selección.';
-    }
-    return txt ? '<p class="nt-reg">' + txt + '</p>' : '';
-  }
 
   function showSelected(d) {
     var e = function (t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
@@ -486,7 +445,6 @@
             '<li>La selección es definitiva y no admite renuncia.</li>' +
             '<li><span class="nt-bar">████████ ███ ███████</span> <span class="nt-bar">██ ███████ ████</span>.</li>' +
           '</ol>' +
-          registro(d.pair) +
           '<div class="nt-sign">' +
             '<svg viewBox="0 0 160 40" aria-hidden="true"><path d="M6 30 C18 6 26 34 36 20 S52 8 58 24 C62 34 70 10 82 18 C90 24 96 28 108 14 C114 8 120 30 132 22 L154 16" fill="none" stroke="#1f2a5c" stroke-width="1.6" stroke-linecap="round"/></svg>' +
             '<span>Por orden del Comité de Continuidad</span>' +
@@ -499,11 +457,8 @@
     document.body.appendChild(box);
 
     function close() {
-      if (!box.parentNode) return;
       box.remove();
       document.removeEventListener('keydown', onKey);
-      // recorrido.js: último mensaje de A.R.
-      document.dispatchEvent(new CustomEvent('atlas:comunicado', { detail: { pair: d.pair } }));
     }
     function onKey(ev) { if (ev.key === 'Escape') close(); }
     document.addEventListener('keydown', onKey);
@@ -524,8 +479,10 @@
     return 12480 + Math.floor((Date.now() - T0) / 45000);   // una persona cada 45 s
   }
   var inscritos = inscritosBase();
-  var guardado = store.get('inscritos', 0);
-  if (guardado > inscritos) inscritos = guardado;
+  try {
+    var guardado = parseInt(sessionStorage.getItem('atlas_inscritos'), 10);
+    if (guardado > inscritos) inscritos = guardado;
+  } catch (e) {}
   window.ATLAS.inscritos = function () { return inscritos; };
 
   var insEls = document.querySelectorAll('[data-inscritos]');
@@ -541,7 +498,7 @@
           up.classList.add('on');
         }
       });
-      store.set('inscritos', inscritos);
+      try { sessionStorage.setItem('atlas_inscritos', inscritos); } catch (e) {}
     };
     paintIns(0);
     if (!reduce) {

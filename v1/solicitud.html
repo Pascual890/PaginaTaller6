@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atlas Corporation — Formulario de postulación — Misión HELIOS-1</title>
-<link rel="stylesheet" href="css/style.css?v=7">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div id="glass"></div>
@@ -44,7 +44,8 @@
   <div id="nav">
     [ <a href="index.html">Inicio</a> |
       <a href="acerca.html">Acerca&nbsp;de</a> |
-      <a href="mision.html">Misión&nbsp;y&nbsp;puestos</a> |
+      <a href="mision.html">Misión&nbsp;HELIOS-1</a> |
+      <a href="puestos.html">Puestos</a> |
       <a href="documentos.html">Documentos</a> |
       <a href="solicitud.html">Postulación</a> |
       <a href="archivo.html" class="seen">Archivo</a> ]
@@ -53,8 +54,11 @@
   <!-- ===================== ANUNCIOS ===================== -->
   <div id="announce"><span>
     <span class="new">*** NUEVO ***</span>
-    &nbsp; CONVOCATORIA PÚBLICA ABIERTA — DOS (2) PUESTOS: ASTRONAUTA / OPERADOR EN TIERRA &nbsp;&nbsp; ///
-    &nbsp; ALINEACIÓN LUNAR CONFIRMADA — VENTANA DE LANZAMIENTO RESERVADA &nbsp;&nbsp; ///
+    &nbsp; CONVOCATORIA PÚBLICA ABIERTA — DOS (2) PUESTOS: ASTRONAUTA / OPERADOR EN TIERRA —
+    CIERRE DE POSTULACIONES PRÓXIMO — CONSULTE PUESTOS PARA MÁS DETALLES &nbsp;&nbsp; ///
+    &nbsp; AVISO: LA ENTREVISTA DE EVALUACIÓN (PROTOCOLO DE INVESTIGACIÓN — APAGÓN) ES OBLIGATORIA
+    ANTES DE POSTULARSE. LOS RESULTADOS SON PROCESADOS POR EL EQUIPO TÉCNICO. &nbsp;&nbsp; ///
+    &nbsp; ALINEACIÓN LUNAR CONFIRMADA — VENTANA DE LANZAMIENTO HELIOS-1 RESERVADA &nbsp;&nbsp; ///
   </span></div>
 
   <div class="pageid">Atlas Corporation · Formulario de postulación · REF: FORM-H1-CONV-1983</div>
@@ -64,17 +68,31 @@
   <h2>Postulación Misión HELIOS-1</h2>
   <p>
     Use este formulario para postularse a la Misión HELIOS-1, Convocatoria Pública 1983.
-    Complete todos los campos requeridos (*).
+    Complete todos los campos requeridos (*). Toda la información es confidencial y está
+    sujeta al Acuerdo de No Divulgación de Atlas Corporation.
   </p>
+
+  <div class="box">
+    <h4>Instrucciones</h4>
+    <p><small>
+      Complete todos los campos requeridos. Al enviar este formulario, el postulante consiente
+      ser considerado para participación y autoriza a Atlas Corporation a verificar la
+      información proporcionada. El puesto elegido determinará su posición durante la misión.
+    </small></p>
+  </div>
 
   <form id="solicitud" novalidate>
     <!-- los números [0n] de cada sección los pone site.js según las secciones visibles -->
     <fieldset>
       <legend data-t="INFORMACIÓN PERSONAL" data-tp="INFORMACIÓN PERSONAL — POSTULANTE 1">[01] INFORMACIÓN PERSONAL</legend>
       <div class="fgrid">
-        <div class="field full">
+        <div class="field">
           <label class="lbl" for="nombre">Nombre completo *</label>
-          <input type="text" id="nombre" name="nombre" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off" style="max-width:420px">
+          <input type="text" id="nombre" name="nombre" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="lbl" for="contacto">Dirección de contacto *</label>
+          <input type="text" id="contacto" name="contacto" placeholder="DIRECCIÓN POSTAL O TERMINAL" autocomplete="off">
         </div>
       </div>
     </fieldset>
@@ -98,7 +116,7 @@
 
     <fieldset>
       <legend data-t="SELECCIÓN DE PUESTO" data-tp="SELECCIÓN DE PUESTO — POSTULANTE 1">[03] SELECCIÓN DE PUESTO</legend>
-      <label class="lbl"><span data-pl="Puesto del postulante 1 *">Puesto solicitado *</span> (ver <a href="mision.html#puestos">Misión y puestos</a>)</label>
+      <label class="lbl"><span data-pl="Puesto del postulante 1 *">Puesto solicitado *</span> (ver <a href="puestos.html">página de puestos</a> para descripciones completas)</label>
       <div class="fgrid">
         <label class="poscard">
           <input type="radio" name="puesto" value="AST">
@@ -116,9 +134,13 @@
     <fieldset id="p2" hidden>
       <legend data-t="SEGUNDO POSTULANTE">[04] SEGUNDO POSTULANTE</legend>
       <div class="fgrid">
-        <div class="field full">
+        <div class="field">
           <label class="lbl" for="nombre2">Nombre completo del segundo postulante *</label>
-          <input type="text" id="nombre2" name="nombre2" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off" style="max-width:420px">
+          <input type="text" id="nombre2" name="nombre2" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off">
+        </div>
+        <div class="field">
+          <label class="lbl" for="contacto2">Dirección de contacto del segundo postulante *</label>
+          <input type="text" id="contacto2" name="contacto2" placeholder="DIRECCIÓN POSTAL O TERMINAL" autocomplete="off">
         </div>
       </div>
       <label class="lbl" style="display:block;margin-top:12px">Puesto del postulante 2 * (debe ser distinto al del postulante 1)</label>
@@ -150,15 +172,21 @@
         <label><input type="radio" name="sonido" value="si"> Sí</label>
         <label><input type="radio" name="sonido" value="cual"> ¿Qué sonido?</label>
       </div>
-      <p><small><span data-pl="Con estas respuestas se calcula el Índice de Perturbación de ambos postulantes. No hay respuestas correctas.">Con estas respuestas se calcula su Índice de Perturbación. No hay respuestas correctas.</span></small></p>
+      <p><small><span data-pl="Las respuestas de esta sección se cotejan con el Índice de Perturbación de las entrevistas de evaluación de ambos postulantes. No hay respuestas correctas.">Las respuestas de esta sección se cotejan con el Índice de Perturbación de su entrevista de evaluación. No hay respuestas correctas.</span></small></p>
     </fieldset>
 
     <fieldset>
-      <legend data-t="DECLARACIÓN" data-tp="DECLARACIÓN CONJUNTA">[06] DECLARACIÓN</legend>
+      <legend data-t="DECLARACIÓN Y ACUERDOS" data-tp="DECLARACIÓN CONJUNTA Y ACUERDOS">[06] DECLARACIÓN Y ACUERDOS</legend>
       <label class="agree">
-        <input type="checkbox" name="acuerdo">
-        <span><span data-pl="Confirmamos nuestra disponibilidad durante toda la misión y aceptamos el Acuerdo de No Divulgación de Atlas Corporation, incluidas las cláusulas marcadas como [Uso interno].">Confirmo mi disponibilidad durante toda la misión y acepto el Acuerdo de No Divulgación
-        de Atlas Corporation, incluidas las cláusulas marcadas como [Uso interno].</span> <small>*</small></span>
+        <input type="checkbox" name="disp">
+        <span><span data-pl="Confirmamos que estaremos disponibles durante todo el período de la misión y aceptamos que la duración exacta puede modificarse sin previo aviso.">Confirmo que estaré disponible durante todo el período de la misión y acepto que la
+        duración exacta puede modificarse sin previo aviso.</span> <small>* Requerido para la postulación.</small></span>
+      </label>
+      <label class="agree">
+        <input type="checkbox" name="nda">
+        <span><span data-pl="Hemos leído y aceptamos los Términos de Participación y el Acuerdo de No Divulgación de Atlas Corporation, incluidas todas las cláusulas marcadas como [Uso interno].">He leído y acepto los Términos de Participación y el Acuerdo de No Divulgación de
+        Atlas Corporation, incluidas todas las cláusulas marcadas como [Uso interno].</span>
+        <small>* El NDA completo se proporcionará en la sesión informativa de misión.</small></span>
       </label>
     </fieldset>
 
@@ -170,17 +198,6 @@
     </small></p>
     <p><button type="submit" class="btn primary">ENVIAR POSTULACIÓN</button></p>
   </form>
-
-  <!-- A.R. la muestra al apretar "Enviar" (js/recorrido.js). La misma acta está en archivo.html -->
-  <template id="acta-tpl">
-    <div class="acta-hdr">/archive/acta_comite_1983-03-28.txt — ACTA RESERVADA</div>
-    <p>COMITÉ DE CONTINUIDAD — SESIÓN 14 — 1983-03-28</p>
-    <p>1. Hipótesis de intervención solar: <span class="warn">SIN VERIFICAR</span>. La onda nunca ha sido emitida fuera de simulación.</p>
-    <p>2. Pregunta de la Dirección: ¿qué ocurre si el fenómeno <i>responde</i> a la onda?<br>
-      &nbsp;&nbsp;&nbsp;Respuesta del equipo técnico: <span class="bad">NO DETERMINABLE</span>.</p>
-    <p>3. Personal propio consultado para la misión: 38. Aceptan: <span class="bad">0</span>.</p>
-    <p>4. Se acuerda no informar a los participantes de los puntos 1 a 3.</p>
-  </template>
 
   </div><!-- /pad -->
 
@@ -201,7 +218,8 @@
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="acerca.html">Acerca de</a></li>
-          <li><a href="mision.html">Misión y puestos</a></li>
+          <li><a href="mision.html">Misión HELIOS-1</a></li>
+          <li><a href="puestos.html">Puestos</a></li>
           <li><a href="documentos.html">Documentos</a></li>
           <li><a href="solicitud.html">Postulación</a></li>
           <li><a href="archivo.html">Archivo</a></li>
@@ -238,9 +256,8 @@
 
 <div id="toast" role="status"></div>
 
-<script src="js/site.js?v=7"></script>
-<script src="js/win.js?v=7"></script>
-<script src="js/recorrido.js?v=7"></script>
-<script src="js/eggs.js?v=7"></script>
+<script src="js/site.js"></script>
+<script src="js/win.js"></script>
+<script src="js/eggs.js"></script>
 </body>
 </html>
