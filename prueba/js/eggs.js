@@ -2,7 +2,7 @@
    ATLAS — EASTER EGGS
    Egg 1  bloque 1982 (long-press revela)          acerca.html
    Egg 2  celdas redactadas (selección revela)     documentos.html
-   Egg 3  acceso denegado + contador de intentos   documentos / todas (contador)
+   Egg 3  acceso denegado + contador de intentos   documentos / archivo / todas (contador)
    Egg 4  censura activa (flash grupal + long-press) footer + acerca + mision
    Egg 1 y Egg 2 suman hallazgos al expediente de A.R. (recorrido.js)
    Egg 5  ojos en el mapa del sitio (canvas)       footer

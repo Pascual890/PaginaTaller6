@@ -16,10 +16,10 @@
 
   /* --------------------------------------------------------
      estado compartido entre páginas (sessionStorage, muere al cerrar
-     la pestaña). prefijo propio para no mezclarse con /v1/.
+     la pestaña). prefijo propio (copia /prueba/) para no mezclarse con la raíz ni con /v1/.
      ?reset borra la sesión: sirve entre participantes.
      -------------------------------------------------------- */
-  var PFX = 'atlas2_';
+  var PFX = 'atlasp_';
   var store = window.ATLAS.store = {
     get: function (k, d) {
       try { var v = sessionStorage.getItem(PFX + k); return v === null ? d : JSON.parse(v); }
@@ -85,14 +85,22 @@
   var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   document.querySelectorAll('#nav a').forEach(function (a) {
     var target = (a.getAttribute('href') || '').toLowerCase();
-    if (target === here) {
-      a.classList.add('here');
-      a.setAttribute('aria-current', 'page');
-    }
+    if (target === here) a.classList.add('here');
   });
 
   /* --------------------------------------------------------
-     2. enlaces muertos: los PDF abiertos y los documentos legales
+     2. toggle EN: no funcional. el espejo en inglés no existe.
+     -------------------------------------------------------- */
+  var lang = document.getElementById('lang');
+  if (lang) {
+    lang.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.ATLAS.toast('ESPEJO EN INGLÉS NO DISPONIBLE — ÚLTIMA SINCRONIZACIÓN 1983-04-11');
+    });
+  }
+
+  /* --------------------------------------------------------
+     2b. enlaces muertos: los PDF abiertos y los documentos legales
          no están en este terminal. Nunca lo estuvieron.
      -------------------------------------------------------- */
   document.querySelectorAll('a.dead').forEach(function (a) {
@@ -266,8 +274,8 @@
       var nombre2 = form.nombre2.value.trim();
       var puesto = checked('puesto');
       var puesto2 = checked('puesto2');
-      if (!checked('modalidad')) problems.push('MODALIDAD');
       if (!nombre) problems.push(pair ? 'NOMBRE (POSTULANTE 1)' : 'NOMBRE COMPLETO');
+      if (!checked('modalidad')) problems.push('MODALIDAD');
       if (!puesto) problems.push(pair ? 'PUESTO (POSTULANTE 1)' : 'PUESTO');
       if (pair) {
         if (!nombre2) problems.push('NOMBRE (POSTULANTE 2)');
@@ -476,6 +484,7 @@
             '<li>No se requieren efectos personales.</li>' +
             '<li>No comente' + pl('', 'n') + ' esta notificación con terceros.</li>' +
             '<li>La selección es definitiva y no admite renuncia.</li>' +
+            '<li><span class="nt-bar">████████ ███ ███████</span> <span class="nt-bar">██ ███████ ████</span>.</li>' +
           '</ol>' +
           registro(d.pair) +
           '<div class="nt-sign">' +
@@ -507,30 +516,43 @@
   }
 
   /* --------------------------------------------------------
-     7. personas inscritas (el memorando dice "de entre N postulantes"):
-        crece con el tiempo real, una persona cada 45 s.
+     7. personas inscritas: crece con el tiempo real y en vivo.
+        nunca retrocede (sessionStorage guarda el máximo mostrado).
      -------------------------------------------------------- */
   var T0 = Date.UTC(2026, 8, 1);
-  window.ATLAS.inscritos = function () {
-    return 12480 + Math.floor((Date.now() - T0) / 45000);
-  };
+  function inscritosBase() {
+    return 12480 + Math.floor((Date.now() - T0) / 45000);   // una persona cada 45 s
+  }
+  var inscritos = inscritosBase();
+  var guardado = store.get('inscritos', 0);
+  if (guardado > inscritos) inscritos = guardado;
+  window.ATLAS.inscritos = function () { return inscritos; };
 
-  /* --------------------------------------------------------
-     8. fotos del inicio: si el archivo todavía no está en la
-        carpeta, se ve como imagen rota, con el nombre que falta.
-     -------------------------------------------------------- */
-  document.querySelectorAll('.foto img').forEach(function (img) {
-    function falta() {
-      if (img.hidden) return;
-      var ph = document.createElement('span');
-      ph.className = 'broken';
-      ph.innerHTML = '<b>IMAGEN NO DISPONIBLE</b><code></code>';
-      ph.querySelector('code').textContent = img.getAttribute('src');
-      img.hidden = true;
-      img.parentNode.insertBefore(ph, img);
+  var insEls = document.querySelectorAll('[data-inscritos]');
+  if (insEls.length) {
+    var paintIns = function (plus) {
+      insEls.forEach(function (el) {
+        el.querySelector('.odo').textContent = ('0000000' + inscritos).slice(-7);
+        var up = el.querySelector('.up');
+        if (plus && up) {
+          up.textContent = '▲ +' + plus;
+          up.classList.remove('on');
+          void up.offsetWidth;
+          up.classList.add('on');
+        }
+      });
+      store.set('inscritos', inscritos);
+    };
+    paintIns(0);
+    if (!reduce) {
+      (function next() {
+        setTimeout(function () {
+          var plus = Math.random() < 0.75 ? 1 : 2 + Math.floor(Math.random() * 3);
+          inscritos += plus;
+          paintIns(plus);
+          next();
+        }, 2200 + Math.random() * 3300);
+      })();
     }
-    // el error pudo ocurrir antes de que corriera este script
-    if (img.complete && !img.naturalWidth) falta();
-    else img.addEventListener('error', falta);
-  });
+  }
 })();

@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atlas Corporation — Misión HELIOS-1 y puestos</title>
-<link rel="stylesheet" href="css/style.css?v=15">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 <div id="glass"></div>
@@ -34,6 +34,7 @@
       <path d="M50 8 L50 18 M50 82 L50 92 M8 50 L18 50 M82 50 L92 50 M20 20 L27 27 M80 80 L73 73 M80 20 L73 27 M20 80 L27 73"
             stroke="#6a6558" stroke-width="1"/>
     </svg>
+    <a id="lang" href="#" title="Versión en inglés"><b>EN</b>English</a>
     <h1 id="wordmark"><a href="index.html">ATLAS</a></h1>
     <p id="expand">INVESTIGACIÓN Y EXPLORACIÓN ESPACIAL</p>
     <p id="sub">Comité de Continuidad &nbsp;·&nbsp; Sistema de Información Pública ATLAS-NET</p>
@@ -41,10 +42,12 @@
 
   <!-- ===================== NAV ===================== -->
   <div id="nav">
-    <a href="index.html">Inicio</a>
-    <a href="mision.html">Misión y puestos</a>
-    <a href="documentos.html">Documentos</a>
-    <a href="solicitud.html">Postulación</a>
+    [ <a href="index.html">Inicio</a> |
+      <a href="acerca.html">Acerca&nbsp;de</a> |
+      <a href="mision.html">Misión&nbsp;y&nbsp;puestos</a> |
+      <a href="documentos.html">Documentos</a> |
+      <a href="solicitud.html">Postulación</a> |
+      <a href="archivo.html" class="seen">Archivo</a> ]
   </div>
 
   <!-- ===================== ANUNCIOS ===================== -->
@@ -58,72 +61,102 @@
 
   <div class="pad">
 
-  <h2>Misión HELIOS-1</h2>
-  <p>Lo esencial antes de postularse.</p>
+  <h2>Misión HELIOS-1 y puestos disponibles</h2>
 
-  <ul class="brief">
-    <li>
-      <span class="ico" data-ico="sun" data-size="32"></span>
-      <b>QUÉ</b>
-      <span>Enviar una onda hacia el Sol para detener el fenómeno que causó el Apagón.</span>
-    </li>
-    <li>
-      <span class="ico" data-ico="moon" data-size="32"></span>
-      <b>CUÁNDO</b>
-      <span>Durante la próxima alineación lunar. Fecha: <span class="cens" data-real="1983-08-13">[RESERVADA]</span></span>
-    </li>
-    <li>
-      <span class="ico" data-ico="people" data-size="32"></span>
-      <b>QUIÉNES</b>
-      <span>Dos personas, sin experiencia previa. Solo o en pareja.</span>
-    </li>
-  </ul>
-
-  <h3 id="puestos">Los dos puestos</h3>
-  <div class="cols">
-    <div class="pos">
-      <span class="code">PUESTO 01</span>
-      <h3>ASTRONAUTA</h3>
-      <p class="where">A bordo de la sonda ATLAS-H</p>
-      <ul class="dot">
-        <li>Opera la sonda y dispara la onda en el instante de la alineación</li>
-        <li>Describe en voz alta todo lo que ve</li>
-      </ul>
-      <p><small>Si ve algo fuera de lo previsto: descríbalo. No actúe.</small></p>
-    </div>
-    <div class="pos">
-      <span class="code">PUESTO 02</span>
-      <h3>OPERADOR EN TIERRA</h3>
-      <p class="where">Central de Comando</p>
-      <ul class="dot">
-        <li>Ve todos los monitores, también los que el astronauta no ve</li>
-        <li>Guía al astronauta paso a paso</li>
-      </ul>
-      <p><small>La Central de Comando se ubica en <span class="rd" data-r="la Zona 7 del mapa">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>.</small></p>
-    </div>
+  <div class="stats">
+    <div><b>OBJETIVO</b>Intervención solar</div>
+    <div><b>PUESTOS</b>2 — una plaza cada uno</div>
+    <div><b>VENTANA</b><span class="cens" data-real="1983-08-13 — alineación lunar">[RESERVADA]</span></div>
+    <div><b>MODALIDAD</b>Individual / En pareja</div>
+    <div><b>VEHÍCULO</b>Sonda ATLAS-H</div>
+    <div><b>DURACIÓN</b>Variable</div>
   </div>
+
+  <h3>Objetivo de la misión</h3>
+  <p>
+    Los científicos de Atlas sostienen que, aprovechando una alineación específica entre
+    determinados cuerpos celestes y la Luna, es posible enviar una onda hacia el Sol capaz de
+    alterar temporalmente el fenómeno responsable del Apagón. Si la hipótesis se confirma, sus
+    efectos podrían detenerse.
+  </p>
+  <p>
+    La sonda ATLAS-H es controlada por un astronauta desde el espacio. Un operador en Tierra
+    supervisa los datos y guía al astronauta durante cada etapa. Ambos reciben entrenamiento
+    previo en el equipo, los procedimientos de comunicación y los protocolos de seguridad.
+  </p>
 
   <div class="term">
     <div class="hdr">SIMULACIÓN DE MISIÓN HELIOS-1 — CORRIDA 07 — MODELO PREDICTIVO</div>
     <div data-feed="telemetry"></div>
   </div>
 
-  <!-- letra chica: todo lo que no hace falta para postularse. para curiosos. -->
-  <h4 class="chica">Letra chica <small>— opcional</small></h4>
-  <details class="tl">
-    <summary><span class="yr">§ 1</span><span>Requisitos</span><span class="tg"></span></summary>
-    <div class="tx">
+  <div class="box">
+    <h4>Nota administrativa</h4>
+    <p>
+      Los participantes pueden verse expuestos a condiciones fuera del alcance del entrenamiento
+      estándar. Durante toda la misión se monitorean su sueño, su conducta y su percepción, y
+      cada uno recibe instrucciones por separado. Atlas no divulga todos los parámetros de misión
+      con antelación. Este es el procedimiento institucional vigente desde 1954.
+    </p>
+  </div>
+
+  <hr>
+
+  <h3 id="puestos">Los dos puestos</h3>
+  <div class="cols">
+    <div class="pos">
+      <span class="code">PUESTO 01 — POS-AST-01</span>
+      <h3>ASTRONAUTA</h3>
+      <p class="where">A bordo de la sonda ATLAS-H / espacio</p>
+      <ul class="dot">
+        <li>Operar la sonda y calibrar el emisor de onda en el instante de la alineación</li>
+        <li>Mantener contacto de voz continuo con el operador en Tierra</li>
+        <li>Describir en voz alta todo lo que ve, incluidos los eventos no estándar</li>
+      </ul>
+      <p><small>
+        El astronauta trabaja solo y puede encontrar condiciones fuera del perfil de misión.
+        Descríbalas. No actúe sobre ellas.
+      </small></p>
+    </div>
+    <div class="pos">
+      <span class="code">PUESTO 02 — POS-OPT-01</span>
+      <h3>OPERADOR EN TIERRA</h3>
+      <p class="where">Central de Comando / Complejo Meridian</p>
+      <ul class="dot">
+        <li>Supervisar todos los sistemas de la sonda en tiempo real</li>
+        <li>Interpretar los datos y guiar cada paso de la operación</li>
+        <li>Señalar los patrones irregulares al Comité de Continuidad</li>
+      </ul>
+      <p><small>
+        El operador ve todos los monitores, incluidos los que el astronauta no ve. La Central
+        de Comando se ubica en <span class="rd" data-r="la Zona 7 del mapa">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>.
+      </small></p>
+    </div>
+  </div>
+
+  <p style="margin-top:18px">
+    <a class="btn primary" href="solicitud.html">POSTULARSE AHORA</a>
+    <a class="btn" href="documentos.html">Documentos de misión</a>
+  </p>
+
+  <hr>
+
+  <div class="cols">
+    <div>
+      <h3>Requisitos — ambos puestos</h3>
       <ul class="dot">
         <li>Entre 18 y 55 años, con identificación vigente</li>
-        <li>Sin alteraciones posteriores al Apagón: pérdida de sueño, conductas erráticas, sonidos sin fuente</li>
-        <li>Disponibilidad completa y firma del Acuerdo de No Divulgación</li>
+        <li>Sin historial de trastornos de ansiedad ni claustrofobia</li>
+        <li>Sin alteraciones posteriores al Apagón: pérdida de sueño, conductas erráticas, percepción de sonidos sin fuente</li>
+        <li>Disponibilidad completa durante la misión y firma del Acuerdo de No Divulgación</li>
       </ul>
-      <p><small>Atlas se reserva el derecho de retirar la participación en cualquier momento sin explicación.</small></p>
+      <p><small>
+        Se aplican criterios adicionales. Atlas se reserva el derecho de retirar la
+        participación en cualquier momento sin explicación.
+      </small></p>
     </div>
-  </details>
-  <details class="tl">
-    <summary><span class="yr">§ 2</span><span>Cronograma</span><span class="tg"></span></summary>
-    <div class="tx">
+    <div>
+      <h3>Cronograma</h3>
       <div class="tscroll"><table class="data">
         <tr><th>Fase</th><th>Etapa</th><th>Momento</th></tr>
         <tr><td>01</td><td>Postulación y selección</td><td>Pre-misión</td></tr>
@@ -131,27 +164,32 @@
         <tr><td>03</td><td>Lanzamiento y emisión de la onda</td><td>Alineación lunar</td></tr>
         <tr><td>04</td><td>[Período de observación]</td><td><span class="rd" data-r="indefinido">no especificado</span></td></tr>
       </table></div>
+      <h4>Beneficios</h4>
+      <ol class="num">
+        <li>Estipendio, alojamiento y seguro médico durante la misión</li>
+        <li>Transporte hacia <span class="rd" data-r="hacia">y desde</span> el sitio de misión</li>
+        <li>Certificado de participación y apoyo post-misión</li>
+      </ol>
     </div>
-  </details>
-  <details class="tl">
-    <summary><span class="yr">§ 3</span><span>Condiciones</span><span class="tg"></span></summary>
-    <div class="tx">
-      <p>Durante toda la misión se monitorean el sueño, la conducta y la percepción de los
-        participantes. Atlas no divulga todos los parámetros de misión con antelación.</p>
-      <p><small>Incluye estipendio, alojamiento, seguro médico y transporte hacia <span class="rd" data-r="hacia">y desde</span> el sitio de misión.</small></p>
-    </div>
-  </details>
+  </div>
+
+  <hr>
+
   <details class="tl" id="tn">
-    <summary><span class="yr mono" style="font-size:12px">NT-1982-011</span><span>Nota técnica — Comunicación entre puestos</span><span class="tg"></span></summary>
+    <summary><span class="yr mono" style="font-size:12px">NT-1982-011</span><span>Nota técnica — Protocolo de comunicación entre puestos — Suplemento B</span><span class="tg"></span></summary>
     <div class="tx mono" style="font-size:13.5px">
-      <p><b>Sección 1:</b> El astronauta y el operador mantienen contacto de voz continuo. Cualquier interrupción se reporta a la Central de Comando.</p>
-      <p><b>Sección 2:</b> Ante una observación fuera de parámetros (variación de luminosidad, <span class="rd" data-r="formas en la superficie solar, parpadeo">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>), descríbala en voz alta y espere instrucciones.</p>
+      <p><b>Sección 1:</b> El astronauta y el operador en Tierra mantendrán contacto de voz continuo durante todas las ventanas de operación activa. Cualquier interrupción debe reportarse inmediatamente a la Central de Comando.</p>
+      <p><b>Sección 2:</b> En caso de una observación fuera de los parámetros descritos en la Sección 1 (variación de luminosidad, <span class="rd" data-r="formas en la superficie solar, parpadeo">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>), los participantes deben describirla en voz alta y esperar más instrucciones.</p>
       <p><b>Sección 3:</b> Percepción acústica. <span class="rd" data-r="La frecuencia no requiere medio de propagación.">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span> Bajo ninguna circunstancia los participantes intentarán <span class="rd" data-r="confirmarse mutuamente que escuchan lo mismo">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>.</p>
-      <p><small>[ARCHIVO PARCIALMENTE CORRUPTO — RECUPERACIÓN: 63%]</small></p>
+      <p><small>[ARCHIVO PARCIALMENTE CORRUPTO — RECUPERACIÓN: 63% — ÚLTIMO ACCESO: 1982-&#9608;&#9608;-&#9608;&#9608;]</small></p>
     </div>
   </details>
 
-  <!-- el botón "Siguiente" lo agrega js/recorrido.js al final de .pad -->
+  <div class="box" style="text-align:center" data-postular-ad>
+    <p><b>Convocatoria pública 1983 — postulaciones abiertas.</b><br>
+    <small>Dos puestos. Dos seleccionados. Postúlese antes de que cierre la convocatoria.</small></p>
+    <a class="btn primary" href="solicitud.html">POSTULARSE AHORA</a>
+  </div>
 
   </div><!-- /pad -->
 
@@ -171,10 +209,11 @@
         <canvas id="eyes" aria-hidden="true"></canvas>
         <ul>
           <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
           <li><a href="mision.html">Misión y puestos</a></li>
           <li><a href="documentos.html">Documentos</a></li>
           <li><a href="solicitud.html">Postulación</a></li>
-          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="archivo.html">Archivo</a></li>
         </ul>
       </div>
       <div>
@@ -208,9 +247,9 @@
 
 <div id="toast" role="status"></div>
 
-<script src="js/site.js?v=15"></script>
-<script src="js/win.js?v=15"></script>
-<script src="js/recorrido.js?v=15"></script>
-<script src="js/eggs.js?v=15"></script>
+<script src="js/site.js?v=7"></script>
+<script src="js/win.js?v=7"></script>
+<script src="js/recorrido.js?v=7"></script>
+<script src="js/eggs.js?v=7"></script>
 </body>
 </html>

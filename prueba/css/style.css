@@ -28,7 +28,7 @@
 html{background:var(--void);scroll-behavior:smooth}
 
 body{
-  margin:0;padding:0 0 72px;
+  margin:0;padding:0 0 56px;
   font-family:"Times New Roman",Times,serif;
   font-size:17px;line-height:1.55;color:var(--ink);
   background-color:#05060a;
@@ -95,29 +95,38 @@ body{
 }
 #sub{position:relative;font-size:13px;font-style:italic;color:#9d9a90;margin:0}
 #seal{position:absolute;left:18px;top:16px;width:66px;height:66px;opacity:.92}
+#lang{
+  position:absolute;right:20px;top:18px;
+  font-family:"Courier New",monospace;font-size:11px;line-height:1.2;
+  color:#9d9a90;text-decoration:none;text-align:center;
+}
+#lang b{
+  display:block;border:1px solid var(--red);color:var(--red);
+  padding:2px 6px;margin-bottom:2px;font-size:12px;
+}
+#lang:hover{background:none;color:#dcd8cc}
+
 /* --- nav ------------------------------------------------- */
-/* cuatro botones, en el orden del recorrido (recorrido.js agrega ✓ a lo visto) */
+/* barra de herramientas: font-size:0 oculta los corchetes y separadores del HTML */
 #nav{
   position:sticky;top:0;z-index:50;
   background:var(--face);border-bottom:1px solid var(--lo);
   box-shadow:inset 0 1px var(--hi),0 1px 0 var(--hi);
-  padding:4px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;
+  padding:3px 8px;font-size:0;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:2px;
 }
 #nav a,#nav a:visited{
-  display:flex;align-items:center;justify-content:center;gap:7px;min-width:0;
-  padding:8px 6px;font:bold 14px/1.15 var(--ui);color:var(--ink);text-decoration:none;text-align:center;
-  background:var(--face);
-  box-shadow:inset -1px -1px var(--dk),inset 1px 1px var(--hi),inset -2px -2px var(--lo),inset 2px 2px #dcd8cc;
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--ui);font-size:13px;line-height:1;color:var(--ink);
+  text-decoration:none;padding:4px 9px 4px 6px;white-space:nowrap;
 }
-#nav a:hover{background:#cfcabb;color:var(--ink)}
-#nav a:active{box-shadow:inset 1px 1px var(--dk),inset -1px -1px var(--hi),inset 2px 2px var(--lo)}
+#nav a.seen{color:var(--visited)}
+#nav a:hover{background:none;box-shadow:inset -1px -1px var(--lo),inset 1px 1px var(--hi)}
 #nav a.here{
-  background:var(--red);color:#fff;
-  box-shadow:inset 1px 1px #4e0b08,inset -1px -1px #c9483f,inset 2px 2px #6a0e0b;
+  font-weight:bold;color:#000;
+  box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);
+  background:repeating-conic-gradient(var(--face) 0 25%,var(--hi) 0 50%) 0 0/2px 2px;
 }
-#nav a.next{outline:2px dashed var(--red-hot);outline-offset:-6px}
-#nav .ok{color:var(--ok);font-size:13px}
-#nav a.here .ok{color:#fff}
 #nav .ico svg{display:block}
 
 a{color:var(--link);text-decoration:underline}
@@ -383,7 +392,7 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 
 /* --- toast ----------------------------------------------- */
 #toast{
-  position:fixed;left:50%;bottom:74px;transform:translateX(-50%);z-index:10000;
+  position:fixed;left:50%;bottom:44px;transform:translateX(-50%);z-index:10000;
   background:#000;color:#ff5a4a;border:1px solid var(--red-hot);
   font-family:"Courier New",monospace;font-size:13.5px;letter-spacing:.06em;
   padding:10px 18px;box-shadow:0 0 18px rgba(200,30,30,.35);
@@ -486,6 +495,7 @@ input:focus,textarea:focus{outline:2px solid var(--red);outline-offset:0}
 @media (max-width:720px){
   #wordmark{font-size:36px}
   #seal{display:none}
+  #lang{right:12px;top:12px}
   .pad{padding:0 14px}
   .pageid{padding:10px 14px 0}
   .stats{grid-template-columns:1fr 1fr}
@@ -544,6 +554,16 @@ html.motion-reduce #toast.shake{animation:none}
 .win-body.flush{padding:2px 0 0}
 .win-body > :first-child{margin-top:0}
 .win-body > :last-child{margin-bottom:0}
+.win-menu{
+  display:flex;gap:14px;padding:3px 6px;font:12.5px var(--ui);
+  border-bottom:1px solid var(--lo);box-shadow:0 1px var(--hi);margin-bottom:2px;
+}
+.win-status{display:flex;gap:3px;padding-top:3px;font:11.5px/1.3 var(--ui);color:#2c2822}
+.win-status span{
+  flex:1 1 auto;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);
+}
+.win.nope{animation:shake-el .32s linear 1}
 @keyframes shake-el{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
 
 /* componentes existentes dentro de ventanas */
@@ -572,11 +592,94 @@ html{scrollbar-color:var(--face) #d6d2c4}
 ::-webkit-scrollbar-thumb{background:var(--face);box-shadow:inset -1px -1px var(--dk),inset 1px 1px var(--hi),inset -2px -2px var(--lo)}
 ::-webkit-scrollbar-corner{background:var(--face)}
 
-/* --- barra de progreso (carga de la postulación, grabación) */
+/* --- escritorio de íconos (inicio) ----------------------- */
+.desk-icons{
+  list-style:none;margin:0;padding:12px 8px;display:flex;flex-wrap:wrap;gap:8px 4px;
+  background:var(--paper);box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);
+}
+.desk-icons a,.desk-icons a:visited{
+  display:flex;flex-direction:column;align-items:center;gap:5px;width:112px;
+  padding:4px 2px;text-align:center;color:var(--ink);text-decoration:none;
+  font:12.5px/1.25 var(--ui);
+}
+.desk-icons a span:last-child{padding:1px 3px}
+.desk-icons a:hover,.desk-icons a:focus-visible{background:none;outline:none}
+.desk-icons a:hover span:last-child,.desk-icons a:focus-visible span:last-child{
+  background:var(--red);color:#fff;outline:1px dotted #fff;outline-offset:-1px;
+}
+
+/* --- anuncio de postulación (inicio) --------------------- */
+.ad{margin:22px 0 18px}
+.ad > .win-title{font-size:13px;min-height:22px}
+.ad-body{display:grid;grid-template-columns:290px 1fr;background:var(--paper)}
+.ad-desk{
+  position:relative;min-height:270px;overflow:hidden;
+  background-color:var(--void);
+  background-image:
+    radial-gradient(1px 1px at 17px 23px,#c9d4ff 40%,transparent 41%),
+    radial-gradient(1px 1px at 83px 67px,#ffffff 40%,transparent 41%),
+    radial-gradient(1px 1px at 131px 11px,#9fb0e8 40%,transparent 41%),
+    radial-gradient(1px 1px at 47px 149px,#ffffff 40%,transparent 41%),
+    radial-gradient(1px 1px at 168px 121px,#8ea0d4 40%,transparent 41%);
+  background-size:192px 192px;
+  box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);
+}
+.ad-desk .sun{
+  position:absolute;right:-46px;bottom:-46px;width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,#05060a 0 30%,#3a0906 31%,var(--red) 48%,#e0703a 62%,rgba(224,112,58,0) 71%);
+}
+.mini{
+  /* la cascada (182px + 5 × 15px) queda centrada en el panel */
+  position:absolute;width:182px;
+  left:calc(50% - 128px + var(--i) * 15px);top:calc(50% - 90px + var(--i) * 15px);
+  background:var(--face);padding:3px;font:12px/1.3 var(--ui);color:var(--ink);
+  box-shadow:inset -1px -1px var(--dk),inset 1px 1px var(--hi),inset -2px -2px var(--lo),3px 3px 0 rgba(0,0,0,.45);
+}
+.mini .win-title{font-size:11.5px;min-height:18px}
+.mini .win-btns [data-b]{width:15px;height:13px}
+.mini .mb{height:74px}
+.mini.front .mb{height:auto;display:grid;grid-template-columns:32px 1fr;gap:8px;padding:10px 8px 8px;align-items:center}
+.mini.front .bb{grid-column:1/-1;display:flex;justify-content:center;gap:6px}
+.mini.front .bb span{
+  min-width:56px;text-align:center;padding:3px 0;background:var(--face);
+  box-shadow:inset -1px -1px var(--dk),inset 1px 1px var(--hi),inset -2px -2px var(--lo);
+}
+.mini.front .bb span:first-child{outline:1px solid var(--dk)}
+.ad.armed .mini{opacity:0}
+.ad.play .mini{animation:minipop .2s steps(2) forwards;animation-delay:calc(var(--i) * .16s)}
+@keyframes minipop{0%{opacity:0;transform:translate(-6px,-6px)}100%{opacity:1;transform:none}}
+
+.ad-copy{padding:18px 22px 16px}
+.ad-kicker{font:bold 12px "Courier New",monospace;letter-spacing:.12em;color:var(--red);margin:0 0 6px}
+.ad-copy h2{font-size:36px;line-height:1.08;color:var(--ink);margin:0 0 10px}
+.ad-copy h2 em{font-style:normal;color:var(--red);display:block}
+.ad-copy > p{font-size:17px;margin:0 0 12px}
+.ad-slots{list-style:none;margin:0 0 12px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ad-slots li{
+  display:grid;grid-template-columns:32px 1fr;gap:2px 10px;align-items:center;
+  background:var(--paper-dark);padding:8px 10px;font:12.5px/1.3 var(--ui);
+  box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);
+}
+.ad-slots .ico{grid-row:span 3}
+.ad-slots b{font:bold 13px "Courier New",monospace;letter-spacing:.06em}
+.ad-slots i{font-style:normal;color:var(--ok);font-weight:bold;font-family:"Courier New",monospace}
+.ad-slots i:before{
+  content:"";display:inline-block;width:8px;height:8px;margin-right:5px;background:var(--phos);
+  box-shadow:0 0 5px var(--phos);animation:blink 1.4s steps(1) infinite;
+}
+.pbar-l{display:flex;justify-content:space-between;gap:10px;font:11.5px var(--ui);color:#463f33;margin:0 0 3px}
 .pbar{height:20px;padding:3px;background:#ece8db;box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi),inset 2px 2px var(--dk)}
 .pbar i{
-  display:block;height:100%;width:0;
+  display:block;height:100%;width:var(--p);
   background:repeating-linear-gradient(90deg,var(--red) 0 10px,transparent 10px 12px);
+}
+.ad.armed .pbar i{width:0}
+.ad.play .pbar i{width:var(--p);transition:width 1.6s steps(20) .5s}
+.ad-cta{margin:14px 0 0}
+.ad-cta .btn.primary{animation:ctapulse 1.6s ease-in-out infinite}
+@keyframes ctapulse{
+  0%,100%{box-shadow:0 0 0 1px var(--dk),0 0 0 0 rgba(200,30,30,0)}
+  50%{box-shadow:0 0 0 1px var(--dk),0 0 0 5px rgba(200,30,30,.28)}
 }
 
 /* --- barra de tareas ------------------------------------- */
@@ -656,21 +759,46 @@ html{scrollbar-color:var(--face) #d6d2c4}
 .nag.front > .win-title{animation:titleflash .45s steps(1) 4}
 @keyframes titleflash{50%{background:linear-gradient(90deg,#6e6a5c,#a09c8e);color:#dcd8cc}}
 
-html.motion-reduce .nag,html.motion-reduce .nag.front,
-html.motion-reduce .nag.front > .win-title,
-html.motion-reduce #taskbar .task.alert{animation:none}
+html.motion-reduce .ad.armed .mini{opacity:1}
+html.motion-reduce .ad.armed .pbar i{width:var(--p)}
+html.motion-reduce .ad.play .mini,html.motion-reduce .nag,html.motion-reduce .nag.front,
+html.motion-reduce .nag.front > .win-title,html.motion-reduce .ad-cta .btn.primary,
+html.motion-reduce #taskbar .task.alert,html.motion-reduce .ad-slots i:before,
+html.motion-reduce .win.nope{animation:none}
 
 @media (max-width:720px){
-  /* los cuatro botones caben en una fila: ícono arriba, nombre abajo */
-  #nav{gap:3px;padding:3px}
-  #nav a,#nav a:visited{flex-direction:column;gap:3px;padding:6px 2px 5px;font-size:12px}
-  #nav a{position:relative}
-  #nav .ok{position:absolute;top:3px;right:5px}
+  #nav{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none}
+  #nav::-webkit-scrollbar{display:none}
+  .ad-body{grid-template-columns:1fr}
+  .ad-desk{min-height:196px}
+  .ad-copy{padding:16px 14px 14px}
+  .ad-copy h2{font-size:28px}
+  .ad-slots{grid-template-columns:1fr}
+  .win-status span:nth-child(n+3){display:none}
+  .desk-icons a{width:calc(33.33% - 4px)}
   #taskbar .task{flex-basis:auto}
+  .win-menu{gap:10px}
 }
 @media (max-width:460px){
+  .desk-icons a{width:calc(50% - 4px)}
+  .win-status span:nth-child(n+2){display:none}
   .btn.big{font-size:16px;padding:10px 18px}
 }
+
+/* --- contador de inscritos (anuncio del inicio) ---------- */
+.ad-count{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px;
+  font:12.5px/1.3 "Courier New",monospace;letter-spacing:.06em;color:#2c2822;
+}
+.ad-count .odo{
+  background:#000;color:var(--phos);font:bold 22px/1 "Courier New",monospace;letter-spacing:.14em;
+  padding:5px 4px 5px 8px;text-shadow:0 0 6px rgba(55,224,95,.55);
+  box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi),inset 2px 2px var(--dk);
+}
+.ad-count b{color:var(--red)}
+.ad-count .up{font-weight:bold;color:var(--ok);opacity:0}
+.ad-count .up.on{animation:upfade 1.8s ease-out 1}
+@keyframes upfade{0%{opacity:1;transform:translateY(3px)}70%{opacity:1}100%{opacity:0;transform:translateY(-4px)}}
 
 /* --- carga de la postulación ----------------------------- */
 .loading{
@@ -734,6 +862,7 @@ html.motion-reduce .ld-doc{animation:none;left:50%}
 .nt-int td{color:#5a5548}
 .nt-ins{margin:0 0 12px;padding-left:24px}
 .nt-ins li{margin:0 0 3px}
+.nt-bar{background:var(--ink);color:var(--ink);user-select:none;-webkit-user-select:none}
 .nt-sign{position:relative;display:flex;flex-direction:column;align-items:flex-start;margin:4px 0 10px}
 .nt-sign svg{width:150px;height:38px}
 .nt-sign span{border-top:1px solid var(--ink);padding-top:2px;font-size:12px}
@@ -754,7 +883,8 @@ html.motion-reduce .ld-doc{animation:none;left:50%}
 .nt-btns{text-align:right}
 .nt-btns .btn{margin:0;padding:4px 22px;font-size:13.5px}
 
-html.motion-reduce #felicidades,html.motion-reduce .nt-stamp{animation:none}
+html.motion-reduce #felicidades,html.motion-reduce .nt-stamp,
+html.motion-reduce .ad-count .up.on{animation:none}
 
 @media (max-width:520px){
   .nt-paper{padding:14px 14px 12px;font-size:13px}
@@ -763,6 +893,7 @@ html.motion-reduce #felicidades,html.motion-reduce .nt-stamp{animation:none}
   .nt-asig tr{display:block;padding:4px 0;border-bottom:1px dashed var(--rule)}
   .nt-asig td{display:block;border:0;padding:0}
   .nt-stamp{right:0;top:-16px;font-size:18px}
+  .ad-count .odo{font-size:19px}
 }
 
 /* ============================================================
@@ -807,44 +938,23 @@ html.acc-lock,html.acc-lock body{overflow:hidden}
 }
 #acceso.booting .acc-go{display:none}
 
+/* --- barra de tareas: apertura de /archive/ (A.R.) -------- */
 @media (max-width:460px){ #taskbar .task.active span:last-child{display:none} }
+#taskbar .task.exp{flex:none;background:#020602;color:var(--phos);font-family:"Courier New",monospace}
+#taskbar .task.exp b{color:#fff}
+#nav a.locked{color:#5d5849}
 #nav a.just-open{animation:taskflash .5s steps(1) 6}
-
-/* --- A.R.: pestaña abajo a la derecha -------------------- */
-/* sobresale de la barra de tareas; abre y guarda el último mensaje */
-#ar-tab{
-  position:fixed;right:10px;bottom:32px;z-index:8050;
-  display:flex;align-items:center;gap:7px;height:30px;max-width:calc(100vw - 20px);
-  padding:0 10px 0 7px;cursor:pointer;
-  background:#020602;color:var(--phos);border:2px solid var(--face);border-bottom:0;
-  box-shadow:-1px -1px 0 var(--hi),1px -1px 0 var(--dk);
-  font:bold 13px "Courier New",Courier,monospace;letter-spacing:.04em;
-  text-shadow:0 0 5px rgba(55,224,95,.45);white-space:nowrap;
-}
-#ar-tab b{color:#fff;letter-spacing:.1em}
-#ar-tab .ar-tab-s{overflow:hidden;text-overflow:ellipsis;min-width:0}
-#ar-tab .ar-tab-s:empty{display:none}
-#ar-tab .ar-tab-g:before{content:"\25B2"}
-#ar-tab[aria-expanded=true] .ar-tab-g:before{content:"\25BC"}
-#ar-tab:hover{background:#0c180c}
-#ar-tab:focus-visible{outline:1px dotted var(--phos);outline-offset:-4px}
-#ar-tab.ping{animation:arping .5s steps(1) 3}
-@keyframes arping{50%{background:var(--phos);color:#020602;text-shadow:none}}
-#ar-tab.ping b{animation:arpingb .5s steps(1) 3}
-@keyframes arpingb{50%{color:#020602}}
 
 /* --- A.R.: la ventana tomada ----------------------------- */
 .ar{
-  position:fixed;right:10px;bottom:62px;z-index:9100;width:min(430px,calc(100vw - 20px));margin:0;
+  position:fixed;right:16px;bottom:44px;z-index:9100;width:min(430px,calc(100vw - 24px));margin:0;
   box-shadow:inset -1px -1px var(--dk),inset 1px 1px var(--hi),
              inset -2px -2px var(--lo),inset 2px 2px #dcd8cc,5px 5px 0 rgba(0,0,0,.45);
-  animation:nagin .14s steps(2) 1;transform-origin:85% 100%;
+  animation:nagin .14s steps(2) 1;
 }
-.ar.closing{animation:arclose .2s ease-in forwards}
-@keyframes arclose{to{opacity:0;transform:translateY(24px) scale(.25)}}
-.ar.taken > .win-title{background:linear-gradient(90deg,#0c100c,#2c3a2c);color:var(--phos)}
-.ar.taking > .win-title{animation:artake .45s steps(3) 1}
-.ar.taking{animation:shake-el .3s linear 1}
+.ar .win-title{cursor:move;touch-action:none}
+.ar.taken > .win-title{background:linear-gradient(90deg,#0c100c,#2c3a2c);color:var(--phos);animation:artake .45s steps(3) 1}
+.ar.taken{animation:shake-el .3s linear 1}
 @keyframes artake{
   0%{filter:invert(1);transform:skewX(-10deg)}
   40%{filter:none;transform:skewX(8deg) translateX(3px)}
@@ -853,7 +963,7 @@ html.acc-lock,html.acc-lock body{overflow:hidden}
 .ar-b{
   margin-top:3px;padding:14px 16px 12px;background:#020602;color:var(--phos);
   font:14px/1.55 "Courier New",Courier,monospace;text-shadow:0 0 5px rgba(55,224,95,.45);
-  box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);max-height:calc(100vh - 150px);overflow:auto;
+  box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);max-height:calc(100vh - 120px);overflow:auto;
 }
 .ar-b p{margin:0 0 8px;max-width:none}
 .ar-text{cursor:default;min-height:3em}
@@ -863,8 +973,7 @@ html.acc-lock,html.acc-lock body{overflow:hidden}
 .ar-btns{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
 .ar-btns .btn{margin:0;font-size:13px;padding:5px 14px;text-shadow:none}
 .ar-b a:not(.btn){color:#fff}
-html.motion-reduce .ar,html.motion-reduce .ar.taking,html.motion-reduce .ar.taking > .win-title,
-html.motion-reduce #ar-tab.ping,html.motion-reduce #ar-tab.ping b{animation:none}
+html.motion-reduce .ar,html.motion-reduce .ar.taken,html.motion-reduce .ar.taken > .win-title{animation:none}
 
 /* --- A.R. interrumpe el envío con el acta ---------------- */
 #acta{
@@ -910,35 +1019,21 @@ html.motion-reduce.hinted .redacted-cell:not(.found){animation:none;outline:1px 
 .dv-btns{display:flex;justify-content:flex-end;padding:4px 2px 1px}
 .dv-btns .btn{margin:0;font-size:13px;padding:4px 20px}
 
-/* --- procedimiento: el botón "Siguiente" al final de .pad (recorrido.js) */
-.seguir{
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;
-  margin:26px 0 4px;padding-top:14px;border-top:1px solid var(--rule);
-  font:bold 12px "Courier New",monospace;letter-spacing:.08em;text-transform:uppercase;color:#463f33;
+/* --- inicio: procedimiento ------------------------------- */
+.proc{list-style:none;margin:0;padding:6px 4px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;background:var(--paper)}
+.proc li{
+  display:grid;grid-template-columns:32px 1fr;gap:4px 10px;align-items:start;padding:10px 12px;
+  background:var(--paper-dark);box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);font:13.5px/1.35 var(--ui);
 }
-.seguir .btn{margin:0}
-@media (max-width:460px){
-  .seguir .btn{width:100%;text-align:center}
-}
-
-/* --- misión: lo esencial y la letra chica ---------------- */
-.brief{list-style:none;margin:12px 0 4px;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.brief li{
-  display:grid;grid-template-columns:32px 1fr;gap:3px 12px;align-items:start;padding:12px 14px;
-  background:var(--paper-dark);box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);
-  font-size:16px;line-height:1.35;
-}
-.brief .ico{grid-row:span 2}
-.brief b{font:bold 12px "Courier New",monospace;letter-spacing:.14em;color:var(--red)}
-@media (max-width:720px){ .brief{grid-template-columns:1fr} }
-h4.chica{margin:28px 0 6px}
-h4.chica small{font-weight:normal;letter-spacing:.04em}
+.proc .ico{grid-row:span 2}
+.proc b{font:bold 13px "Courier New",monospace;letter-spacing:.04em;color:var(--red)}
+.proc a{font-weight:bold}
+@media (max-width:720px){ .proc{grid-template-columns:1fr} }
 
 /* --- memorando: registro ------------------------------- */
 .nt-reg{border:1px solid var(--red);color:var(--red);padding:6px 10px;font-weight:bold}
 
-/* --- /archive/ (debajo de la tabla de Documentos) ------- */
-#archive{scroll-margin-top:44px}
+/* --- archivo abierto ------------------------------------- */
 .pl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .pl-row .pbar{flex:1}
 .pl-row .pbar i{width:0;transition:width .6s}
@@ -951,15 +1046,5 @@ h4.chica small{font-weight:normal;letter-spacing:.04em}
 .pl-tr .nz{color:var(--phos-dim)}
 .pl-tr .bad{color:#ff5a4a}
 .term .arline{color:#fff}
-
-/* --- fotos del inicio (figure.foto): marco de época, sin ventana ---- */
-.foto .frame{display:block}
-.foto img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
-/* mientras falte el archivo (site.js): imagen rota, como en un navegador de la época */
-.foto .broken{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  width:100%;aspect-ratio:4/3;border:0;text-align:center;line-height:1.5;
-}
-.foto .broken code{font:11.5px "Courier New",monospace;word-break:break-all}
 
 [hidden]{display:none!important}

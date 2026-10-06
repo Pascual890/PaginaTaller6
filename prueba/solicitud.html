@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atlas Corporation — Formulario de postulación — Misión HELIOS-1</title>
-<link rel="stylesheet" href="css/style.css?v=15">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 <div id="glass"></div>
@@ -34,6 +34,7 @@
       <path d="M50 8 L50 18 M50 82 L50 92 M8 50 L18 50 M82 50 L92 50 M20 20 L27 27 M80 80 L73 73 M80 20 L73 27 M20 80 L27 73"
             stroke="#6a6558" stroke-width="1"/>
     </svg>
+    <a id="lang" href="#" title="Versión en inglés"><b>EN</b>English</a>
     <h1 id="wordmark"><a href="index.html">ATLAS</a></h1>
     <p id="expand">INVESTIGACIÓN Y EXPLORACIÓN ESPACIAL</p>
     <p id="sub">Comité de Continuidad &nbsp;·&nbsp; Sistema de Información Pública ATLAS-NET</p>
@@ -41,10 +42,12 @@
 
   <!-- ===================== NAV ===================== -->
   <div id="nav">
-    <a href="index.html">Inicio</a>
-    <a href="mision.html">Misión y puestos</a>
-    <a href="documentos.html">Documentos</a>
-    <a href="solicitud.html">Postulación</a>
+    [ <a href="index.html">Inicio</a> |
+      <a href="acerca.html">Acerca&nbsp;de</a> |
+      <a href="mision.html">Misión&nbsp;y&nbsp;puestos</a> |
+      <a href="documentos.html">Documentos</a> |
+      <a href="solicitud.html">Postulación</a> |
+      <a href="archivo.html" class="seen">Archivo</a> ]
   </div>
 
   <!-- ===================== ANUNCIOS ===================== -->
@@ -59,14 +62,25 @@
   <div class="pad">
 
   <h2>Postulación Misión HELIOS-1</h2>
-  <p>Complete los campos marcados con *.</p>
+  <p>
+    Use este formulario para postularse a la Misión HELIOS-1, Convocatoria Pública 1983.
+    Complete todos los campos requeridos (*).
+  </p>
 
   <form id="solicitud" novalidate>
-    <!-- los números [0n] de cada sección los pone site.js según las secciones visibles.
-         la modalidad va primero: en las pruebas, con el nombre arriba no se entendía
-         si había que poner uno o dos nombres -->
+    <!-- los números [0n] de cada sección los pone site.js según las secciones visibles -->
     <fieldset>
-      <legend data-t="MODALIDAD DE PARTICIPACIÓN">[01] MODALIDAD DE PARTICIPACIÓN</legend>
+      <legend data-t="INFORMACIÓN PERSONAL" data-tp="INFORMACIÓN PERSONAL — POSTULANTE 1">[01] INFORMACIÓN PERSONAL</legend>
+      <div class="fgrid">
+        <div class="field full">
+          <label class="lbl" for="nombre">Nombre completo *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off" style="max-width:420px">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend data-t="MODALIDAD DE PARTICIPACIÓN">[02] MODALIDAD DE PARTICIPACIÓN</legend>
       <label class="lbl">Tipo de postulación *</label>
       <div class="choice">
         <label><input type="radio" name="modalidad" value="individual"> Individual</label>
@@ -75,19 +89,10 @@
       <div class="box" id="aviso-ind" hidden>
         <h4>Aviso — asignación automática</h4>
         <p><small>
-          El puesto restante lo ocupará un interno de Atlas, asignado automáticamente. No puede
-          elegirse ni conocerse antes de la misión.
+          Las postulaciones individuales se completan con un interno de Atlas Corporation, que será
+          asignado automáticamente al puesto restante. El interno asignado no puede elegirse ni
+          conocerse antes de la sesión informativa de misión.
         </small></p>
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <legend data-t="INFORMACIÓN PERSONAL" data-tp="INFORMACIÓN PERSONAL — POSTULANTE 1">[02] INFORMACIÓN PERSONAL</legend>
-      <div class="fgrid">
-        <div class="field full">
-          <label class="lbl" for="nombre">Nombre completo *</label>
-          <input type="text" id="nombre" name="nombre" placeholder="SEGÚN APARECE EN IDENTIFICACIÓN" autocomplete="off" style="max-width:420px">
-        </div>
       </div>
     </fieldset>
 
@@ -98,12 +103,12 @@
         <label class="poscard">
           <input type="radio" name="puesto" value="AST">
           <b>Astronauta</b>
-          <small>A bordo de la sonda. Describe en voz alta lo que ve.</small>
+          <small>A bordo de la sonda ATLAS-H / espacio — HELIOS-1 / POS-AST</small>
         </label>
         <label class="poscard">
           <input type="radio" name="puesto" value="OPT">
           <b>Operador en Tierra</b>
-          <small>Central de Comando. Ve los monitores y guía al astronauta.</small>
+          <small>Central de Comando / Complejo Meridian — HELIOS-1 / POS-OPT</small>
         </label>
       </div>
     </fieldset>
@@ -121,12 +126,12 @@
         <label class="poscard">
           <input type="radio" name="puesto2" value="AST">
           <b>Astronauta</b>
-          <small>A bordo de la sonda. Describe en voz alta lo que ve.</small>
+          <small>A bordo de la sonda ATLAS-H / espacio — HELIOS-1 / POS-AST</small>
         </label>
         <label class="poscard">
           <input type="radio" name="puesto2" value="OPT">
           <b>Operador en Tierra</b>
-          <small>Central de Comando. Ve los monitores y guía al astronauta.</small>
+          <small>Central de Comando / Complejo Meridian — HELIOS-1 / POS-OPT</small>
         </label>
       </div>
       <div class="ferr" id="err-rol" role="alert"></div>
@@ -166,7 +171,7 @@
     <p><button type="submit" class="btn primary">ENVIAR POSTULACIÓN</button></p>
   </form>
 
-  <!-- A.R. la muestra al apretar "Enviar" (js/recorrido.js). La versión completa está en documentos.html (/archive/) -->
+  <!-- A.R. la muestra al apretar "Enviar" (js/recorrido.js). La misma acta está en archivo.html -->
   <template id="acta-tpl">
     <div class="acta-hdr">/archive/acta_comite_1983-03-28.txt — ACTA RESERVADA</div>
     <p>COMITÉ DE CONTINUIDAD — SESIÓN 14 — 1983-03-28</p>
@@ -195,10 +200,11 @@
         <canvas id="eyes" aria-hidden="true"></canvas>
         <ul>
           <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
           <li><a href="mision.html">Misión y puestos</a></li>
           <li><a href="documentos.html">Documentos</a></li>
           <li><a href="solicitud.html">Postulación</a></li>
-          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="archivo.html">Archivo</a></li>
         </ul>
       </div>
       <div>
@@ -232,9 +238,9 @@
 
 <div id="toast" role="status"></div>
 
-<script src="js/site.js?v=15"></script>
-<script src="js/win.js?v=15"></script>
-<script src="js/recorrido.js?v=15"></script>
-<script src="js/eggs.js?v=15"></script>
+<script src="js/site.js?v=7"></script>
+<script src="js/win.js?v=7"></script>
+<script src="js/recorrido.js?v=7"></script>
+<script src="js/eggs.js?v=7"></script>
 </body>
 </html>

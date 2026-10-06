@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atlas Corporation — Documentos e investigación</title>
-<link rel="stylesheet" href="css/style.css?v=15">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 <div id="glass"></div>
@@ -34,6 +34,7 @@
       <path d="M50 8 L50 18 M50 82 L50 92 M8 50 L18 50 M82 50 L92 50 M20 20 L27 27 M80 80 L73 73 M80 20 L73 27 M20 80 L27 73"
             stroke="#6a6558" stroke-width="1"/>
     </svg>
+    <a id="lang" href="#" title="Versión en inglés"><b>EN</b>English</a>
     <h1 id="wordmark"><a href="index.html">ATLAS</a></h1>
     <p id="expand">INVESTIGACIÓN Y EXPLORACIÓN ESPACIAL</p>
     <p id="sub">Comité de Continuidad &nbsp;·&nbsp; Sistema de Información Pública ATLAS-NET</p>
@@ -41,10 +42,12 @@
 
   <!-- ===================== NAV ===================== -->
   <div id="nav">
-    <a href="index.html">Inicio</a>
-    <a href="mision.html">Misión y puestos</a>
-    <a href="documentos.html">Documentos</a>
-    <a href="solicitud.html">Postulación</a>
+    [ <a href="index.html">Inicio</a> |
+      <a href="acerca.html">Acerca&nbsp;de</a> |
+      <a href="mision.html">Misión&nbsp;y&nbsp;puestos</a> |
+      <a href="documentos.html">Documentos</a> |
+      <a href="solicitud.html">Postulación</a> |
+      <a href="archivo.html" class="seen">Archivo</a> ]
   </div>
 
   <!-- ===================== ANUNCIOS ===================== -->
@@ -60,9 +63,12 @@
 
   <h2>Investigación y documentos</h2>
   <p>
-    Los documentos abiertos se leen en este terminal. Los restringidos requieren autorización
-    B&#8209;CLASIFICADO: sus datos de custodia están tachados y cada intento de acceso queda registrado.
+    Documentación pública de la Misión HELIOS-1. Los documentos abiertos pueden consultarse
+    desde este terminal. Los restringidos requieren autorización B-CLASIFICADO y sus datos de
+    custodia se muestran tachados. Todos los intentos de acceso son registrados.
   </p>
+
+  <p><small class="mono">Índice de /public/docs/helios1/ — 8 archivos, 5 restringidos</small></p>
 
   <div class="tscroll" data-win="Explorador — /public/docs/helios1/" data-win-ico="folder"><table class="data" id="docs">
     <tr><th>Archivo</th><th>Modificado</th><th>Tamaño</th><th>Custodio</th><th>Acceso</th></tr>
@@ -106,65 +112,16 @@
     </tr>
   </table></div>
 
-  <!-- ===================== /archive/ (antes archivo.html) =====================
-       opcional: se abre al leer 3 campos tachados (js/recorrido.js). mientras tanto, 403. -->
-  <h3 id="archive">/archive/</h3>
+  <p><small>
+    Los archivos marcados como "restringido" requieren B-CLASIFICADO o superior. Todos los
+    intentos de acceso son registrados por el Sistema de Gestión de Documentos de Atlas
+    Corporation.
+  </small></p>
 
-  <div data-archivo="locked">
-    <div class="term">
-      <div class="hdr">403 FORBIDDEN — /archive/</div>
-      No tiene permiso para acceder a /archive/ en este terminal. Contiene 2 archivos.<br>
-      <span class="warn">Último acceso exitoso desde este terminal: 1982-07-17 12:00:00</span><br><br>
-      <span class="arline">&gt; mensaje entrante — A.R.: me faltan claves (<b data-ar-pct>0</b>%).
-      Están tachadas en la tabla de arriba.</span><br>
-      &gt;&nbsp;<span class="cur">&nbsp;</span>
-    </div>
-  </div>
-
-  <div data-archivo="open" hidden>
-    <!-- al abrirse, A.R. lo anuncia en su panel (recorrido.js, mensaje ar3) -->
-
-    <h4>1 · acta_comite_1983-03-28.txt</h4>
-    <div class="term" data-win id="acta-archivo">
-      <div class="hdr">/archive/acta_comite_1983-03-28.txt — ACTA RESERVADA — DISTRIBUCIÓN NIVEL 5</div>
-      COMITÉ DE CONTINUIDAD — SESIÓN 14 — 1983-03-28<br>
-      ASUNTO: Estado de la Misión HELIOS-1<br><br>
-      1. Hipótesis de intervención solar: <span class="warn">SIN VERIFICAR</span>. La onda nunca ha sido emitida fuera de simulación.<br><br>
-      2. Corrida 07 del modelo predictivo: resultado no reproducible. Las corridas 01 a 06 no se conservan.<br><br>
-      3. Pregunta de la Dirección: ¿qué ocurre si el fenómeno <i>responde</i> a la onda?<br>
-      &nbsp;&nbsp;&nbsp;Respuesta del equipo técnico: <span class="bad">NO DETERMINABLE</span>.<br><br>
-      4. Personal propio consultado para la misión: 38. Aceptan: <span class="bad">0</span>.<br><br>
-      5. Se acuerda no informar a los participantes de los puntos 1 a 4.<br><br>
-      6. Versión pública en caso de pérdida de contacto: "falla técnica del emisor".<br><br>
-      — [FIN DEL ACTA]
-    </div>
-
-    <h4>2 · portavoz_toma07.wav</h4>
-    <!-- para usar la grabación real: poner el archivo en audio/ y la ruta en data-src
-         (p. ej. data-src="audio/portavoz_toma07.mp3"). vacío = se muestra la transcripción -->
-    <div class="box player" id="toma07" data-src="" data-win="portavoz_toma07.wav — Reproductor ATLAS" data-win-ico="computer">
-      <div class="pl-row">
-        <button type="button" class="btn pl-play">&#9654; Reproducir</button>
-        <div class="pbar"><i></i></div>
-        <span class="mono">01:12</span>
-      </div>
-      <p class="pl-st">Grabación de prueba del comunicado de convocatoria. Toma 07 de 07.</p>
-      <div class="pl-tr" hidden>
-        <p class="nz">[TOMA 07 — COMUNICADO DE CONVOCATORIA — GRABACIÓN DE PRUEBA]</p>
-        <p><span class="who">PORTAVOZ:</span> Atlas Corporation invita a la ciudadanía a participar en la Misión HELIOS-1. No se requiere formación…</p>
-        <p class="nz">[00:00:21 — ruido de baja frecuencia sin fuente identificada]</p>
-        <p><span class="who">PORTAVOZ:</span> ¿Lo escuchan? …No. Sigan grabando.</p>
-        <p><span class="who">PORTAVOZ:</span> No sabemos qué es. Nadie aquí lo sabe. Dicen que la onda lo va a calmar.</p>
-        <p><span class="who">PORTAVOZ:</span> Lo del 17 de julio no fue un apagón. Fue un parpadeo.</p>
-        <p><span class="who">VOZ 2 (fuera de cuadro):</span> Corta. Corta eso.</p>
-        <p class="nz">[FIN DE LA TOMA — 00:01:12]</p>
-      </div>
-    </div>
-
-    <p class="mono"><small>[FIN DE LOS ARCHIVOS RECUPERADOS]</small></p>
-  </div>
-
-  <!-- el botón para volver al procedimiento lo agrega js/recorrido.js al final de .pad -->
+  <p style="margin-top:18px">
+    <a class="btn primary" href="solicitud.html">IR A LA POSTULACIÓN</a>
+    <a class="btn" href="mision.html">Misión y puestos</a>
+  </p>
 
   <!-- ============ documentos abiertos (se muestran en el visor) ============ -->
   <template id="doc-resumen">
@@ -224,10 +181,11 @@
         <canvas id="eyes" aria-hidden="true"></canvas>
         <ul>
           <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
           <li><a href="mision.html">Misión y puestos</a></li>
           <li><a href="documentos.html">Documentos</a></li>
           <li><a href="solicitud.html">Postulación</a></li>
-          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="archivo.html">Archivo</a></li>
         </ul>
       </div>
       <div>
@@ -261,9 +219,9 @@
 
 <div id="toast" role="status"></div>
 
-<script src="js/site.js?v=15"></script>
-<script src="js/win.js?v=15"></script>
-<script src="js/recorrido.js?v=15"></script>
-<script src="js/eggs.js?v=15"></script>
+<script src="js/site.js?v=7"></script>
+<script src="js/win.js?v=7"></script>
+<script src="js/recorrido.js?v=7"></script>
+<script src="js/eggs.js?v=7"></script>
 </body>
 </html>

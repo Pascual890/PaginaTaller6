@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atlas Corporation — Misión HELIOS-1 — Convocatoria pública</title>
-<link rel="stylesheet" href="css/style.css?v=15">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 <div id="glass"></div>
@@ -34,6 +34,7 @@
       <path d="M50 8 L50 18 M50 82 L50 92 M8 50 L18 50 M82 50 L92 50 M20 20 L27 27 M80 80 L73 73 M80 20 L73 27 M20 80 L27 73"
             stroke="#6a6558" stroke-width="1"/>
     </svg>
+    <a id="lang" href="#" title="Versión en inglés"><b>EN</b>English</a>
     <h1 id="wordmark"><a href="index.html">ATLAS</a></h1>
     <p id="expand">INVESTIGACIÓN Y EXPLORACIÓN ESPACIAL</p>
     <p id="sub">Comité de Continuidad &nbsp;·&nbsp; Sistema de Información Pública ATLAS-NET</p>
@@ -41,10 +42,12 @@
 
   <!-- ===================== NAV ===================== -->
   <div id="nav">
-    <a href="index.html">Inicio</a>
-    <a href="mision.html">Misión y puestos</a>
-    <a href="documentos.html">Documentos</a>
-    <a href="solicitud.html">Postulación</a>
+    [ <a href="index.html">Inicio</a> |
+      <a href="acerca.html">Acerca&nbsp;de</a> |
+      <a href="mision.html">Misión&nbsp;y&nbsp;puestos</a> |
+      <a href="documentos.html">Documentos</a> |
+      <a href="solicitud.html">Postulación</a> |
+      <a href="archivo.html" class="seen">Archivo</a> ]
   </div>
 
   <!-- ===================== ANUNCIOS ===================== -->
@@ -59,27 +62,91 @@
   <div class="pad">
 
   <h2>Bienvenido al Sistema de Información Pública de Atlas Corporation</h2>
-  <!-- IMÁGENES: las fotos nuevas (class="foto") se leen de img/inicio/ con estos nombres
-       (horizontales 4:3, ~1200×900). mientras falte alguna se ve "IMAGEN NO DISPONIBLE"
-       con el nombre del archivo (js/site.js). -->
-  <div class="cols split">
-    <div>
-      <p>
-        Atlas Corporation es una empresa privada de exploración espacial, fundada en 1954.
-        El 17 de julio de 1982 el Sol se apagó durante cuatro décimas de segundo.
-        Atlas busca a dos personas para que no vuelva a ocurrir.
-      </p>
-    </div>
-    <div>
-      <figure class="foto">
-        <span class="frame"><span class="dither">
-          <img src="img/inicio/atlas.jpg" width="1200" height="900"
-               alt="Lanzamiento del vehículo orbital ATLAS-A, 1958.">
-        </span></span>
-        <figcaption>Lanzamiento del ATLAS-A, 1958. Primer vehículo orbital de una empresa privada.</figcaption>
-      </figure>
-    </div>
+  <p>
+    Nuestra empresa llegó al espacio antes que casi cualquiera. Después nos retiramos, y cuando
+    el Sol se apagó durante cuatro décimas de segundo el 17 de julio de 1982, decidimos volver.
+    Este terminal contiene todo lo necesario para postularse a la <b>Misión HELIOS-1</b>.
+  </p>
+
+  <!-- ===================== PROCEDIMIENTO ===================== -->
+  <div class="box" id="procedimiento">
+    <h4>Procedimiento para postulantes</h4>
+      <ol class="proc">
+        <li>
+          <span class="ico" data-ico="sun" data-size="32"></span>
+          <b>PASO 1</b>
+          <span>Lea la <a href="mision.html">misión y los dos puestos</a>.</span>
+        </li>
+        <li>
+          <span class="ico" data-ico="form" data-size="32"></span>
+          <b>PASO 2</b>
+          <span>Envíe su <a href="solicitud.html">postulación</a>.</span>
+        </li>
+      </ol>
   </div>
+
+  <!-- ===================== ANUNCIO: POSTULACIÓN ===================== -->
+  <section class="win ad" id="anuncio" data-postular-ad aria-labelledby="ad-t">
+    <div class="win-title">
+      <span class="ico" data-ico="warn"></span>
+      <span class="t">CONVOCATORIA_HELIOS-1.EXE — Postulaciones abiertas</span>
+      <span class="win-btns" aria-hidden="true"><span data-b="x"></span></span>
+    </div>
+    <div class="win-menu" aria-hidden="true"><span><u>A</u>rchivo</span><span><u>E</u>dición</span><span><u>V</u>er</span><span>Ay<u>u</u>da</span></div>
+    <div class="ad-body">
+      <div class="ad-desk" aria-hidden="true">
+        <div class="sun"></div>
+        <div class="mini" style="--i:0"><div class="win-title"><span class="t">HELIOS-1.EXE</span><span class="win-btns"><span data-b="x"></span></span></div><div class="mb"></div></div>
+        <div class="mini" style="--i:1"><div class="win-title"><span class="t">HELIOS-1.EXE</span><span class="win-btns"><span data-b="x"></span></span></div><div class="mb"></div></div>
+        <div class="mini" style="--i:2"><div class="win-title"><span class="t">HELIOS-1.EXE</span><span class="win-btns"><span data-b="x"></span></span></div><div class="mb"></div></div>
+        <div class="mini" style="--i:3"><div class="win-title"><span class="t">HELIOS-1.EXE</span><span class="win-btns"><span data-b="x"></span></span></div><div class="mb"></div></div>
+        <div class="mini" style="--i:4"><div class="win-title"><span class="t">HELIOS-1.EXE</span><span class="win-btns"><span data-b="x"></span></span></div><div class="mb"></div></div>
+        <div class="mini front" style="--i:5">
+          <div class="win-title"><span class="t">HELIOS-1.EXE</span><span class="win-btns"><span data-b="x"></span></span></div>
+          <div class="mb">
+            <span class="ico" data-ico="warn" data-size="32"></span>
+            <span>¿Desea postularse a la Misión HELIOS-1?</span>
+            <span class="bb"><span>Sí</span><span>Sí</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="ad-copy">
+        <p class="ad-kicker"><span class="new">*** ABIERTA ***</span> CONVOCATORIA PÚBLICA 1983</p>
+        <h2 id="ad-t">El Sol necesita a dos personas. <em>Una puede ser usted.</em></h2>
+        <p>
+          Atlas Corporation busca un <b>astronauta</b> y un <b>operador en Tierra</b> para la
+          Misión HELIOS-1. No necesita formación técnica ni experiencia previa. Sólo tiene que
+          seguir instrucciones mientras ocurre algo que no le resulta familiar.
+        </p>
+        <ul class="ad-slots">
+          <li>
+            <span class="ico" data-ico="sun" data-size="32"></span>
+            <b>01 · ASTRONAUTA</b>
+            <span>A bordo de la sonda ATLAS-H</span>
+            <i>PLAZA LIBRE</i>
+          </li>
+          <li>
+            <span class="ico" data-ico="computer" data-size="32"></span>
+            <b>02 · OPERADOR EN TIERRA</b>
+            <span>Central de Comando</span>
+            <i>PLAZA LIBRE</i>
+          </li>
+        </ul>
+        <div class="ad-count" data-inscritos>
+          <span class="odo">0000000</span>
+          <span class="up" aria-hidden="true"></span>
+          <span><b>PERSONAS INSCRITAS</b> Y CONTANDO</span>
+        </div>
+        <div class="pbar-l"><span>Convocatoria transcurrida — cierre próximo</span><span>78%</span></div>
+        <div class="pbar" style="--p:78%" role="img" aria-label="Convocatoria transcurrida"><i></i></div>
+        <p class="ad-cta">
+          <a class="btn primary big" href="solicitud.html">POSTULARME AHORA &rsaquo;</a>
+          <a class="btn" href="mision.html#puestos">Ver los dos puestos</a>
+        </p>
+      </div>
+    </div>
+    <div class="win-status"><span>2 plazas disponibles</span><span>Individual o en pareja</span><span>Sin formación técnica</span></div>
+  </section>
 
   <hr>
 
@@ -136,37 +203,6 @@
     </div>
   </div>
 
-  <hr>
-
-  <!-- ===================== LOS DOS PUESTOS ===================== -->
-  <h2>El Sol necesita a dos personas. Una puede ser usted.</h2>
-  <p>
-    No necesita formación técnica ni experiencia previa. Sólo tiene que seguir
-    instrucciones mientras ocurre algo que no le resulta familiar.
-  </p>
-  <div class="cols">
-    <div>
-      <figure class="foto">
-        <span class="frame"><span class="dither">
-          <img src="img/inicio/astronauta.jpg" width="1200" height="900"
-               alt="Astronauta junto a la sonda ATLAS-H.">
-        </span></span>
-        <figcaption>Fig. 3 — Puesto 01 · Astronauta. A bordo de la sonda ATLAS-H.</figcaption>
-      </figure>
-    </div>
-    <div>
-      <figure class="foto">
-        <span class="frame"><span class="dither">
-          <img src="img/inicio/operador.jpg" width="1200" height="900"
-               alt="Consola del operador en la Central de Comando.">
-        </span></span>
-        <figcaption>Fig. 4 — Puesto 02 · Operador en Tierra. Central de Comando.</figcaption>
-      </figure>
-    </div>
-  </div>
-
-  <!-- el botón "Siguiente" lo agrega js/recorrido.js al final de .pad -->
-
   </div><!-- /pad -->
 
   <!-- ===================== PIE ===================== -->
@@ -185,10 +221,11 @@
         <canvas id="eyes" aria-hidden="true"></canvas>
         <ul>
           <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
           <li><a href="mision.html">Misión y puestos</a></li>
           <li><a href="documentos.html">Documentos</a></li>
           <li><a href="solicitud.html">Postulación</a></li>
-          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="archivo.html">Archivo</a></li>
         </ul>
       </div>
       <div>
@@ -222,9 +259,9 @@
 
 <div id="toast" role="status"></div>
 
-<script src="js/site.js?v=15"></script>
-<script src="js/win.js?v=15"></script>
-<script src="js/recorrido.js?v=15"></script>
-<script src="js/eggs.js?v=15"></script>
+<script src="js/site.js?v=7"></script>
+<script src="js/win.js?v=7"></script>
+<script src="js/recorrido.js?v=7"></script>
+<script src="js/eggs.js?v=7"></script>
 </body>
 </html>

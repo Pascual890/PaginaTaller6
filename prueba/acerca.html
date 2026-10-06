@@ -14,7 +14,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atlas Corporation — Acerca de Atlas</title>
-<link rel="stylesheet" href="css/style.css?v=15">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 <div id="glass"></div>
@@ -34,6 +34,7 @@
       <path d="M50 8 L50 18 M50 82 L50 92 M8 50 L18 50 M82 50 L92 50 M20 20 L27 27 M80 80 L73 73 M80 20 L73 27 M20 80 L27 73"
             stroke="#6a6558" stroke-width="1"/>
     </svg>
+    <a id="lang" href="#" title="Versión en inglés"><b>EN</b>English</a>
     <h1 id="wordmark"><a href="index.html">ATLAS</a></h1>
     <p id="expand">INVESTIGACIÓN Y EXPLORACIÓN ESPACIAL</p>
     <p id="sub">Comité de Continuidad &nbsp;·&nbsp; Sistema de Información Pública ATLAS-NET</p>
@@ -41,10 +42,12 @@
 
   <!-- ===================== NAV ===================== -->
   <div id="nav">
-    <a href="index.html">Inicio</a>
-    <a href="mision.html">Misión y puestos</a>
-    <a href="documentos.html">Documentos</a>
-    <a href="solicitud.html">Postulación</a>
+    [ <a href="index.html">Inicio</a> |
+      <a href="acerca.html">Acerca&nbsp;de</a> |
+      <a href="mision.html">Misión&nbsp;y&nbsp;puestos</a> |
+      <a href="documentos.html">Documentos</a> |
+      <a href="solicitud.html">Postulación</a> |
+      <a href="archivo.html" class="seen">Archivo</a> ]
   </div>
 
   <!-- ===================== ANUNCIOS ===================== -->
@@ -64,13 +67,21 @@
     <div>
       <h3>Descripción general</h3>
       <p>
-        Empresa privada de investigación y exploración espacial, fundada en 1954. Atlas no usa
-        tecnología de terceros: este terminal, la sonda ATLAS-H y la Central de Comando son
-        diseños propios.
+        Atlas Corporation es una empresa privada dedicada exclusivamente a la investigación y
+        exploración espacial. Fundada a mediados de la década de 1950, en pleno auge de la
+        carrera espacial, reunió a cientos de científicos e ingenieros y desarrolló tecnologías
+        propias para superar las limitaciones de su época.
       </p>
       <p>
-        Tras el Apagón del 17 de julio de 1982, Atlas se presentó como la única entidad capaz de
-        investigar el fenómeno desde el espacio. La Misión HELIOS-1 es el resultado.
+        Atlas no utiliza sistemas ni tecnologías desarrollados por terceros. Mantener el
+        control absoluto sobre nuestras investigaciones es indispensable para proteger
+        nuestros descubrimientos. Este terminal, la sonda ATLAS-H y la Central de Comando
+        son diseños íntegramente propios.
+      </p>
+      <p>
+        Tras el Apagón del 17 de julio de 1982, Atlas se posicionó como la única entidad con
+        el historial tecnológico y la infraestructura necesarios para investigar el fenómeno
+        desde el espacio. La Misión HELIOS-1 es el resultado de ese compromiso.
       </p>
       <p class="quote">
         "La humanidad creyó que estaba explorando el universo. Pero quizás el universo
@@ -99,7 +110,7 @@
   <hr>
 
   <h3>Cronología corporativa</h3>
-  <p><small>Haga clic en una entrada para expandirla.</small></p>
+  <p><small>Haga clic en una entrada para expandirla. Las entradas restringidas requieren autorización B-CLASIFICADO.</small></p>
 
   <details class="tl">
     <summary><span class="yr">1954</span><span>Fundación</span><span class="tg"></span></summary>
@@ -148,9 +159,12 @@
     <div class="tx">Tras el Apagón, Atlas reactiva sus operaciones y se posiciona ante los gobiernos y organizaciones restantes como la única entidad capaz de investigar el fenómeno desde el espacio. Diseño de la sonda ATLAS-H. Formulación de la hipótesis de intervención solar. Apertura de la convocatoria pública para los dos puestos de la Misión HELIOS-1.</div>
   </details>
 
-  <p><small>Índice en nivel B-ESTÁNDAR. Última actualización: 1983-04-11.</small></p>
+  <p><small>Este índice contiene únicamente registros disponibles en nivel B-ESTÁNDAR. Última actualización: 1983-04-11.</small></p>
 
-  <!-- el botón para volver al procedimiento lo agrega js/recorrido.js al final de .pad -->
+  <p style="margin-top:18px">
+    <a class="btn" href="mision.html">Misión y puestos</a>
+    <a class="btn" href="documentos.html">Documentos de misión</a>
+  </p>
 
   </div><!-- /pad -->
 
@@ -170,10 +184,11 @@
         <canvas id="eyes" aria-hidden="true"></canvas>
         <ul>
           <li><a href="index.html">Inicio</a></li>
+          <li><a href="acerca.html">Acerca de</a></li>
           <li><a href="mision.html">Misión y puestos</a></li>
           <li><a href="documentos.html">Documentos</a></li>
           <li><a href="solicitud.html">Postulación</a></li>
-          <li><a href="acerca.html">Acerca de</a></li>
+          <li><a href="archivo.html">Archivo</a></li>
         </ul>
       </div>
       <div>
@@ -235,9 +250,9 @@
   </div>
 </div>
 
-<script src="js/site.js?v=15"></script>
-<script src="js/win.js?v=15"></script>
-<script src="js/recorrido.js?v=15"></script>
-<script src="js/eggs.js?v=15"></script>
+<script src="js/site.js?v=7"></script>
+<script src="js/win.js?v=7"></script>
+<script src="js/recorrido.js?v=7"></script>
+<script src="js/eggs.js?v=7"></script>
 </body>
 </html>

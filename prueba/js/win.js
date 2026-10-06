@@ -75,24 +75,6 @@
       '.......RR.......',
       '................'
     ],
-    moon: [
-      '................',
-      '.....kkkkk......',
-      '...kkYYYk.......',
-      '..kYYYYk........',
-      '.kYYYYk.........',
-      '.kYYYk..........',
-      'kYYYYk..........',
-      'kYYYYk..........',
-      'kYYYYk..........',
-      'kYYYYk..........',
-      '.kYYYk..........',
-      '.kYYYYk.........',
-      '..kYYYYk........',
-      '...kkYYYk.......',
-      '.....kkkkk......',
-      '................'
-    ],
     people: [
       '................',
       '................',
@@ -339,7 +321,7 @@
      -------------------------------------------------------- */
   // sin botones de minimizar/maximizar/cerrar: en las ventanas incrustadas
   // no funcionarían, y la gente los presiona. sólo los llevan los diálogos
-  // que sí se cierran (avisos, A.R., visor, memorando).
+  // que sí se cierran (avisos, A.R., visor, memorando) y el anuncio del inicio.
   function titleBar(title, ico) {
     var bar = document.createElement('div');
     bar.className = 'win-title';
@@ -375,17 +357,17 @@
   A.wrapWin = wrap;
 
   function clean(t) { return t.replace(/\s+/g, ' ').trim(); }
-  function skip(el) { return el.closest('.win, #modal, .nag, .ar, template'); }
+  function skip(el) { return el.closest('.win, .ad, #modal, .nag, .ar, template'); }
   A.fillIcons = function (root) { fillIcons(root); };
 
-  // página actual. los cuatro primeros son la barra de navegación, en el orden
-  // del recorrido; Acerca de queda fuera (sólo pie y menú Inicio)
+  // página actual
   var NAV = [
     { href: 'index.html', label: 'Inicio', ico: 'computer' },
+    { href: 'acerca.html', label: 'Acerca de', ico: 'folder' },
     { href: 'mision.html', label: 'Misión y puestos', ico: 'sun' },
     { href: 'documentos.html', label: 'Documentos', ico: 'doc' },
     { href: 'solicitud.html', label: 'Postulación', ico: 'form' },
-    { href: 'acerca.html', label: 'Acerca de', ico: 'folder' }
+    { href: 'archivo.html', label: 'Archivo', ico: 'cabinet' }
   ];
   var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
   var page = NAV[0];
@@ -436,16 +418,69 @@
   var form = document.getElementById('solicitud');
   if (form && !skip(form)) wrap(form, 'SOLICITUD_HELIOS-1.FRM — Formulario de postulación', 'form', { pad: true });
 
-  // figuras: visor de imágenes (las fotos del inicio, figure.foto, quedan en la página)
-  document.querySelectorAll('figure:not(.foto) .frame').forEach(function (f) {
+  // figuras: visor de imágenes
+  document.querySelectorAll('figure .frame').forEach(function (f) {
     if (skip(f)) return;
     var img = f.querySelector('img');
     var name = img ? (img.getAttribute('src') || '').split('/').pop() : 'imagen';
     wrap(f, name + ' — Visor ATLAS', 'image', { cls: 'inline' });
   });
 
+  // la ✕ del anuncio del inicio: el único botón de ventana que no obedece, a propósito
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.ad .win-btns [data-b]');
+    if (!btn) return;
+    toast('ESTE ANUNCIO NO PUEDE CERRARSE. POSTÚLESE.');
+    var w = btn.closest('.ad');
+    if (w && !reduce) {
+      w.classList.remove('nope');
+      void w.offsetWidth;
+      w.classList.add('nope');
+    }
+  });
+
   /* --------------------------------------------------------
-     2. barra de tareas y menú Inicio
+     2. anuncio del inicio: la cascada se arma al entrar en pantalla
+     -------------------------------------------------------- */
+  var ads = [].slice.call(document.querySelectorAll('[data-postular-ad]'));
+
+  // el anuncio "está en pantalla" si se ven al menos 140px (o la mitad, si es más bajo)
+  function adOnScreen() {
+    var vh = window.innerHeight;
+    return ads.some(function (a) {
+      var r = a.getBoundingClientRect();
+      var seen = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+      return seen >= Math.min(140, r.height * 0.5);
+    });
+  }
+
+  // si el usuario vuelve al anuncio, los avisos sobran
+  var scrollQueued = false;
+  window.addEventListener('scroll', function () {
+    if (scrollQueued || !nagOpen()) return;
+    scrollQueued = true;
+    setTimeout(function () {
+      scrollQueued = false;
+      if (nagOpen() && adOnScreen()) closeNags();
+    }, 120);
+  }, { passive: true });
+
+  // la cascada del anuncio se arma cada vez que entra en pantalla
+  if ('IntersectionObserver' in window && !reduce) {
+    ads.forEach(function (ad) {
+      if (!ad.classList.contains('ad')) return;
+      ad.classList.add('armed');
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.intersectionRatio >= 0.3) ad.classList.add('play');
+          else if (!en.isIntersecting) ad.classList.remove('play');
+        });
+      }, { threshold: [0, 0.3] }).observe(ad);
+    });
+  }
+
+  /* --------------------------------------------------------
+     3. barra de tareas y menú Inicio
      -------------------------------------------------------- */
   var bar = document.createElement('div');
   bar.id = 'taskbar';
@@ -469,8 +504,6 @@
       '<div class="sm-sep"></div>' +
       '<a href="solicitud.html" class="hot"><span class="ico" data-ico="warn" data-size="32"></span>¡Postularme ahora!</a>' +
       '<div class="sm-sep"></div>' +
-      // entre participantes: borra la sesión y vuelve a la pantalla de acceso (site.js, ?reset)
-      '<a href="index.html?reset"><span class="ico" data-ico="lock" data-size="32"></span>Cerrar sesión…</a>' +
       '<button type="button" data-off><span class="ico" data-ico="computer" data-size="32"></span>Apagar el terminal…</button>' +
     '</div>';
   document.body.appendChild(menu);
@@ -507,9 +540,9 @@
   setInterval(tick, 15000);
 
   /* --------------------------------------------------------
-     3. avisos emergentes: aparecen cada cierto tiempo mientras A.R.
-        no haya hablado. se cierran con ✕, con el botón secundario o
-        con Escape. cada vez vuelven más.
+     4. avisos emergentes: aparecen cada cierto tiempo mientras el
+        anuncio de postulación no está en pantalla. se cierran con ✕,
+        con el botón secundario o con Escape. cada vez vuelven más.
         override de prueba: ?avisos=rapido
      -------------------------------------------------------- */
   var fast = /[?&]avisos=rapido/.test(location.search);
@@ -538,7 +571,7 @@
   function badMoment() {
     var ae = document.activeElement;
     var modal = document.getElementById('modal');
-    return document.hidden || nagOpen() || (A.busy && A.busy()) ||
+    return document.hidden || nagOpen() || adOnScreen() || (A.busy && A.busy()) ||
       (modal && modal.classList.contains('on')) || !menu.hidden ||
       (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName));
   }

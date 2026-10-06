@@ -1,20 +1,16 @@
 /* ============================================================
    ATLAS — el recorrido (versión corta, 2–3 min)
-   Acceso → Inicio → Misión y puestos → Documentos → Formulario →
+   Acceso → Inicio → (Misión y puestos) → Formulario →
    A.R. interrumpe el envío con el acta → Memorando → VR
    1. pantalla de acceso (marca el inicio; sirve para reiniciar)
-   2. la pestaña de A.R. (abajo a la derecha): reabre su último
-      mensaje y muestra el avance de /archive/ (extra: cada campo
-      tachado leído lo adelanta un tercio; con 3 se abre)
-   3. A.R.: la voz filtrada. aparece al salir del Inicio. pide ayuda:
+   2. A.R.: la voz filtrada. aparece al salir del Inicio. pide ayuda:
       las "claves" del archivo están en lo tachado de Documentos
+   3. apertura de /archive/ (extra): cada campo tachado leído la
+      adelanta un tercio; con 3 se abre
    4. interrupción del envío: A.R. muestra el acta antes de firmar
-   5. /archive/ bloqueado / abierto (debajo de la tabla de Documentos):
-      acta y grabación del portavoz
+   5. archivo bloqueado / abierto: acta y grabación del portavoz
    6. visor de documentos abiertos
-   7. el procedimiento: la barra de 4 botones marca dónde está y qué
-      vio; abajo, un solo botón para seguir
-   Carga después de win.js (usa los íconos) y antes de eggs.js
+   Carga después de win.js (usa la barra de tareas) y antes de eggs.js
    (eggs.js llama a ATLAS.hallazgo). ?reset borra la sesión.
    ============================================================ */
 (function () {
@@ -55,18 +51,14 @@
   A.nagsOff = function () { return seen('ar1'); };
 
   var archivoAbierto = false;
-  var leyendo = false;             // /archive/ abierto y en pantalla
 
   // ¿hay algo en pantalla que no debe interrumpirse?
-  function modalAbierto() {
-    var m = document.getElementById('modal');
-    return !!(document.getElementById('acceso') || document.getElementById('felicidades') ||
-      document.getElementById('acta') || document.getElementById('docview') ||
-      (m && m.classList.contains('on')));
-  }
   function busy() {
-    // leer el archivo es un momento de lectura: ni avisos ni A.R. encima
-    return !!(leyendo || panelOpen() || modalAbierto());
+    var m = document.getElementById('modal');
+    // el archivo abierto es un momento de lectura: ni avisos ni A.R. encima
+    return !!(archivoAbierto || document.getElementById('acceso') || document.getElementById('felicidades') ||
+      document.getElementById('acta') || document.getElementById('docview') ||
+      document.querySelector('.ar') || (m && m.classList.contains('on')));
   }
   A.busy = busy;
 
@@ -140,18 +132,15 @@
   }
 
   /* ==========================================================
-     2. la pestaña de A.R., abajo a la derecha. aparece cuando A.R.
-        habla por primera vez y ya no se va: cerrar un mensaje lo
-        guarda ahí, y un clic lo vuelve a abrir. también muestra
-        el avance de la apertura de /archive/.
+     2. apertura de /archive/: barra de A.R. y candado del menú
      ========================================================== */
-  var tab = null, painted = '', painted0 = false;
+  var tray = document.getElementById('tray');
+  var arBtn = null, painted = '';
   function paint() {
     var ok = unlocked(), p = pct();
     var show = started() && (seen('ar1') || count() > 0);
-    var key = show + '|' + ok + '|' + p + '|' + applied();
+    var key = show + '|' + ok + '|' + p;
     if (painted === key) return;
-    pintarNav();
     var wasOk = painted.indexOf('|true|') > -1;
     painted = key;
     document.querySelectorAll('[data-ar-pct]').forEach(function (el) { el.textContent = p; });
@@ -164,31 +153,34 @@
     if (seen('ar1') && document.querySelector('.redacted-cell')) {
       document.documentElement.classList.add('hinted');
     }
-    if (ok && !wasOk && painted0) flashArchivo();
-    painted0 = true;
-    if (show && !tab) makeTab();
-    if (tab) {
-      var n = Math.round(p / 20);
-      tab.querySelector('.ar-tab-s').textContent = applied() ? '' :
-        ok ? '/archive/ ABIERTO' : '/archive/ ' + '▓▓▓▓▓'.slice(0, n) + '░░░░░'.slice(n) + ' ' + p + '%';
-    }
-  }
-
-  function makeTab() {
-    tab = document.createElement('button');
-    tab.type = 'button';
-    tab.id = 'ar-tab';
-    tab.title = 'Mensajes de A.R.';
-    tab.setAttribute('aria-expanded', 'false');
-    tab.setAttribute('aria-controls', 'ar');
-    tab.innerHTML = '<span class="ico">' + ico('terminal') + '</span><b>A.R.</b>' +
-      '<span class="ar-tab-s"></span><span class="ar-tab-g" aria-hidden="true"></span>';
-    document.body.appendChild(tab);
-    tab.addEventListener('click', function () {
-      if (panelOpen()) return cerrarAR();
-      var last = store.get('arLast', '');
-      showAR(last || 'ar1', !!last);
+    // el archivo en el menú: candado hasta que se abre
+    document.querySelectorAll('#nav a[href="archivo.html"], #startmenu a[href="archivo.html"]').forEach(function (a) {
+      var i = a.querySelector('.ico');
+      var big = a.closest('#startmenu') ? 32 : 16;
+      if (i) i.innerHTML = ico(ok ? 'cabinet' : 'lock', big);
+      a.classList.toggle('locked', !ok);
+      a.title = ok ? 'Archivo abierto' : 'Archivo bloqueado';
     });
+    if (ok && !wasOk) flashArchivo();
+    // botón de A.R. en la barra de tareas: avance de la apertura
+    if (show && !arBtn && tray) {
+      arBtn = document.createElement('button');
+      arBtn.type = 'button';
+      arBtn.className = 'task exp';
+      tray.parentNode.insertBefore(arBtn, tray);
+      arBtn.addEventListener('click', function () {
+        if (unlocked()) location.href = 'archivo.html';
+        else if (here === 'documentos.html') toast('A.R.: LAS CLAVES ESTÁN EN LO TACHADO — ' + pct() + '%', { ok: true });
+        else location.href = 'documentos.html';
+      });
+    }
+    if (arBtn) {
+      var n = Math.round(p / 20);
+      arBtn.title = ok ? 'Ir al Archivo' : 'A.R. está abriendo /archive/ — las claves están en Documentos';
+      arBtn.innerHTML = '<span class="ico">' + ico(ok ? 'cabinet' : 'terminal') + '</span>' +
+        (ok ? '<span>/archive/ <b>ABIERTO</b></span>'
+            : '<span>A.R. /archive/ <b>' + '▓▓▓▓▓'.slice(0, n) + '░░░░░'.slice(n) + ' ' + p + '%</b></span>');
+    }
   }
 
   var lastHall = 0;
@@ -205,10 +197,8 @@
     return true;
   };
 
-  // se abrió estando en otra página: Documentos parpadea en la barra
   function flashArchivo() {
-    if (here === 'documentos.html') return;
-    document.querySelectorAll('#nav a[href="documentos.html"]').forEach(function (a) {
+    document.querySelectorAll('#nav a[href="archivo.html"]').forEach(function (a) {
       a.classList.remove('just-open');
       void a.offsetWidth;
       a.classList.add('just-open');
@@ -232,12 +222,8 @@
         no: docsHere ? 'Entendido' : 'Cerrar'
       };
       case 'ar3': return {
-        lines: [
-          'Listo. Abrí /archive/.',
-          'Está en ' + (docsHere ? 'esta página' : 'DOCUMENTOS') + ', debajo de la tabla.',
-          'No les voy a decir que no vayan. Atlas dice que sabe lo que hace. Lean esto y decidan ustedes.'
-        ],
-        go: { href: docsHere ? '#archive' : 'documentos.html#archive', t: 'Ver /archive/' },
+        lines: ['Listo. Abrí /archive/.'],
+        go: here === 'archivo.html' ? null : { href: 'archivo.html', t: 'Ir al Archivo' },
         no: 'Después'
       };
       case 'arFin': return {
@@ -251,22 +237,12 @@
   // qué mensaje corresponde ahora (o ninguno)
   function due() {
     if (!started() || applied()) return null;
-    if (unlocked() && !seen('ar3')) return 'ar3';
+    if (unlocked() && !seen('ar3') && !store.get('archivo', false)) return 'ar3';
     if (!seen('ar1') && (here !== 'index.html' || elapsed() >= AR1_MS)) return 'ar1';
     return null;
   }
 
   // ventana de aviso de Atlas que A.R. toma (conexión no autorizada)
-  var AVISO = 'ATLAS-NET — Aviso de convocatoria';
-  var TOMADA = '▒▒ CONEXIÓN NO AUTORIZADA — terminal A.R.';
-  function tomar(w, anim) {
-    w.classList.add('taken');
-    w.querySelector('.win-title .t').textContent = TOMADA;
-    w.querySelector('.win-title .ico').innerHTML = ico('terminal');
-    if (!anim || reduce) return;
-    w.classList.add('taking');
-    setTimeout(function () { w.classList.remove('taking'); }, 500);
-  }
   function arWindow(bodyHTML, opts) {
     opts = opts || {};
     var w = document.createElement('div');
@@ -275,10 +251,17 @@
     w.setAttribute('aria-label', 'Mensaje de A.R.');
     w.innerHTML =
       '<div class="win-title"><span class="ico">' + ico('warn') + '</span>' +
-        '<span class="t">' + AVISO + '</span></div>' +
+        '<span class="t">ATLAS-NET — Aviso de convocatoria</span>' +
+        (opts.noClose ? '' : '<span class="win-btns"><button type="button" data-b="x" aria-label="Cerrar">' + ico('gx') + '</button></span>') +
+      '</div>' +
       '<div class="ar-b">' + bodyHTML + '</div>';
     (opts.parent || document.body).appendChild(w);
-    setTimeout(function () { tomar(w, true); }, reduce ? 0 : 420);
+    if (A.drag && !opts.parent) A.drag(w);
+    setTimeout(function () {
+      w.classList.add('taken');
+      w.querySelector('.win-title .t').textContent = '▒▒ CONEXIÓN NO AUTORIZADA — terminal A.R.';
+      w.querySelector('.win-title .ico').innerHTML = ico('terminal');
+    }, reduce ? 0 : 420);
     return w;
   }
 
@@ -304,90 +287,32 @@
     if (reduce) finish(); else setTimeout(type, 520);
   }
 
-  // el panel de mensajes: uno solo por página, sale de la pestaña y vuelve a ella
-  var panel = null, closeT = null;
-  function panelOpen() { return !!(panel && !panel.hidden); }
-
-  function makePanel() {
-    panel = document.createElement('div');
-    panel.id = 'ar';
-    panel.className = 'win ar';
-    panel.setAttribute('role', 'dialog');
-    panel.setAttribute('aria-label', 'Mensaje de A.R.');
-    panel.hidden = true;
-    panel.innerHTML =
-      '<div class="win-title"><span class="ico"></span><span class="t"></span>' +
-        '<span class="win-btns"><button type="button" data-b="min" aria-label="Guardar en la pestaña de A.R.">' +
-          ico('gmin') + '</button></span></div>' +
-      '<div class="ar-b"></div>';
-    document.body.appendChild(panel);
-    panel.querySelector('[data-b=min]').addEventListener('click', function () { cerrarAR(true); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && panelOpen()) cerrarAR(true); });
-  }
-
-  // again: reabierto desde la pestaña (sin máquina de escribir ni toma de la ventana)
-  function showAR(id, again) {
+  function showAR(id) {
     var m = arMsg(id);
     if (!m) return;
-    if (!again) markSeen(id);
-    store.set('arLast', id);
+    markSeen(id);
     if (A.closeNags) A.closeNags();
-    if (!panel) makePanel();
-    clearTimeout(closeT);
-    panel.classList.remove('closing', 'taken', 'taking');
-    if (again) {
-      tomar(panel, false);
-    } else {
-      panel.querySelector('.win-title .t').textContent = AVISO;
-      panel.querySelector('.win-title .ico').innerHTML = ico('warn');
-      setTimeout(function () { tomar(panel, true); }, reduce ? 0 : 420);
-    }
-    var body = panel.querySelector('.ar-b');
-    body.innerHTML =
+    var w = arWindow(
       '<div class="ar-text"></div>' +
       '<p class="ar-sig">— A.R.</p>' +
       '<div class="ar-btns">' +
         (m.go ? '<a class="btn primary" href="' + m.go.href + '">' + m.go.t + '</a>' : '') +
         '<button type="button" class="btn" data-no>' + m.no + '</button>' +
-      '</div>';
-    var btns = body.querySelector('.ar-btns');
-    var sig = body.querySelector('.ar-sig');
-    body.querySelector('[data-no]').addEventListener('click', function () { cerrarAR(true); });
-    var goA = btns.querySelector('a');
-    if (goA && goA.getAttribute('href') === '#archive') {
-      goA.addEventListener('click', function (e) { e.preventDefault(); cerrarAR(); verArchivo(); });
-    }
-    panel.hidden = false;
+      '</div>');
+    var btns = w.querySelector('.ar-btns');
+    var sig = w.querySelector('.ar-sig');
+    btns.style.visibility = sig.style.visibility = 'hidden';
+    function close() { w.remove(); paint(); document.removeEventListener('keydown', onKey); }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    document.addEventListener('keydown', onKey);
+    w.querySelector('[data-b=x]').addEventListener('click', close);
+    w.querySelector('[data-no]').addEventListener('click', close);
     paint();
-    if (tab) tab.setAttribute('aria-expanded', 'true');
-    function listo() {
+    typeLines(w.querySelector('.ar-text'), m.lines, function () {
       btns.style.visibility = sig.style.visibility = '';
-      (goA || btns.querySelector('button')).focus({ preventScroll: true });
-    }
-    if (again) {
-      var box = body.querySelector('.ar-text');
-      m.lines.forEach(function (t) { var p = document.createElement('p'); p.textContent = t; box.appendChild(p); });
-      listo();
-    } else {
-      btns.style.visibility = sig.style.visibility = 'hidden';
-      typeLines(body.querySelector('.ar-text'), m.lines, listo);
-    }
-  }
-
-  // el mensaje se guarda en la pestaña (no se pierde)
-  function cerrarAR(focusTab) {
-    if (!panelOpen()) return;
-    function fin() { panel.hidden = true; panel.classList.remove('closing'); }
-    clearTimeout(closeT);
-    if (reduce) fin();
-    else { panel.classList.add('closing'); closeT = setTimeout(fin, 200); }
-    if (tab) {
-      tab.setAttribute('aria-expanded', 'false');
-      tab.classList.remove('ping');
-      void tab.offsetWidth;
-      tab.classList.add('ping');
-      if (focusTab) tab.focus({ preventScroll: true });
-    }
+      var go = btns.querySelector('a');
+      (go || btns.querySelector('button')).focus({ preventScroll: true });
+    });
   }
 
   /* ==========================================================
@@ -395,7 +320,7 @@
         site.js llama a ATLAS.interrumpir(seguir) al validar el formulario.
      ========================================================== */
   A.interrumpir = function (seguir) {
-    cerrarAR();
+    document.querySelectorAll('.ar').forEach(function (w) { w.remove(); });
     if (A.closeNags) A.closeNags();
     store.set('acta', true);
     var vio = store.get('archivo', false);
@@ -435,19 +360,15 @@
 
   function loop() {
     paint();
-    archivo();                                                // abre /archive/ en vivo
-    var id = due();
-    if (!id) return;
-    if (Date.now() - lastHall < 1800) return;                 // dejar leer el aviso del campo leído
-    // se abrió el archivo: A.R. avisa en el acto, aunque su mensaje anterior siga
-    // abierto, se esté seleccionando lo tachado o el archivo ya esté en pantalla
-    if (id === 'ar3') { if (!modalAbierto()) showAR(id); return; }
+    archivo();                                                // abre la página del archivo en vivo
     if (busy()) return;
+    if (Date.now() - lastHall < 2200) return;                 // dejar leer el aviso del campo leído
     var ae = document.activeElement;
     if (ae && /^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName)) return;
     var sel = window.getSelection && window.getSelection().toString().trim();
     if (sel) return;                                          // está seleccionando: no interrumpir
-    showAR(id);
+    var id = due();
+    if (id) showAR(id);
   }
 
   document.addEventListener('atlas:comunicado', function () {
@@ -455,9 +376,7 @@
   });
 
   /* ==========================================================
-     5. /archive/ (debajo de la tabla de Documentos): bloqueado o abierto.
-        abierto no es lo mismo que leído: cuenta como leído (store
-        'archivo') cuando el acta llega a la pantalla.
+     5. archivo: bloqueado o abierto
      ========================================================== */
   function archivo() {
     var lockedV = document.querySelector('[data-archivo="locked"]');
@@ -471,32 +390,15 @@
     archivoAbierto = true;
     lockedV.hidden = true;
     openV.hidden = false;
-    var acta = document.getElementById('acta-archivo');
-    acta = acta ? (acta.closest('.win') || acta) : openV;
-    function leido() {
-      if (store.get('archivo', false)) return;
-      store.set('archivo', true);
-      // si A.R. ya avisó, su mensaje vuelve a la pestaña para dejar leer
-      if (seen('ar3') && store.get('arLast', '') === 'ar3') cerrarAR();
-      setTimeout(function () { toast('ESTA SESIÓN NO QUEDA REGISTRADA', { ok: true, ms: 3000 }); }, 900);
-    }
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (en) {
-        if (en[0].isIntersecting) leido();
-      }, { threshold: 0.35 }).observe(acta);
-      new IntersectionObserver(function (en) {
-        leyendo = en[0].isIntersecting;
-      }).observe(openV);
-    } else {
-      leido();
-    }
+    markSeen('ar3');                          // ya está adentro: "Listo. Abrí /archive/" sobra
+    var first = !store.get('archivo', false);
+    store.set('archivo', true);
+    document.title = 'Atlas Corporation — /archive/ — Acceso concedido';
+    document.querySelectorAll('.pageid').forEach(function (p) {
+      p.textContent = 'Atlas Corporation · /archive/ · ACCESO CONCEDIDO — CREDENCIAL A.R.';
+    });
+    if (first) setTimeout(function () { toast('ESTA SESIÓN NO QUEDA REGISTRADA', { ok: true, ms: 3000 }); }, 900);
     grabacion();
-  }
-
-  // lleva la vista al archivo (botón de A.R. y barra de tareas)
-  function verArchivo() {
-    var h = document.getElementById('archive');
-    if (h) h.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
   }
 
   // grabación del portavoz: si hay audio (data-src) lo reproduce; si no, transcripción
@@ -579,60 +481,6 @@
       ov.querySelector('.dv-btns .btn').focus({ preventScroll: true });
     });
   });
-
-  /* ==========================================================
-     7. el procedimiento: los cuatro botones de la barra, en orden.
-        arriba, dónde está (y ✓ en lo ya visto); abajo, un solo
-        botón para seguir. fuera del procedimiento (Acerca de) el
-        botón lo devuelve al primer paso pendiente.
-     ========================================================== */
-  var PASOS = [
-    { href: 'index.html', t: 'Inicio' },
-    { href: 'mision.html', t: 'Misión y puestos' },
-    { href: 'documentos.html', t: 'Documentos' },
-    { href: 'solicitud.html', t: 'Postulación' }
-  ];
-  var actual = -1;
-  PASOS.forEach(function (p, i) { if (p.href === here) actual = i; });
-
-  function hecho(i) {
-    if (i === PASOS.length - 1) return applied();
-    return store.get('visited', []).indexOf(PASOS[i].href) > -1;
-  }
-  // adónde lleva el botón: al paso que sigue o, fuera del procedimiento, al primero pendiente
-  function siguiente() {
-    if (actual > -1) return actual + 1 < PASOS.length ? actual + 1 : -1;
-    for (var i = 0; i < PASOS.length; i++) if (!hecho(i)) return i;
-    return -1;
-  }
-
-  // en el formulario el paso siguiente es el botón Enviar
-  var pad = document.querySelector('#doc .pad');
-  var sig0 = siguiente();
-  if (pad && here !== 'solicitud.html' && sig0 > -1) {
-    var seguir = document.createElement('div');
-    seguir.className = 'seguir';
-    seguir.innerHTML =
-      '<span>' + (actual > -1 ? 'Paso ' + (actual + 1) + ' de ' + PASOS.length : 'Fuera del procedimiento') + '</span>' +
-      '<a class="btn primary big" href="' + PASOS[sig0].href + '">' +
-        (actual > -1 ? 'Siguiente' : 'Continuar') + ': ' + PASOS[sig0].t + ' &rsaquo;</a>';
-    pad.appendChild(seguir);
-  }
-
-  // la barra: ✓ en los pasos vistos; fuera del procedimiento, el pendiente con borde
-  function pintarNav() {
-    var sig = actual > -1 ? -1 : siguiente();
-    PASOS.forEach(function (p, i) {
-      var a = document.querySelector('#nav a[href="' + p.href + '"]');
-      if (!a) return;
-      // el paso en curso no lleva ✓, salvo la postulación ya enviada
-      var ok = hecho(i) && (i !== actual || i === PASOS.length - 1);
-      a.classList.toggle('next', i === sig);
-      var v = a.querySelector('.ok');
-      if (ok && !v) a.insertAdjacentHTML('beforeend', '<span class="ok" title="Visto">✓</span>');
-      else if (!ok && v) v.remove();
-    });
-  }
 
   /* --- arranque ---------------------------------------------- */
   if (!started()) showAcceso();
