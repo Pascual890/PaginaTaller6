@@ -434,7 +434,7 @@
 
   // formulario de postulación
   var form = document.getElementById('solicitud');
-  if (form && !skip(form)) wrap(form, 'SOLICITUD_HELIOS-1.FRM — Formulario de postulación', 'form', { pad: true });
+  if (form && !skip(form)) wrap(form, 'SOLICITUD_DISSONANCE-1.FRM — Formulario de postulación', 'form', { pad: true });
 
   // figuras: visor de imágenes (las fotos del inicio, figure.foto, quedan en la página)
   document.querySelectorAll('figure:not(.foto) .frame').forEach(function (f) {
@@ -519,11 +519,11 @@
   var MAX_NAGS = 1;                  // en toda la sesión: la voz de A.R. manda
 
   var NAGS = [
-    { t: '¿TODAVÍA NO SE HA POSTULADO?', p: 'Quedan <b>dos plazas</b> en la Misión HELIOS-1. El Sol no va a esperar a que termine de leer.', no: 'Seguir leyendo' },
+    { t: '¿TODAVÍA NO SE HA POSTULADO?', p: 'Quedan <b>dos plazas</b> en la Misión DISSONANCE-1. El Sol no va a esperar a que termine de leer.', no: 'Seguir leyendo' },
     { t: '¡ESTA ES SU SEÑAL!', p: 'Llegó hasta aquí. Eso ya es más de lo que hizo casi cualquier otro visitante. <b>Postúlese.</b>', no: 'Todavía no' },
     { t: 'PLAZA DE ASTRONAUTA: LIBRE', p: 'Alguien va a ocuparla. <b>¿Por qué no usted?</b> No necesita formación técnica.', no: 'Que la ocupe otro' },
     { t: '¡NO NECESITA EXPERIENCIA!', p: 'Sólo seguir instrucciones mientras ocurre algo que no le resulta familiar. <b>Usted puede hacerlo.</b>', no: 'Más tarde' },
-    { t: '¿Y SI VUELVE A PASAR?', p: 'El 17 de julio de 1982 el Sol se apagó durante cuatro décimas de segundo. HELIOS-1 existe para que no se repita. <b>Postúlese hoy.</b>', no: 'No me importa el Sol' },
+    { t: '¿Y SI VUELVE A PASAR?', p: 'El 17 de julio de 1982 el Sol se apagó durante cuatro décimas de segundo. DISSONANCE-1 existe para que no se repita. <b>Postúlese hoy.</b>', no: 'No me importa el Sol' },
     { t: '¡TRAIGA A ALGUIEN!', p: 'Postúlense en pareja: una persona va al espacio, la otra guía desde Tierra. <b>Dos plazas. Dos personas.</b>', no: 'Cerrar (por ahora)' }
   ];
 
@@ -610,6 +610,7 @@
     els.forEach(function (el) { el.style.visibility = 'hidden'; document.body.appendChild(el); });
     place(els);
     open = els;
+    if (A.sfx) A.sfx('aviso');
     els.forEach(function (el, i) {
       setTimeout(function () { if (open.indexOf(el) > -1) el.style.visibility = ''; }, reduce ? 0 : i * 90);
     });

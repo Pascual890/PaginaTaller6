@@ -4,7 +4,7 @@ https://pascual890.github.io/PaginaTaller6/
 # Atlas Corporation — Sistema de Información Pública ATLAS-NET (prototipo Taller 6)
 
 Experiencia 2 del proyecto: la web oficial de Atlas Corporation dentro del relato
-(convocatoria pública 1983 para la Misión HELIOS-1, tras el Apagón del 17/07/1982) y,
+(convocatoria pública 1983 para la Misión DISSONANCE-1, tras el Apagón del 17/07/1982) y,
 por debajo, el mapa de sus secretos. Narrativa de referencia:
 `Atlas_Corporation_Narrativa_Integrada.docx`.
 
@@ -28,7 +28,7 @@ decida, la carpeta `v1/` se puede borrar.
 
 | Archivo | Contenido |
 |---|---|
-| `index.html` | Inicio: bienvenida (empresa y Apagón en tres frases) con una foto, "Qué es la Misión HELIOS-1" (como en la versión anterior: dos párrafos, enlace a la Misión, monitor solar, Fig. 1 disco solar y Fig. 2 `sombra_02.gif` rota a propósito) y "El Sol necesita a dos personas" (el texto del antiguo anuncio, sin el recuadro) con una foto por puesto. Ver *Imágenes del Inicio* |
+| `index.html` | Inicio: bienvenida (empresa y Apagón en tres frases) con una foto, "Qué es la Misión DISSONANCE-1" (como en la versión anterior: dos párrafos, enlace a la Misión, monitor solar, Fig. 1 disco solar y Fig. 2 sombra en la calzada) y "El Sol necesita a dos personas" (el texto del antiguo anuncio, sin el recuadro) con una foto por puesto. Ver *Imágenes del Inicio* |
 | `acerca.html` | **Fuera de la barra** (sólo en el pie y el menú Inicio): ficha institucional, lema, cronología con el hueco 1965–81 (**Egg 1** en la entrada 1982: el memo del Apagón) |
 | `mision.html` | **Misión y puestos**, resumida: lo esencial en tres datos (qué / cuándo / quiénes), los dos puestos, la simulación y una **letra chica** plegada (requisitos, cronograma, condiciones, NT-1982-011) |
 | `puestos.html` | Sólo redirige a `mision.html#puestos` |
@@ -113,10 +113,13 @@ DISPONIBLE" con el nombre del archivo que falta.
 
 | Figura | Archivo | Dónde |
 |---|---|---|
-| ATLAS-A, 1958 (sin número) | `img/inicio/atlas.jpg` | junto a la bienvenida |
+| Sede de Atlas (sin número) | `img/inicio/atlas.jpg` | junto a la bienvenida |
 | Fig. 1 — Disco solar | `img/sol_19820717_1200.jpg` | ya está (visor ATLAS, en "Qué es la Misión") |
+| Fig. 2 — Sombra | `img/sombra_02.jpg` | "Qué es la Misión", bajo la Fig. 1 |
 | Fig. 3 — Astronauta | `img/inicio/astronauta.jpg` | "El Sol necesita a dos personas" |
 | Fig. 4 — Operador en Tierra | `img/inicio/operador.jpg` | "El Sol necesita a dos personas" |
+
+Las Fig. 3 y 4 son fotos de archivo anteriores al Apagón; una nota bajo ellas aclara que la sonda y la Central de Comando cambiaron desde entonces.
 
 Las fotos nuevas (`figure class="foto"`) llevan el marco de época pero no la ventana del
 visor (sólo el disco solar es un archivo abierto). Pie de foto y texto alternativo: `index.html`.

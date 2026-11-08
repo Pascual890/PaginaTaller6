@@ -61,6 +61,7 @@
     // reflow para reiniciar la animación de shake
     void toastEl.offsetWidth;
     toastEl.className = 'on' + (opts.ok ? ' ok' : '') + (opts.shake ? ' shake' : '');
+    if (window.ATLAS.sfx) window.ATLAS.sfx(opts.ok ? 'ok' : 'error');
     toastTimer = setTimeout(function () { toastEl.className = ''; }, opts.ms || 2600);
   };
 
@@ -291,7 +292,7 @@
     });
 
     function enviar(pair, nombre, nombre2, puesto, puesto2) {
-      var ref = 'HELIOS-1/83-' + (pair ? 'PAR' : puesto) + '-' + String(Math.floor(1000 + Math.random() * 9000));
+      var ref = 'DISSONANCE-1/83-' + (pair ? 'PAR' : puesto) + '-' + String(Math.floor(1000 + Math.random() * 9000));
       var datos = pair
         ? "MODALIDAD ....................... EN PAREJA<br>" +
           "POSTULANTE 1 .................... " + esc(nombre.toUpperCase()) + "<br>" +
@@ -394,7 +395,11 @@
       bar.style.width = p + '%';
       pctEl.textContent = p + '%';
       for (var i = steps.length - 1; i >= 0; i--) {
-        if (t >= steps[i][0]) { stepEl.textContent = steps[i][1]; break; }
+        if (t >= steps[i][0]) {
+          if (stepEl.textContent !== steps[i][1] && window.ATLAS.sfx) window.ATLAS.sfx('paso');
+          stepEl.textContent = steps[i][1];
+          break;
+        }
       }
       if (t >= 1) {
         clearInterval(iv);
@@ -463,11 +468,11 @@
             '<tr><th>DE:</th><td>COMITÉ DE CONTINUIDAD</td></tr>' +
             '<tr><th>FECHA:</th><td>1983 — ' + hora + ' H.</td></tr>' +
             '<tr><th>REF.:</th><td>' + d.ref + '</td></tr>' +
-            '<tr><th>ASUNTO:</th><td id="nt-t">NOTIFICACIÓN DE SELECCIÓN — MISIÓN HELIOS-1</td></tr>' +
+            '<tr><th>ASUNTO:</th><td id="nt-t">NOTIFICACIÓN DE SELECCIÓN — MISIÓN DISSONANCE-1</td></tr>' +
           '</table>' +
           '<p>Por medio de la presente se ' + pl('le', 'les') + ' comunica que, de entre ' + fmt +
             ' postulantes, ' + pl('usted ha sido seleccionado', 'ustedes han sido seleccionados') +
-            ' para integrar la tripulación de la Misión HELIOS-1 en ' + pl('el puesto', 'los puestos') + ' que se indica' + pl('', 'n') + ':</p>' +
+            ' para integrar la tripulación de la Misión DISSONANCE-1 en ' + pl('el puesto', 'los puestos') + ' que se indica' + pl('', 'n') + ':</p>' +
           '<table class="nt-asig"><thead><tr><th>NOMBRE</th><th>PUESTO</th><th>PRESENTARSE EN</th></tr></thead>' +
             '<tbody>' + rows + '</tbody></table>' +
           '<ol class="nt-ins">' +
@@ -488,6 +493,7 @@
         '</div>' +
       '</div>';
     document.body.appendChild(box);
+    if (window.ATLAS.sfx) window.ATLAS.sfx('aviso');
 
     function close() {
       if (!box.parentNode) return;

@@ -25,6 +25,7 @@
   var store = A.store;
   var toast = A.toast || function () {};
   var ico = A.icon || function () { return ''; };
+  var sfx = A.sfx || function () {};
 
   /* --- ajustes ------------------------------------------------ */
   var CLAVES = 3;                // campos tachados que abren /archive/
@@ -93,7 +94,7 @@
         '<div class="acc-body">' +
           '<div class="acc-seal">' + SEAL + '</div>' +
           '<h1 id="acc-t">ATLAS</h1>' +
-          '<p class="acc-sub">TERMINAL PÚBLICO DE CONVOCATORIA · MISIÓN HELIOS-1</p>' +
+          '<p class="acc-sub">TERMINAL PÚBLICO DE CONVOCATORIA · MISIÓN DISSONANCE-1</p>' +
           '<div class="acc-box"><b>Revise la convocatoria y envíe su postulación.</b></div>' +
           '<p class="acc-go"><button type="button" class="btn primary big">ACCEDER AL TERMINAL</button></p>' +
           '<div class="acc-boot" aria-live="polite"></div>' +
@@ -119,6 +120,7 @@
       (function next() {
         if (i < lines.length) {
           boot.insertAdjacentHTML('beforeend', '<div>&gt; ' + lines[i++] + '</div>');
+          sfx(i < lines.length ? 'key' : 'ok');
           setTimeout(next, reduce ? 0 : 320);
         } else {
           setTimeout(function () {
@@ -264,6 +266,7 @@
     w.querySelector('.win-title .t').textContent = TOMADA;
     w.querySelector('.win-title .ico').innerHTML = ico('terminal');
     if (!anim || reduce) return;
+    sfx('toma');
     w.classList.add('taking');
     setTimeout(function () { w.classList.remove('taking'); }, 500);
   }
@@ -278,6 +281,7 @@
         '<span class="t">' + AVISO + '</span></div>' +
       '<div class="ar-b">' + bodyHTML + '</div>';
     (opts.parent || document.body).appendChild(w);
+    sfx('aviso');
     setTimeout(function () { tomar(w, true); }, reduce ? 0 : 420);
     return w;
   }
@@ -297,6 +301,7 @@
       if (li >= lines.length) return finish();
       ps[li].classList.add('typing');
       ps[li].textContent = lines[li].slice(0, ++ci);
+      if (ci % 2 && lines[li].charAt(ci - 1) !== ' ') sfx('key');
       if (ci >= lines[li].length) { ps[li].classList.remove('typing'); li++; ci = 0; timer = setTimeout(type, 240); }
       else timer = setTimeout(type, 16);
     }
@@ -340,6 +345,7 @@
     } else {
       panel.querySelector('.win-title .t').textContent = AVISO;
       panel.querySelector('.win-title .ico').innerHTML = ico('warn');
+      sfx('aviso');
       setTimeout(function () { tomar(panel, true); }, reduce ? 0 : 420);
     }
     var body = panel.querySelector('.ar-b');

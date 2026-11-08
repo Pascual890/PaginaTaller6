@@ -606,6 +606,9 @@ html{scrollbar-color:var(--face) #d6d2c4}
   margin-left:auto;height:25px;display:flex;align-items:center;gap:6px;padding:0 9px 0 6px;flex:none;
   box-shadow:inset 1px 1px var(--lo),inset -1px -1px var(--hi);white-space:nowrap;
 }
+/* parlante del tray (js/sonido.js): sin relieve, como un ícono más */
+#taskbar #snd{height:20px;padding:0 2px;box-shadow:none;background:none}
+#taskbar #snd:focus-visible{outline:1px dotted var(--ink);outline-offset:1px}
 #startmenu{
   position:fixed;left:3px;bottom:31px;z-index:8100;display:flex;
   background:var(--face);padding:3px;min-width:238px;
